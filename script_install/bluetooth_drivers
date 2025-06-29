@@ -22,3 +22,4 @@ sudo systemctl start bluetooth.service
 # scan on
 # trust <mac address> - can autocomplete with tab
 # connect <mac address> - can autocomplete with tab same as trust
+# remove <mac address> - remove device from known devices

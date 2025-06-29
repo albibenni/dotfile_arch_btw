@@ -1,0 +1,40 @@
+export XDG_CONFIG_HOME=$HOME/.config
+VIM="nvim"
+
+PERSONAL=$XDG_CONFIG_HOME/personal
+source $PERSONAL/env
+for i in `find -L $PERSONAL`; do
+    source $i
+done
+
+export NRDP="$HOME/work/nrdp"
+export NRDP_BUILDS="$HOME/work/builds"
+export CC="clang-12"
+export CXX="clang++-12"
+export PYTHONBREAKPOINT="pudb.set_trace"
+export GOPATH=$HOME/go
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export GIT_EDITOR=$VIM
+export N_PREFIX="$HOME/.local/n"
+
+# lua5.1
+export PATH=~/.local/bin/:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+
+# postgres
+export PATH=/Library/PostgreSQL/17/bin:$PATH
+export DOTFILES=$HOME/.dotfiles
+
+export PATH="$N_PREFIX/bin:$PATH"
+
+addToPathFront $HOME/.config/tmux/scripts
+addToPathFront $HOME/.config/scripts
+addToPathFront $HOME/.local/bin
+addToPathFront $HOME/go/bin
+
+bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^s "source ~/.zshrc\n"
+export PATH="/opt/homebrew/opt/llvm@12/bin:$PATH"
+export PATH="$PATH:/opt/nvim-linux64/bin"
