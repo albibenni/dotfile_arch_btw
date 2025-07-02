@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo pacman -S nodejs npm ripgrep
+sudo pacman -S nodejs npm ripgrep gcc build-essential
 
 # rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
