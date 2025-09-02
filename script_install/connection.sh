@@ -22,9 +22,14 @@ EnableNetworkConfiguration=true
 
 [Network]
 NameResolvingService=systemd
+EnableIPv6=true
 EOF
 
 echo "iwd configuration file created at /etc/iwd/main.conf"
+
+sudo systemctl enable systemd-resolved
+sudo systemctl start systemd-resolved
+echo "enabling systemd-resolved - check symlink"
 
 sudo systemctl stop iwd
 sudo systemctl start iwd
