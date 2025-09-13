@@ -4,5 +4,5 @@ set -e  # Exit on any error
 
 echo "Starting utils installation..."
 
-sudo pacman -S base-devel man-db stow
+sudo pacman -S base-devel cmake man-db stow clang ripgrep
 

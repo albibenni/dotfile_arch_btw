@@ -1,8 +1,3 @@
-
-#
-# ~/.bashrc
-#
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -49,27 +44,20 @@ export LC_CTYPE=en_US.UTF-8
 
 export MANPAGER='nvim +Man!'
 
-plugins=(git zsh-autosuggestions)
 
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh_profile
 
-# pnpm
-export PNPM_HOME="/Users/benni/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+# # pnpm
+# export PNPM_HOME="/Users/benni/Library/pnpm"
+# case ":$PATH:" in
+#   *":$PNPM_HOME:"*) ;;
+#   *) export PATH="$PNPM_HOME:$PATH" ;;
+# esac
 # pnpm end
 # bun completions
-[ -s "/Users/benni/.bun/_bun" ] && source "/Users/benni/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-
-# Created by `pipx` on 2024-08-26 15:27:03
-export PATH="$PATH:/Users/benni/Library/Python/3.12/bin"
 
