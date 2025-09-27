@@ -41,3 +41,17 @@ sudo systemctl start iwd
 # 4. station wlan0 connect <network name>
 # 4.1. enter password
 # 5 exit
+
+## possible solutions - intermittent disconnecitons
+# ➜  ~ sudo mkdir -p /etc/NetworkManager/conf.d/
+# [sudo] password for benni:
+# ➜  ~ echo -e '[main]\ndns-timeout=10' | sudo tee /etc/NetworkManager/conf.d/dns-timeout.conf
+# [main]
+# dns-timeout=10
+# ➜  ~ sudo systemctl reload NetworkManager
+# ➜  ~ sudo chattr +i /etc/resolv.conf
+# # 3. Add fallback DNS to NetworkManager config:
+# bashecho -e '[global-dns-domain-*]\nservers=8.8.8.8,8.8.4.4,1.1.1.1' | sudo tee /etc/NetworkManager/conf.d/dns-servers.conf
+# sudo systemctl reload NetworkManager
+# # Clear any DNS cache
+# sudo systemctl flush-dns 2>/dev/null || true
