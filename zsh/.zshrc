@@ -18,6 +18,7 @@ alias vim=nvim
 alias python=python3
 alias glool="git --no-pager log --oneline --decorate --graph"
 alias gloo="git --no-pager log -n 30 --oneline --decorate --graph"
+alias gst="git status -b --color=always"
 alias vid="nvim ~/.dotfiles/"
 alias vimvim="nvim ~/.dotfiles/nvim/.config/nvim/"
 alias vish="nvim ~/.dotfiles/zsh/.zshrc"
@@ -44,12 +45,12 @@ export LC_CTYPE=en_US.UTF-8
 
 export MANPAGER='nvim +Man!'
 
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh_profile
 
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 # # pnpm
 # export PNPM_HOME="/Users/benni/Library/pnpm"
