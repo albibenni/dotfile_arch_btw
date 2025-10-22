@@ -29,5 +29,5 @@ addToPathFront $HOME/.config/scripts
 addToPathFront $HOME/.local/bin
 addToPathFront $HOME/go/bin
 
-bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^f "tmux-sessionizer.sh\n"
 bindkey -s ^s "source ~/.zshrc\n"
