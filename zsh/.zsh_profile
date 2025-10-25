@@ -1,5 +1,7 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export TERMINAL=ghostty
+export VISUAL=nvim
+export EDITOR=nvim
 VIM="nvim"
 
 PERSONAL=$XDG_CONFIG_HOME/personal
