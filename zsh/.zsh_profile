@@ -1,8 +1,12 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export TERMINAL=ghostty
-export VISUAL=nvim
-export EDITOR=nvim
-VIM="nvim"
+export VISUAL='nvim'
+export EDITOR='nvim'
+export MANPAGER='nvim +Man!'
+#VIM="nvim"
+
+export ZSH="$HOME/.oh-my-zsh"
+export SUDO_EDITOR="$EDITOR"
 
 PERSONAL=$XDG_CONFIG_HOME/personal
 source $PERSONAL/env

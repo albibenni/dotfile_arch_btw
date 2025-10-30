@@ -31,35 +31,32 @@ alias pomoall="sudo ~/.dotfiles/scripts/scripts/rust_can_make_you_focus coding"
 alias pomostudy="sudo ~/.dotfiles/scripts/scripts/rust_can_make_you_focus studying"
 alias pomostudyyt="sudo ~/.dotfiles/scripts/scripts/rust_can_make_you_focus studying_yt"
 
+alias less="nvim -R -c 'set ft=man' -"
 
-export ZSH="$HOME/.oh-my-zsh"
-export EDITOR="nvim"
-export SUDO_EDITOR="$EDITOR"
+# kubectl
+alias k="kubectl"
+alias kgp="kubectl get pods"
+alias kgpw="kubectl get pods -o wide"
+
+# # Enable zsh completion system (if not already enabled)
+autoload -Uz compinit
+compinit
+
+ # Load kubectl completion for zsh
+source <(kubectl completion zsh)
+
+complete -o default -F __start_kubectl k
 
 
-#ZSH_THEME=amuse
-ZSH_THEME=robbyrussell
+ZSH_THEME=amuse
+#ZSH_THEME=robbyrussell
 
-export LC_ALL=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-
-export MANPAGER='nvim +Man!'
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh_profile
-
-
-# # pnpm
-# export PNPM_HOME="/Users/benni/Library/pnpm"
-# case ":$PATH:" in
-#   *":$PNPM_HOME:"*) ;;
-#   *) export PATH="$PNPM_HOME:$PATH" ;;
-# esac
-# pnpm end
-# bun completions
 
 
 
