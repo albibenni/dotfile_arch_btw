@@ -3,14 +3,18 @@
   "layer": "top",
   "position": "top",
   "spacing": 0,
-  "height": 26,
+  "height": 30,
   "modules-left": ["custom/omarchy", "hyprland/workspaces"],
   "modules-center": ["clock", "custom/update", ],
   "modules-right": [
     "group/tray-expander",
     "bluetooth",
     "network",
+    "custom/separator",
     "custom/brightness",
+    "custom/separator",
+    "custom/brightness2",
+    "custom/separator",
     "pulseaudio",
     "cpu"
     // "battery"
@@ -45,13 +49,27 @@
     }
   },
    "custom/brightness": {
-    "format": " {text}%",
+    "format": "  - {text}%",
     "signal": 8,
     "exec": "~/dotfile/waybar/.config/waybar/brightness-control.sh get",
     "on-scroll-up": "~/dotfile/waybar/.config/waybar/brightness-control.sh up",
     "on-scroll-down": "~/dotfile/waybar/.config/waybar/brightness-control.sh down",
     "on-click": "~/dotfile/waybar/.config/waybar/brightness-control.sh left_click",
     "on-click-right":  "~/dotfile/waybar/.config/waybar/brightness-control.sh right_click",
+    "tooltip": false
+  },
+   "custom/brightness2": {
+    "format": " 2 - {text}%",
+    "signal": 8,
+    "exec": "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh get",
+    "on-scroll-up": "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh up",
+    "on-scroll-down": "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh down",
+    "on-click": "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh left_click",
+    "on-click-right":  "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh right_click",
+    "tooltip": false
+  },
+  "custom/separator": {
+    "format": " | ",
     "tooltip": false
   },
   "custom/omarchy": {
