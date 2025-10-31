@@ -42,10 +42,12 @@ alias kgpw="kubectl get pods -o wide"
 autoload -Uz compinit
 compinit
 
- # Load kubectl completion for zsh
-source <(kubectl completion zsh)
-
-complete -o default -F __start_kubectl k
+ # Load kubectl completion for zsh (only if kubectl is installed)
+if command -v kubectl &> /dev/null; then
+  source <(kubectl completion zsh)
+  # Note: 'complete' is bash-specific, using zsh style completion instead
+  compdef k=kubectl
+fi
 
 
 ZSH_THEME=amuse
@@ -55,8 +57,15 @@ ZSH_THEME=amuse
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 DISABLE_MAGIC_FUNCTIONS=true
-source $ZSH/oh-my-zsh.sh
-source ~/.zsh_profile
+# Set ZSH variable to oh-my-zsh installation path
+export ZSH="$HOME/.oh-my-zsh"
+if [ -f "$ZSH/oh-my-zsh.sh" ]; then
+  source $ZSH/oh-my-zsh.sh
+fi
+
+if [ -f ~/.zsh_profile ]; then
+  source ~/.zsh_profile
+fi
 
 
 
