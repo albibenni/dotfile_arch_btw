@@ -9,11 +9,11 @@ STATE_FILE="/tmp/waybar_brightness.tmp"
 # Function to send the actual DDC/CI command in the background
 set_brightness_in_background() {
     pkill -f "ddcutil.*setvcp 10"
-    (ddcutil --display $DISPLAY_NUM setvcp 10 $1) &
+    (ddcutil --display $DISPLAY_NUM setvcp 10 $1 2>/dev/null) &
 }
 
 if [ ! -f "$STATE_FILE" ]; then
-    initial_brightness=$(ddcutil --display $DISPLAY_NUM getvcp 10 -t | cut -d ' ' -f 4)
+    initial_brightness=$(ddcutil --display $DISPLAY_NUM getvcp 10 -t 2>/dev/null | cut -d ' ' -f 4)
     echo "$initial_brightness" > "$STATE_FILE"
 fi
 
@@ -21,7 +21,7 @@ current=$(cat "$STATE_FILE")
 
 case "$1" in
     "get")
-        echo " $current"
+        echo "$current"
         ;;
     "up")
         new_brightness=$((current + STEP > 100 ? 100 : current + STEP))
