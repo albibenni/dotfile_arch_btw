@@ -13,7 +13,7 @@ set_brightness_in_background() {
 }
 
 if [ ! -f "$STATE_FILE" ]; then
-    initial_brightness=$(ddcutil --display $DISPLAY_NUM getvcp 10 -t 2>/dev/null | cut -d ' ' -f 4)
+    initial_brightness=$(ddcutil --display $DISPLAY_NUM getvcp 10 -t 2>&1 | grep "^VCP" | cut -d ' ' -f 4)
     echo "$initial_brightness" > "$STATE_FILE"
 fi
 
