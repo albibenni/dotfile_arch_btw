@@ -13,8 +13,15 @@ set_brightness_in_background() {
 }
 
 if [ ! -f "$STATE_FILE" ]; then
-    initial_brightness=$(ddcutil --display $DISPLAY_NUM getvcp 10 -t 2>&1 | grep "^VCP" | cut -d ' ' -f 4)
-    echo "$initial_brightness" > "$STATE_FILE"
+    # Initialize in background to avoid blocking Waybar startup
+    (
+        initial_brightness=$(ddcutil --display $DISPLAY_NUM getvcp 10 -t 2>&1 | grep "^VCP" | cut -d ' ' -f 4)
+        echo "$initial_brightness" > "$STATE_FILE"
+        pkill -RTMIN+8 waybar  # Refresh once we have the real value
+    ) &
+    # Return placeholder while initializing
+    echo "50"
+    exit 0
 fi
 
 current=$(cat "$STATE_FILE")
