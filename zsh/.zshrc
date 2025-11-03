@@ -12,7 +12,7 @@ alias vim=nvim
 
 echo "Hello $USER"
 
-alias cdd="cd ~/dotfiles/"
+alias cdd="cd ~/dotfile/"
 alias pn=pnpm
 alias vim=nvim
 alias python=python3
