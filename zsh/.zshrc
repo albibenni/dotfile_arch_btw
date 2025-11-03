@@ -13,6 +13,7 @@ alias vim=nvim
 echo "Hello $USER"
 
 alias cdd="cd ~/dotfile/"
+alias storage="cd $storage" #lsblk
 alias pn=pnpm
 alias vim=nvim
 alias python=python3
