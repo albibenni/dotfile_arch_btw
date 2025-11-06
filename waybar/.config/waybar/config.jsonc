@@ -51,21 +51,21 @@
    "custom/brightness": {
     "format": "  - {text}%",
     "signal": 8,
-    "exec": "~/dotfile/waybar/.config/waybar/brightness-control.sh get",
-    "on-scroll-up": "~/dotfile/waybar/.config/waybar/brightness-control.sh up",
-    "on-scroll-down": "~/dotfile/waybar/.config/waybar/brightness-control.sh down",
-    "on-click": "~/dotfile/waybar/.config/waybar/brightness-control.sh left_click",
-    "on-click-right":  "~/dotfile/waybar/.config/waybar/brightness-control.sh right_click",
+    "exec": "~/dotfiles/waybar/.config/waybar/brightness-control.sh get",
+    "on-scroll-up": "~/dotfiles/waybar/.config/waybar/brightness-control.sh up",
+    "on-scroll-down": "~/dotfiles/waybar/.config/waybar/brightness-control.sh down",
+    "on-click": "~/dotfiles/waybar/.config/waybar/brightness-control.sh left_click",
+    "on-click-right":  "~/dotfiles/waybar/.config/waybar/brightness-control.sh right_click",
     "tooltip": false
   },
    "custom/brightness2": {
     "format": " 2 - {text}%",
     "signal": 8,
-    "exec": "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh get",
-    "on-scroll-up": "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh up",
-    "on-scroll-down": "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh down",
-    "on-click": "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh left_click",
-    "on-click-right":  "~/dotfile/waybar/.config/waybar/brightness-control-m2.sh right_click",
+    "exec": "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh get",
+    "on-scroll-up": "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh up",
+    "on-scroll-down": "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh down",
+    "on-click": "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh left_click",
+    "on-click-right":  "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh right_click",
     "tooltip": false
   },
   "custom/separator": {
