@@ -1,5 +1,17 @@
 export XDG_CONFIG_HOME=$HOME/.config
-VIM="nvim"
+export TERMINAL=ghostty
+export VISUAL='nvim'
+export EDITOR='nvim'
+export MANPAGER='nvim +Man!'
+
+export STORAGE="/run/media/albibenni/Benni"
+#VIM="nvim"
+
+export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
+export ZSH="$HOME/.oh-my-zsh"
+export SUDO_EDITOR="$EDITOR"
 
 PERSONAL=$XDG_CONFIG_HOME/personal
 source $PERSONAL/env
@@ -10,7 +22,7 @@ done
 export NRDP="$HOME/work/nrdp"
 export NRDP_BUILDS="$HOME/work/builds"
 export CC="clang"
-export CXX="clang++-12"
+export CXX="clang++"
 export PYTHONBREAKPOINT="pudb.set_trace"
 export GOPATH=$HOME/go
 export GIT_EDITOR=$VIM
@@ -29,5 +41,5 @@ addToPathFront $HOME/.config/scripts
 addToPathFront $HOME/.local/bin
 addToPathFront $HOME/go/bin
 
-bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^f "tmux-sessionizer.sh\n"
 bindkey -s ^s "source ~/.zshrc\n"

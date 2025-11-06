@@ -1,0 +1,7 @@
+# Changes require a relaunch of Hyprland to take effect.
+# JUST TO OVERRIDE OMARCHY DEFAULTS
+
+export TERMINAL=ghostty
+export EDITOR=nvim
+export VISUAL=nvim
+
