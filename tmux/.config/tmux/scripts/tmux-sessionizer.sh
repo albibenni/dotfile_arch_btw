@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     session=$1
 else
-    session=$(find ~/dotfile/ ~/benni-projects/ ~/work-projects/ -mindepth 0 -maxdepth 2 -type d | fzf)
+    session=$(find ~/dotfiles/ ~/benni-projects/ ~/work-projects/ -mindepth 0 -maxdepth 2 -type d | fzf)
 fi
 
 if [[ -z $session ]]; then
