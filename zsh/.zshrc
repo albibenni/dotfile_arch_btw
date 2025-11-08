@@ -11,7 +11,7 @@ alias vim=nvim
 
 echo "Hello $USER"
 
-alias cdd="cd ~/dotfile/"
+alias cdd="cd ~/dotfiles/"
 alias storage="cd $storage" #lsblk
 alias pn=pnpm
 alias vim=nvim
