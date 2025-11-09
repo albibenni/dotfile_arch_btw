@@ -5,10 +5,10 @@ background-opacity = 0.9
 #font-family = FiraCode Nerd Font
 #font-family = BlexMono Nerd Font Propo
 
-title="Hello Benni"
-font-size=16
-font-feature=-liga
-font-thicken=true
+title = "Hello Benni"
+font-size = 15
+font-feature = -liga
+font-thicken = true
 keybind = shift+enter=text:\x1b\r
 
 shell-integration = zsh
