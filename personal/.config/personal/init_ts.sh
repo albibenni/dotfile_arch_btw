@@ -1,5 +1,6 @@
 #! /bin/bash
 
+#TODO: handle yarn pnpm npm with vars
 tsInit() {
     echo "Initializing TypeScript project..."
     if ! init=$(pnpm init 2>&1); then
