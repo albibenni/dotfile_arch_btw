@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Select package manager
-selectPackageManager() {
+_select_package_manager() {
     echo "Select package manager:" >&2
     echo "1) npm" >&2
     echo "2) yarn" >&2
@@ -19,7 +19,7 @@ selectPackageManager() {
     esac
 }
 
-initializeGit() {
+_initialize_git() {
     if [ -d .git ]; then
         echo "Git repository already initialized"
     else
@@ -34,13 +34,9 @@ initializeGit() {
     fi
 }
 
-tsInit() {
-    # Get package manager selection
+_init_packageManager(){
     local pm="$1"
-    if [ -z "$pm" ]; then
-        pm=$(selectPackageManager)
-    fi
-    echo "Using package manager: $pm"
+
 
     echo "Initializing TypeScript project..."
     case $pm in
@@ -74,6 +70,10 @@ tsInit() {
             ;;
     esac
     echo "$init"
+}
+
+_init_typescript(){
+    local pm="$1"
 
     echo "Installing TypeScript..."
     case $pm in
@@ -110,8 +110,21 @@ tsInit() {
         return 1
     fi
     echo "$tsc_init"
+}
 
-    initializeGit
+tsInit() {
+    # Get package manager selection
+    local pm="$1"
+    if [ -z "$pm" ]; then
+        pm=$(_select_package_manager)
+    fi
+    echo "Using package manager: $pm"
+
+    _init_packageManager $pm
+
+    _init_typescript $pm
+
+    _initialize_git
 
     echo "TypeScript project initialized successfully with $pm!"
 }
