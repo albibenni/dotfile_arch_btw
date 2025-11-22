@@ -12,3 +12,6 @@ font-thicken = true
 keybind = shift+enter=text:\x1b\r
 
 shell-integration = zsh
+
+# Slowdown mouse scrolling
+mouse-scroll-multiplier = 0.95
