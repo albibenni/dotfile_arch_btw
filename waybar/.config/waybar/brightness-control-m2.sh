@@ -28,7 +28,7 @@ current=$(cat "$STATE_FILE")
 
 case "$1" in
     "get")
-        echo " $current"
+        echo "$current"
         ;;
     "up")
         new_brightness=$((current + STEP > 100 ? 100 : current + STEP))

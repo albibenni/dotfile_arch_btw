@@ -5,7 +5,7 @@
   "spacing": 0,
   "height": 30,
   "modules-left": ["custom/omarchy", "hyprland/workspaces"],
-  "modules-center": ["clock", "custom/update", ],
+  "modules-center": ["clock", "custom/update"],
   "modules-right": [
     "group/tray-expander",
     "bluetooth",
@@ -91,9 +91,17 @@
     "format": "󰍛",
     "on-click": "$TERMINAL -e btop"
   },
+  // "clock": {
+  //   "format": "{:L%A %H:%M}",
+  //   "format-alt": "{:L%d %B W%V %Y}",
+  //   "tooltip": false,
+  //   "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
+  // },
   "clock": {
-    "format": "{:L%A %H:%M}",
-    "format-alt": "{:L%d %B W%V %Y}",
+    "format": "{:%d/%m/%Y %H:%M}",
+    "format-alt": "{:L%A %d %B %Y}",
+  //   "format": "{:L%A %H:%M}",
+  //   "format-alt": "{:L%d %B W%V %Y}",
     "tooltip": false,
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
   },
