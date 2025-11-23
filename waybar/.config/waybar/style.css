@@ -3,7 +3,6 @@
 * {
   background-color: rgba(0, 0, 0, 0.1); /* @background */
   color: @foreground;
-
   border: none;
   border-radius: 0;
   min-height: 0;
@@ -66,6 +65,7 @@
 
 #network {
   margin-right: 4px;
+  padding-right: 16px; /* weird looking for 4px */
 }
 
 #custom-expand-icon {
