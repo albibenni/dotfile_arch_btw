@@ -52,7 +52,7 @@
   /* color: rgba(23, 147, 209, 0.8); */
   background-color: @background;
   border-radius: 15px;
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.4);
   /* border: 3px solid rgba(23, 147, 209, 0.8); */
 }
 
