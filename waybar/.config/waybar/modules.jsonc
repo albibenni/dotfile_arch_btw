@@ -118,6 +118,7 @@
       "critical": 10
     }
   },
+    //TODO: pomodoro button with clock
   "bluetooth": {
     "format": "",
     "format-disabled": "󰂲",
