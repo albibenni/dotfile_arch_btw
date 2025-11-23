@@ -13,6 +13,7 @@
       "7": "7",
       "8": "8",
       "9": "9",
+      "10": "10",
       "active": "󱓻"
     },
     "persistent-workspaces": {
@@ -31,21 +32,21 @@
    "custom/brightness": {
     "format": "  - {text}%",
     "signal": 8,
-    "exec": "~/dotfiles/waybar/.config/waybar/brightness-control.sh get",
-    "on-scroll-up": "~/dotfiles/waybar/.config/waybar/brightness-control.sh up",
-    "on-scroll-down": "~/dotfiles/waybar/.config/waybar/brightness-control.sh down",
-    "on-click": "~/dotfiles/waybar/.config/waybar/brightness-control.sh left_click",
-    "on-click-right":  "~/dotfiles/waybar/.config/waybar/brightness-control.sh right_click",
+    "exec": "~/.config/waybar/brightness-control.sh get",
+    "on-scroll-up": "~/.config/waybar/brightness-control.sh up",
+    "on-scroll-down": "~/.config/waybar/brightness-control.sh down",
+    "on-click": "~/.config/waybar/brightness-control.sh left_click",
+    "on-click-right":  "~/.config/waybar/brightness-control.sh right_click",
     "tooltip": false
   },
    "custom/brightness2": {
     "format": " 2 - {text}%",
     "signal": 8,
-    "exec": "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh get",
-    "on-scroll-up": "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh up",
-    "on-scroll-down": "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh down",
-    "on-click": "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh left_click",
-    "on-click-right":  "~/dotfiles/waybar/.config/waybar/brightness-control-m2.sh right_click",
+    "exec": "~/.config/waybar/brightness-control-m2.sh get",
+    "on-scroll-up": "~/.config/waybar/brightness-control-m2.sh up",
+    "on-scroll-down": "~/.config/waybar/brightness-control-m2.sh down",
+    "on-click": "~/.config/waybar/brightness-control-m2.sh left_click",
+    "on-click-right":  "~/.config/waybar/brightness-control-m2.sh right_click",
     "tooltip": false
   },
   "custom/separator": {
@@ -56,6 +57,7 @@
     // "format": "<span font='omarchy'>\ue900</span>",
     "format": "Menu",
     "on-click": "omarchy-menu",
+    "on-click-right": "xdg-terminal-exec",
     "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space"
   },
   "custom/update": {
@@ -128,7 +130,7 @@
   },
   "pulseaudio": {
     "format": "{icon}",
-    "on-click": "$TERMINAL --class=Wiremix -e wiremix",
+    "on-click": "omarchy-launch-or-focus-tui wiremix",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
@@ -157,6 +159,6 @@
   // },
   "tray": {
     "icon-size": 12,
-    "spacing": 12
+    "spacing": 17
   }
 }

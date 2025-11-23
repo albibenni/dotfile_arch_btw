@@ -6,7 +6,7 @@
   "height": 30,
     // Load Modules
     "include": [
-        "~/dotfiles/waybar/.config/waybar/modules.jsonc"
+        "~/.config/waybar/modules.jsonc"
     ],
   "modules-left": [
         "custom/omarchy",
