@@ -10,21 +10,16 @@
     ],
   "modules-left": [
         "custom/omarchy",
-        "custom/separator",
-        "custom/brightness",
-        "custom/separator",
-        "custom/brightness2",
-        "custom/separator",
         "hyprland/workspaces"],
   "modules-center": ["clock", "custom/update"],
   "modules-right": [
         "group/tray-expander",
         "bluetooth",
         "network",
-        "custom/separator",
-        "custom/separator",
+        "custom/brightness",
+        "custom/brightness2",
         "pulseaudio",
-        "cpu"
-        // "battery"
+        "cpu",
+        "battery"
   ],
 }

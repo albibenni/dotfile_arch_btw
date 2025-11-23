@@ -1,7 +1,7 @@
 @import "../omarchy/current/theme/waybar.css";
 
 * {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1); /* @background */
   color: @foreground;
 
   border: none;
@@ -37,21 +37,29 @@
 #custom-screenrecording-indicator,
 #custom-update,
 #custom-brightness,
-#custom-brightness2 {
+#custom-brightness2,
+#bluetooth,
+#network,
+#clock,
+#tray {
   min-width: 12px;
-  margin: 0 7.5px;
+  margin: 0 4px;
+  padding: 4px 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 #tray {
-  margin-right: 16px;
+  margin-right: 8px;
 }
 
 #bluetooth {
-  margin-right: 17px;
+  margin-right: 4px;
 }
 
 #network {
-  margin-right: 13px;
+  margin-right: 4px;
 }
 
 #custom-expand-icon {
