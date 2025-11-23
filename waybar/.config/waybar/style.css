@@ -21,9 +21,12 @@
 
 #workspaces button {
   all: initial;
-  padding: 0 6px;
-  margin: 0 1.5px;
+  padding: 4px 9px;
+  margin: 0 2px;
   min-width: 9px;
+  border-radius: 8px;
+  color: @foreground;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 #workspaces button.empty {
@@ -45,9 +48,12 @@
   min-width: 12px;
   margin: 0 4px;
   padding: 4px 12px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  color: @foreground;
+  /* color: rgba(23, 147, 209, 0.8); */
+  background-color: @background;
+  border-radius: 15px;
   border: 2px solid rgba(255, 255, 255, 0.6);
+  /* border: 3px solid rgba(23, 147, 209, 0.8); */
 }
 
 #tray {
