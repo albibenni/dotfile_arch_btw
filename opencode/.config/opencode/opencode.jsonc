@@ -1,0 +1,33 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "local/qwen3-coder-30b",
+  "provider": {
+    "local": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Local Model",
+      "options": {
+        "baseURL": "http://192.168.1.203:1234/v1"
+      },
+      "models": {
+        "qwen3-coder-30b": {
+          "name": "Qwen3 Coder 30B",
+          "contextWindow": 32768
+        }
+      }
+    }
+  }
+}
+// Other ways to start
+  // - opencode /path/to/project - Start in a specific project directory
+  // - opencode run "your message" - Run with a specific prompt
+  // - opencode -m local/qwen3-coder-30b - Explicitly specify the model
+  //
+  // Once inside opencode, you can use the /model command to switch between
+  // available models if needed.
+  //
+  // Sources:
+  // - https://medium.com/@lexy_eyn/how-to-connect-a-local-qwen3-coder-30b-to-open
+  // code-and-create-a-self-hosted-claude-code-alternative-4f0db7f38cc2
+  // - https://adim.in/p/local-coding-agent/
+  // - https://opencode.ai/docs/models/
+  // - https://opencode.ai/docs/providers/
