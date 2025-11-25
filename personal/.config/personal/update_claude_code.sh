@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
-function ucode(){
+function uclaude(){
     sudo npm install -g @anthropic-ai/claude-code
 }
