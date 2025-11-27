@@ -59,6 +59,7 @@ fi
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 echo "Hello $USER"
+fastfetch
 
 
 # Disable terminal flow control (Ctrl+s/Ctrl+q) so we can use Ctrl+s
