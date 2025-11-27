@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Function to restore lost symlinks using stow
 # Source this file and call: restore-dotfiles-symlinks
@@ -11,7 +11,17 @@ restore-dotfiles-symlinks() {
     local NC='\033[0m' # No Color
 
     # Get the dotfiles directory by resolving the real path of this script
-    local script_path="${BASH_SOURCE[0]}"
+    local script_path
+    if [[ -n "${ZSH_VERSION:-}" ]]; then
+        # zsh: use special expansion for sourced file path
+        script_path="${(%):-%x}"
+    elif [[ -n "${BASH_SOURCE[0]:-}" ]]; then
+        # bash
+        script_path="${BASH_SOURCE[0]}"
+    else
+        # fallback
+        script_path="$0"
+    fi
 
     # Resolve symlinks to get the real path, then go up 3 directories
     local DOTFILES_DIR="$(cd "$(dirname "$(readlink -f "$script_path")")" && cd ../../.. && pwd)"
@@ -112,8 +122,15 @@ restore-dotfiles-symlinks() {
 
     # Ask for confirmation
     local response
-    read -p "Do you want to restore these symlinks using stow? [y/N] " -n 1 -r response
-    echo ""
+    if [[ -n "${ZSH_VERSION:-}" ]]; then
+        # zsh syntax
+        read -k 1 "response?Do you want to restore these symlinks using stow? [y/N] "
+        echo ""
+    else
+        # bash syntax
+        read -p "Do you want to restore these symlinks using stow? [y/N] " -n 1 -r response
+        echo ""
+    fi
 
     if [[ ! $response =~ ^[Yy]$ ]]; then
         echo "Aborted."
