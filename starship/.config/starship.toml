@@ -11,6 +11,7 @@ $python\
 $nodejs\
 $rust\
 $golang\
+$lua\
 $docker_context\
 $kubernetes\
 $cmd_duration\
@@ -28,19 +29,20 @@ repo_root_style = "bold red"
 repo_root_format = " [$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
 
 [git_branch]
-format = "[$branch]($style) "
-style = "italic cyan"
+style = 'fg:green'
+symbol = ' '
+format = '[on](white) [$symbol$branch ]($style)'
 
 [git_status]
-format     = '[$all_status]($style)'
+format     = '[$all_status$ahead_behind]($style)'
 style      = "cyan"
 ahead      = "⇡${count} "
 diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
 behind     = "⇣${count} "
-conflicted = " "
-up_to_date = " "
-untracked  = "? "
-modified   = " "
+conflicted = "x "
+up_to_date = ""
+untracked  = "! "
+modified   = "! "
 stashed    = ""
 staged     = ""
 renamed    = ""
@@ -53,38 +55,43 @@ format = "took [$duration](bold yellow) "
 
 # Python version
 [python]
-symbol = " "
+symbol = "  "
 format = '[$symbol$version]($style) '
 style = "yellow"
 
+[lua]
+symbol = ' '
+
 # Node.js version
 [nodejs]
-symbol = " "
+symbol = "⬢ "
 format = '[$symbol$version]($style) '
 style = "green"
 
 # Rust version
 [rust]
-symbol = " "
+symbol = "🦀 "
 format = '[$symbol$version]($style) '
-style = "red"
+style = "orange"
 
 # Go version
 [golang]
-symbol = " "
+symbol = ' '
 format = '[$symbol$version]($style) '
 style = "cyan"
 
 # Kubernetes context
 [kubernetes]
-disabled = false
-format = '[⎈ $context](bold blue) '
+disabled = true
+format = '[☸  $context](bold blue) '
 
 # Docker context
 [docker_context]
-symbol = " "
-format = '[$symbol$context]($style) '
-style = "blue"
+symbol = ' '
+style = 'fg:#06969A'
+format = '[$symbol]($style) $path'
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+detect_extensions = ['Dockerfile']
 
 [time]
 disabled = false
