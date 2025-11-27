@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # vless: View piped input in read-only Neovim with man page formatting.
 # Usage: command | vless or command 2>&1 | vless
