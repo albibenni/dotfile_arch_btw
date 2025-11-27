@@ -10,6 +10,7 @@ alias python=python3
 # GIT
 alias ga="git add -A"
 alias gc="git commit"
+alias gp="git push"
 alias glool="git --no-pager log --oneline --decorate --graph"
 alias gloo="git --no-pager log -n 30 --oneline --decorate --graph"
 alias gst="git status -b"
