@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Function to restore lost symlinks using stow
+# Function to restore dotfiles symlinks using stow
 # Source this file and call: restore-dotfiles-symlinks
 restore-dotfiles-symlinks() {
     # Colors for output
@@ -10,10 +10,8 @@ restore-dotfiles-symlinks() {
     local BLUE='\033[0;34m'
     local NC='\033[0m' # No Color
 
-    # Get the dotfiles directory by resolving the real path of this script
+    # Get the dotfiles directory
     local script_path="${BASH_SOURCE[0]}"
-
-    # Resolve symlinks to get the real path, then go up 3 directories
     local DOTFILES_DIR="$(cd "$(dirname "$(readlink -f "$script_path")")" && cd ../../.. && pwd)"
     local TARGET_DIR="$HOME"
 
@@ -22,97 +20,131 @@ restore-dotfiles-symlinks() {
     echo "Target directory: $TARGET_DIR"
     echo ""
 
-    # Find all stow packages (directories containing .config subdirectory)
-    local packages=()
-    local missing_symlinks=()
+    # Special packages to always stow (non-.config packages)
+    local SPECIAL_PACKAGES=(
+        "xcompose"
+        "git-config"
+        "ssh"
+        "bash"
+    )
+
+    # Directories to skip
+    local SKIP_DIRS=(
+        ".git"
+        "script_install"
+        "themes"
+    )
+
+    # Find all packages
+    local all_packages=()
+    local conflicts=()
 
     echo -e "${BLUE}Scanning for stow packages...${NC}"
+    echo ""
+
+    # Scan for all package directories
     for dir in "$DOTFILES_DIR"/*/; do
         local package=$(basename "$dir")
 
         # Skip special directories
-        [[ "$package" == ".git" ]] && continue
-        [[ "$package" == "script_install" ]] && continue
+        local skip=false
+        for skip_dir in "${SKIP_DIRS[@]}"; do
+            if [[ "$package" == "$skip_dir" ]]; then
+                skip=true
+                break
+            fi
+        done
+        [[ "$skip" == true ]] && continue
 
-        # Check if this is a stow package (has .config subdirectory)
-        if [[ -d "$dir/.config" ]]; then
-            packages+=("$package")
+        all_packages+=("$package")
+    done
 
-            # Check each config directory within the package
-            for config_item in "$dir/.config"/*; do
-                if [[ -e "$config_item" ]]; then
-                    local config_name=$(basename "$config_item")
-                    local target_path="$TARGET_DIR/.config/$config_name"
-                    local source_path="$dir/.config/$config_name"
+    # Check each package for conflicts
+    for package in "${all_packages[@]}"; do
+        local package_dir="$DOTFILES_DIR/$package"
 
-                    # Check if symlink exists and is correct
-                    if [[ -L "$target_path" ]]; then
-                        # It's a symlink - check if it points to the right place
-                        local link_target=$(readlink -f "$target_path")
-                        local expected_target=$(readlink -f "$source_path")
+        echo -e "${BLUE}Checking package: ${NC}$package"
 
-                        if [[ "$link_target" == "$expected_target" ]]; then
-                            echo -e "${GREEN}✓${NC} $config_name (already linked correctly)"
-                        else
-                            echo -e "${YELLOW}⚠${NC} $config_name (symlink points to wrong location)"
-                            missing_symlinks+=("$package:$config_name:wrong_target")
-                        fi
-                    elif [[ -e "$target_path" ]]; then
-                        # Path exists but is not a symlink
-                        echo -e "${RED}✗${NC} $config_name (exists but is NOT a symlink)"
-                        missing_symlinks+=("$package:$config_name:not_symlink")
+        # For packages with .config subdirectories
+        if [[ -d "$package_dir/.config" ]]; then
+            for item in "$package_dir/.config"/*; do
+                [[ ! -e "$item" ]] && continue
+
+                local item_name=$(basename "$item")
+                local target="$TARGET_DIR/.config/$item_name"
+                local source="$package_dir/.config/$item_name"
+
+                if [[ -L "$target" ]]; then
+                    local current_target=$(readlink -f "$target")
+                    local expected_target=$(readlink -f "$source")
+
+                    if [[ "$current_target" == "$expected_target" ]]; then
+                        echo -e "  ${GREEN}✓${NC} .config/$item_name (correctly symlinked)"
                     else
-                        # Doesn't exist at all
-                        echo -e "${RED}✗${NC} $config_name (missing)"
-                        missing_symlinks+=("$package:$config_name:missing")
+                        echo -e "  ${YELLOW}⚠${NC} .config/$item_name (wrong symlink target)"
+                        conflicts+=("$package:.config/$item_name")
                     fi
+                elif [[ -e "$target" ]]; then
+                    echo -e "  ${RED}✗${NC} .config/$item_name (exists but NOT a symlink - will backup)"
+                    conflicts+=("$package:.config/$item_name")
+                else
+                    echo -e "  ${RED}✗${NC} .config/$item_name (missing)"
+                    conflicts+=("$package:.config/$item_name")
                 fi
             done
         fi
+
+        # For special packages (files in home directory)
+        for special_pkg in "${SPECIAL_PACKAGES[@]}"; do
+            if [[ "$package" == "$special_pkg" ]]; then
+                for item in "$package_dir"/{.*,*}; do
+                    [[ "$(basename "$item")" == "." ]] && continue
+                    [[ "$(basename "$item")" == ".." ]] && continue
+                    [[ "$(basename "$item")" == ".config" ]] && continue
+                    [[ "$(basename "$item")" == ".git" ]] && continue
+                    [[ "$(basename "$item")" == ".gitignore" ]] && continue
+                    [[ ! -e "$item" ]] && continue
+
+                    local item_name=$(basename "$item")
+                    local target="$TARGET_DIR/$item_name"
+                    local source="$item"
+
+                    if [[ -L "$target" ]]; then
+                        local current_target=$(readlink -f "$target")
+                        local expected_target=$(readlink -f "$source")
+
+                        if [[ "$current_target" == "$expected_target" ]]; then
+                            echo -e "  ${GREEN}✓${NC} $item_name (correctly symlinked)"
+                        else
+                            echo -e "  ${YELLOW}⚠${NC} $item_name (wrong symlink target)"
+                            conflicts+=("$package:$item_name")
+                        fi
+                    elif [[ -e "$target" ]]; then
+                        echo -e "  ${RED}✗${NC} $item_name (exists but NOT a symlink - will backup)"
+                        conflicts+=("$package:$item_name")
+                    else
+                        echo -e "  ${RED}✗${NC} $item_name (missing)"
+                        conflicts+=("$package:$item_name")
+                    fi
+                done
+            fi
+        done
+        echo ""
     done
 
-    echo ""
-
-    # If no issues found, return
-    if [[ ${#missing_symlinks[@]} -eq 0 ]]; then
-        echo -e "${GREEN}All symlinks are in place! Nothing to restore.${NC}"
+    # If no conflicts, we're done
+    if [[ ${#conflicts[@]} -eq 0 ]]; then
+        echo -e "${GREEN}All symlinks are correct! Nothing to fix.${NC}"
         return 0
     fi
 
-    # Show summary
-    echo -e "${YELLOW}Found ${#missing_symlinks[@]} configuration(s) that need attention:${NC}"
-    echo ""
-
-    local packages_to_restow=()
-    for item in "${missing_symlinks[@]}"; do
-        local package config_name issue_type
-        IFS=':' read -r package config_name issue_type <<< "$item"
-
-        case "$issue_type" in
-            not_symlink)
-                echo -e "  ${RED}•${NC} $config_name (package: $package) - exists as directory/file, needs to be replaced with symlink"
-                ;;
-            missing)
-                echo -e "  ${RED}•${NC} $config_name (package: $package) - missing entirely"
-                ;;
-            wrong_target)
-                echo -e "  ${YELLOW}•${NC} $config_name (package: $package) - symlink points to wrong location"
-                ;;
-        esac
-
-        # Track unique packages that need restowing
-        if [[ ! " ${packages_to_restow[@]} " =~ " ${package} " ]]; then
-            packages_to_restow+=("$package")
-        fi
-    done
-
-    echo ""
-    echo -e "${YELLOW}Packages that will be restowed: ${packages_to_restow[*]}${NC}"
+    # Show conflicts
+    echo -e "${YELLOW}Found ${#conflicts[@]} item(s) that need fixing${NC}"
     echo ""
 
     # Ask for confirmation
     local response
-    read -p "Do you want to restore these symlinks using stow? [y/N] " -n 1 -r response
+    read -p "Do you want to fix these by running stow? [y/N] " -n 1 -r response
     echo ""
 
     if [[ ! $response =~ ^[Yy]$ ]]; then
@@ -121,37 +153,51 @@ restore-dotfiles-symlinks() {
     fi
 
     echo ""
-    echo -e "${BLUE}Starting restoration process...${NC}"
+    echo -e "${BLUE}Starting restoration...${NC}"
     echo ""
 
-    # Process each package that needs restowing
-    for package in "${packages_to_restow[@]}"; do
-        echo -e "${BLUE}Processing package: $package${NC}"
+    # Get unique packages that need fixing
+    local packages_to_fix=()
+    for conflict in "${conflicts[@]}"; do
+        local pkg="${conflict%%:*}"
+        if [[ ! " ${packages_to_fix[@]} " =~ " ${pkg} " ]]; then
+            packages_to_fix+=("$pkg")
+        fi
+    done
 
-        # First, we need to handle existing non-symlink directories
-        for item in "${missing_symlinks[@]}"; do
-            local pkg config_name issue_type
-            IFS=':' read -r pkg config_name issue_type <<< "$item"
+    # Process each package
+    for package in "${packages_to_fix[@]}"; do
+        echo -e "${BLUE}Processing: ${NC}$package"
 
-            if [[ "$pkg" == "$package" && "$issue_type" == "not_symlink" ]]; then
-                local target_path="$TARGET_DIR/.config/$config_name"
-                local backup_path="$TARGET_DIR/.config/${config_name}.backup-$(date +%Y%m%d-%H%M%S)"
+        # Backup any existing non-symlink files/directories
+        for conflict in "${conflicts[@]}"; do
+            local pkg="${conflict%%:*}"
+            local item_path="${conflict#*:}"
 
-                echo -e "  ${YELLOW}→${NC} Moving $config_name to $backup_path"
-                mv "$target_path" "$backup_path"
+            if [[ "$pkg" == "$package" ]]; then
+                local target="$TARGET_DIR/$item_path"
+
+                if [[ -e "$target" && ! -L "$target" ]]; then
+                    local backup="${target}.backup-$(date +%Y%m%d-%H%M%S)"
+                    echo -e "  ${YELLOW}→${NC} Backing up $item_path to $(basename "$backup")"
+                    mv "$target" "$backup"
+                fi
             fi
         done
 
-        # Unstow first (in case of wrong targets)
-        echo -e "  ${YELLOW}→${NC} Unstowing $package (cleaning up old symlinks)"
-        stow -D -d "$DOTFILES_DIR" -t "$TARGET_DIR" "$package" 2>/dev/null
+        # Change to dotfiles directory
+        cd "$DOTFILES_DIR" || return 1
+
+        # Unstow first (clean up any wrong symlinks)
+        echo -e "  ${YELLOW}→${NC} Cleaning up old symlinks..."
+        stow -D "$package" 2>/dev/null
 
         # Restow
-        echo -e "  ${GREEN}→${NC} Restowing $package"
-        if stow -d "$DOTFILES_DIR" -t "$TARGET_DIR" "$package"; then
-            echo -e "  ${GREEN}✓${NC} Successfully restowed $package"
+        echo -e "  ${GREEN}→${NC} Creating symlinks..."
+        if stow "$package"; then
+            echo -e "  ${GREEN}✓${NC} Successfully restored $package"
         else
-            echo -e "  ${RED}✗${NC} Failed to restow $package"
+            echo -e "  ${RED}✗${NC} Failed to restore $package"
         fi
 
         echo ""
@@ -159,18 +205,19 @@ restore-dotfiles-symlinks() {
 
     echo -e "${GREEN}=== Restoration complete! ===${NC}"
     echo ""
-    echo "Verifying results..."
+    echo "Verifying..."
+    echo ""
 
-    # Verify the results
-    for item in "${missing_symlinks[@]}"; do
-        local package config_name issue_type
-        IFS=':' read -r package config_name issue_type <<< "$item"
-        local target_path="$TARGET_DIR/.config/$config_name"
+    # Quick verification
+    for conflict in "${conflicts[@]}"; do
+        local pkg="${conflict%%:*}"
+        local item_path="${conflict#*:}"
+        local target="$TARGET_DIR/$item_path"
 
-        if [[ -L "$target_path" ]]; then
-            echo -e "${GREEN}✓${NC} $config_name is now a symlink"
+        if [[ -L "$target" ]]; then
+            echo -e "${GREEN}✓${NC} $item_path is now a symlink"
         else
-            echo -e "${RED}✗${NC} $config_name still has issues"
+            echo -e "${RED}✗${NC} $item_path still has issues"
         fi
     done
 }
