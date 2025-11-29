@@ -2,7 +2,7 @@
 
 # Function to restore dotfiles symlinks using stow
 # Source this file and call: restore-dotfiles-symlinks
-restore-dotfiles-symlinks() {
+restore-symlinks() {
     # Colors for output
     local RED='\033[0;31m'
     local GREEN='\033[0;32m'
@@ -71,9 +71,11 @@ restore-dotfiles-symlinks() {
                 [[ ! -e "$item" ]] && continue
 
                 local item_name=$(basename "$item")
+                # Set target $HOME and source $DOTFILES_DIR+package
                 local target="$TARGET_DIR/.config/$item_name"
                 local source="$package_dir/.config/$item_name"
 
+                # -L true = symlink
                 if [[ -L "$target" ]]; then
                     local current_target=$(readlink -f "$target")
                     local expected_target=$(readlink -f "$source")
@@ -94,7 +96,9 @@ restore-dotfiles-symlinks() {
             done
         fi
 
-        # For special packages (files in home directory)
+        # NOTE: special packages are those non `.config` stowed
+        # they need to be manually added to the variable
+        # eg. `bash` with its `.bashrc, .bash_profile`  files
         for special_pkg in "${SPECIAL_PACKAGES[@]}"; do
             if [[ "$package" == "$special_pkg" ]]; then
                 for item in "$package_dir"/{.*,*}; do
@@ -106,25 +110,60 @@ restore-dotfiles-symlinks() {
                     [[ ! -e "$item" ]] && continue
 
                     local item_name=$(basename "$item")
-                    local target="$TARGET_DIR/$item_name"
-                    local source="$item"
 
-                    if [[ -L "$target" ]]; then
-                        local current_target=$(readlink -f "$target")
-                        local expected_target=$(readlink -f "$source")
+                    # If item is a directory, check files within it instead of the directory itself
+                    if [[ -d "$item" ]]; then
+                        for subitem in "$item"/{.*,*}; do
+                            [[ "$(basename "$subitem")" == "." ]] && continue
+                            [[ "$(basename "$subitem")" == ".." ]] && continue
+                            [[ ! -e "$subitem" ]] && continue
 
-                        if [[ "$current_target" == "$expected_target" ]]; then
-                            echo -e "  ${GREEN}✓${NC} $item_name (correctly symlinked)"
+                            local subitem_name=$(basename "$subitem")
+                            local target="$TARGET_DIR/$item_name/$subitem_name"
+                            local source="$subitem"
+
+                            # -L true = symlink
+                            if [[ -L "$target" ]]; then
+                                local current_target=$(readlink -f "$target")
+                                local expected_target=$(readlink -f "$source")
+
+                                if [[ "$current_target" == "$expected_target" ]]; then
+                                    echo -e "  ${GREEN}✓${NC} $item_name/$subitem_name (correctly symlinked)"
+                                else
+                                    echo -e "  ${YELLOW}⚠${NC} $item_name/$subitem_name (wrong symlink target)"
+                                    conflicts+=("$package:$item_name/$subitem_name")
+                                fi
+                            elif [[ -e "$target" ]]; then
+                                echo -e "  ${RED}✗${NC} $item_name/$subitem_name (exists but NOT a symlink - will backup)"
+                                conflicts+=("$package:$item_name/$subitem_name")
+                            else
+                                echo -e "  ${RED}✗${NC} $item_name/$subitem_name (missing)"
+                                conflicts+=("$package:$item_name/$subitem_name")
+                            fi
+                        done
+                    else
+                        # Handle regular files
+                        local target="$TARGET_DIR/$item_name"
+                        local source="$item"
+
+                        # -L true = symlink
+                        if [[ -L "$target" ]]; then
+                            local current_target=$(readlink -f "$target")
+                            local expected_target=$(readlink -f "$source")
+
+                            if [[ "$current_target" == "$expected_target" ]]; then
+                                echo -e "  ${GREEN}✓${NC} $item_name (correctly symlinked)"
+                            else
+                                echo -e "  ${YELLOW}⚠${NC} $item_name (wrong symlink target)"
+                                conflicts+=("$package:$item_name")
+                            fi
+                        elif [[ -e "$target" ]]; then
+                            echo -e "  ${RED}✗${NC} $item_name (exists but NOT a symlink - will backup)"
+                            conflicts+=("$package:$item_name")
                         else
-                            echo -e "  ${YELLOW}⚠${NC} $item_name (wrong symlink target)"
+                            echo -e "  ${RED}✗${NC} $item_name (missing)"
                             conflicts+=("$package:$item_name")
                         fi
-                    elif [[ -e "$target" ]]; then
-                        echo -e "  ${RED}✗${NC} $item_name (exists but NOT a symlink - will backup)"
-                        conflicts+=("$package:$item_name")
-                    else
-                        echo -e "  ${RED}✗${NC} $item_name (missing)"
-                        conflicts+=("$package:$item_name")
                     fi
                 done
             fi
