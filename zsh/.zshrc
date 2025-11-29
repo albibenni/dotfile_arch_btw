@@ -11,14 +11,20 @@ alias vim=nvim
 
 echo "Hello $USER"
 
-alias cdd="cd ~/dotfiles/"
-alias storage="cd $storage" #lsblk
+#NOTE: codes
 alias pn=pnpm
 alias vim=nvim
 alias python=python3
+
+#NOTE: git alias
 alias glool="git --no-pager log --oneline --decorate --graph"
 alias gloo="git --no-pager log -n 30 --oneline --decorate --graph"
 alias gst="git status -b --color=always"
+
+
+#NOTE: move
+alias cdd="cd ~/dotfiles/"
+alias storage="cd $storage" #lsblk
 alias vid="nvim ~/dotfiles/"
 alias vimvim="nvim ~/dotfiles/nvim/.config/nvim/"
 alias vish="nvim ~/dotfiles/zsh/.zshrc"
