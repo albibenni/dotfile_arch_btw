@@ -29,10 +29,19 @@ restore-symlinks() {
     )
 
     # Directories to skip
+    # add .config folder to not fully stow
     local SKIP_DIRS=(
         ".git"
         "script_install"
         "themes"
+        "obsidian"
+    )
+
+    # WARNING: add the file to SKIP_DIRS too
+    # Packages where individual files in .config/package/ should be symlinked
+    # instead of the entire .config/package directory
+    local FILE_LEVEL_PACKAGES=(
+        "obsidian"
     )
 
     # Find all packages
@@ -168,6 +177,56 @@ restore-symlinks() {
                 done
             fi
         done
+        echo ""
+    done
+
+    # Handle FILE_LEVEL_PACKAGES separately
+    for package in "${FILE_LEVEL_PACKAGES[@]}"; do
+        local package_dir="$DOTFILES_DIR/$package"
+
+        # Skip if package doesn't exist
+        [[ ! -d "$package_dir" ]] && continue
+
+        echo -e "${BLUE}Checking file-level package: ${NC}$package"
+
+        # Look for .config subdirectory
+        if [[ -d "$package_dir/.config" ]]; then
+            for config_item in "$package_dir/.config"/*; do
+                [[ ! -e "$config_item" ]] && continue
+
+                local config_item_name=$(basename "$config_item")
+
+                # If it's a directory, check files inside it
+                if [[ -d "$config_item" ]]; then
+                    for file in "$config_item"/*; do
+                        [[ ! -e "$file" ]] && continue
+
+                        local file_name=$(basename "$file")
+                        local target="$TARGET_DIR/.config/$config_item_name/$file_name"
+                        local source="$file"
+
+                        # -L true = symlink
+                        if [[ -L "$target" ]]; then
+                            local current_target=$(readlink -f "$target")
+                            local expected_target=$(readlink -f "$source")
+
+                            if [[ "$current_target" == "$expected_target" ]]; then
+                                echo -e "  ${GREEN}✓${NC} .config/$config_item_name/$file_name (correctly symlinked)"
+                            else
+                                echo -e "  ${YELLOW}⚠${NC} .config/$config_item_name/$file_name (wrong symlink target)"
+                                conflicts+=("$package:.config/$config_item_name/$file_name")
+                            fi
+                        elif [[ -e "$target" ]]; then
+                            echo -e "  ${RED}✗${NC} .config/$config_item_name/$file_name (exists but NOT a symlink - will backup)"
+                            conflicts+=("$package:.config/$config_item_name/$file_name")
+                        else
+                            echo -e "  ${RED}✗${NC} .config/$config_item_name/$file_name (missing)"
+                            conflicts+=("$package:.config/$config_item_name/$file_name")
+                        fi
+                    done
+                fi
+            done
+        fi
         echo ""
     done
 
