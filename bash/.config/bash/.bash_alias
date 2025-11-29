@@ -1,27 +1,35 @@
+#NOTE: view
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
+#NOTE: codes
 alias vim=nvim
+alias pn=pnpm
+alias python=python3
+
+#NOTE: move
 alias cdd="cd ~/dotfiles/"
 alias storage="cd $STORAGE" #lsblk
-alias pn=pnpm
-alias vim=nvim
-alias python=python3
-# GIT
+alias vid="nvim ~/dotfiles/"
+alias vimvim="nvim ~/dotfiles/nvim/.config/nvim/"
+alias vimux="nvim ~/dotfiles/tmux/.config/tmux/tmux.conf"
+
+#NOTE: git alias
 alias ga="git add -A"
 alias gc="git commit"
 alias gp="git push"
 alias glool="git --no-pager log --oneline --decorate --graph"
 alias gloo="git --no-pager log -n 30 --oneline --decorate --graph"
 alias gst="git status -b"
-alias vid="nvim ~/dotfiles/"
-alias vimvim="nvim ~/dotfiles/nvim/.config/nvim/"
-alias vimux="nvim ~/dotfiles/tmux/.config/tmux/tmux.conf"
+alias ggpull='git pull origin "$(git_current_branch)"'
+alias ggpush='git push origin "$(git_current_branch)"'
+alias gdup="git diff @{upstream}"
 
-# hyprland
+
+#NOTE: hyprland
 alias wayrs="pkill waybar && sleep 1 && waybar &"
 
-# kubectl
+#NOTE: kubectl
 alias k="kubectl"
 alias kgp="kubectl get pods"
 alias kgpw="kubectl get pods -o wide"
