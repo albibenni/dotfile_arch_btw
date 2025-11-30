@@ -9,6 +9,10 @@ restartWaybar(){
     restartApp waybar
 }
 
+restartMako(){
+    makoctl reload
+}
+
 restartSwayOsd(){
     restartApp swayosd-server
 }
