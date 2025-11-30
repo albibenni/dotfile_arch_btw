@@ -3,6 +3,7 @@
 
 ALBI_THEMES_DIR="$HOME/dotfiles/themes"
 ALBI_CURRENT_THEME_LINK="$HOME/.config/current-theme"
+ALBI_CURRENT_BG_LINK="$HOME/.config/current-background"
 
 # List available themes
 themeList() {
@@ -61,8 +62,13 @@ themeSet() {
     if [ -d "$theme_path/backgrounds" ]; then
         local bg=$(find "$theme_path/backgrounds" -type f \( -iname "*.jpg" -o -iname "*.png" \) | shuf -n1)
         if [ -n "$bg" ]; then
+            # Set wallpaper
             pkill swaybg
             setsid uwsm-app -- swaybg -i "$bg" -m fill >/dev/null 2>&1 &
+
+            # Create background symlink for hyprlock
+            ln -nsf "$bg" "$ALBI_CURRENT_BG_LINK"
+
             echo "✓ Background set"
         fi
     fi
@@ -118,8 +124,13 @@ themeNextBg() {
     local bg=$(find "$bg_dir" -type f \( -iname "*.jpg" -o -iname "*.png" \) | shuf -n1)
 
     if [ -n "$bg" ]; then
+        # Set wallpaper
         pkill swaybg
         setsid uwsm-app -- swaybg -i "$bg" -m fill >/dev/null 2>&1 &
+
+        # Update background symlink for hyprlock
+        ln -nsf "$bg" "$ALBI_CURRENT_BG_LINK"
+
         echo "Background changed: $(basename "$bg")"
     else
         echo "No backgrounds found"
