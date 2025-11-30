@@ -1,7 +1,7 @@
 # Theme colors
 # theme = Catppuccin Mocha
 # For standalone (fresh Arch install): uncomment the line below and comment the line above
-import = ~/.config/current-theme/ghostty.conf
+config-file = ~/.config/current-theme/ghostty.conf
 
 font-family = CaskaydiaCove Nerd Font
 background-opacity = 0.9
