@@ -1,4 +1,6 @@
-@import "../omarchy/current/theme/waybar.css";
+/* @import "../omarchy/current/theme/waybar.css"; */
+/* For standalone (fresh Arch install): uncomment the line below and comment the line above */
+@import "../current-theme/waybar.css";
 
 * {
   background-color: rgba(0, 0, 0, 0.1); /* @background */
