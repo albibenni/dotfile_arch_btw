@@ -3,3 +3,8 @@
 uclaude(){
     sudo npm install -g @anthropic-ai/claude-code
 }
+
+cclaude(){
+    uclaude
+    claude
+}
