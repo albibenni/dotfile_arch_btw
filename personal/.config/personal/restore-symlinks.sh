@@ -37,6 +37,9 @@ restore-symlinks() {
         "obsidian"
         "elephant"
         "battery"
+        "systemd"
+        "user"
+        "menu"
     )
 
     # WARNING: add the file to SKIP_DIRS too
@@ -46,6 +49,9 @@ restore-symlinks() {
         "obsidian"
         "elephant"
         "battery"
+        "systemd"
+        "user"
+        "menu"
     )
 
     # Find all packages
@@ -195,41 +201,31 @@ restore-symlinks() {
 
         # Look for .config subdirectory
         if [[ -d "$package_dir/.config" ]]; then
-            for config_item in "$package_dir/.config"/*; do
-                [[ ! -e "$config_item" ]] && continue
+            # Use find to recursively get all files (not directories)
+            while IFS= read -r -d '' source_file; do
+                # Get the relative path from package_dir/.config/
+                local rel_path="${source_file#$package_dir/.config/}"
+                local target="$TARGET_DIR/.config/$rel_path"
 
-                local config_item_name=$(basename "$config_item")
+                # -L true = symlink
+                if [[ -L "$target" ]]; then
+                    local current_target=$(readlink -f "$target")
+                    local expected_target=$(readlink -f "$source_file")
 
-                # If it's a directory, check files inside it
-                if [[ -d "$config_item" ]]; then
-                    for file in "$config_item"/*; do
-                        [[ ! -e "$file" ]] && continue
-
-                        local file_name=$(basename "$file")
-                        local target="$TARGET_DIR/.config/$config_item_name/$file_name"
-                        local source="$file"
-
-                        # -L true = symlink
-                        if [[ -L "$target" ]]; then
-                            local current_target=$(readlink -f "$target")
-                            local expected_target=$(readlink -f "$source")
-
-                            if [[ "$current_target" == "$expected_target" ]]; then
-                                echo -e "  ${GREEN}✓${NC} .config/$config_item_name/$file_name (correctly symlinked)"
-                            else
-                                echo -e "  ${YELLOW}⚠${NC} .config/$config_item_name/$file_name (wrong symlink target)"
-                                conflicts+=("$package:.config/$config_item_name/$file_name")
-                            fi
-                        elif [[ -e "$target" ]]; then
-                            echo -e "  ${RED}✗${NC} .config/$config_item_name/$file_name (exists but NOT a symlink - will backup)"
-                            conflicts+=("$package:.config/$config_item_name/$file_name")
-                        else
-                            echo -e "  ${RED}✗${NC} .config/$config_item_name/$file_name (missing)"
-                            conflicts+=("$package:.config/$config_item_name/$file_name")
-                        fi
-                    done
+                    if [[ "$current_target" == "$expected_target" ]]; then
+                        echo -e "  ${GREEN}✓${NC} .config/$rel_path (correctly symlinked)"
+                    else
+                        echo -e "  ${YELLOW}⚠${NC} .config/$rel_path (wrong symlink target)"
+                        conflicts+=("$package:.config/$rel_path")
+                    fi
+                elif [[ -e "$target" ]]; then
+                    echo -e "  ${RED}✗${NC} .config/$rel_path (exists but NOT a symlink - will backup)"
+                    conflicts+=("$package:.config/$rel_path")
+                else
+                    echo -e "  ${RED}✗${NC} .config/$rel_path (missing)"
+                    conflicts+=("$package:.config/$rel_path")
                 fi
-            done
+            done < <(find "$package_dir/.config" -type f -print0)
         fi
         echo ""
     done
@@ -287,19 +283,57 @@ restore-symlinks() {
             fi
         done
 
-        # Change to dotfiles directory
-        cd "$DOTFILES_DIR" || return 1
+        # Check if this is a FILE_LEVEL_PACKAGE
+        local is_file_level=false
+        for flp in "${FILE_LEVEL_PACKAGES[@]}"; do
+            if [[ "$package" == "$flp" ]]; then
+                is_file_level=true
+                break
+            fi
+        done
 
-        # Unstow first (clean up any wrong symlinks)
-        echo -e "  ${YELLOW}→${NC} Cleaning up old symlinks..."
-        stow -D "$package" 2>/dev/null
+        if [[ "$is_file_level" == true ]]; then
+            # Handle FILE_LEVEL_PACKAGES with individual file symlinks
+            echo -e "  ${GREEN}→${NC} Creating individual file symlinks..."
+            local package_dir="$DOTFILES_DIR/$package"
 
-        # Restow
-        echo -e "  ${GREEN}→${NC} Creating symlinks..."
-        if stow "$package"; then
+            if [[ -d "$package_dir/.config" ]]; then
+                # Use find to recursively process all files
+                while IFS= read -r -d '' source_file; do
+                    # Get the relative path from package_dir/.config/
+                    local rel_path="${source_file#$package_dir/.config/}"
+                    local target="$TARGET_DIR/.config/$rel_path"
+                    local target_dir="$(dirname "$target")"
+
+                    # Create parent directory if needed
+                    mkdir -p "$target_dir"
+
+                    # Remove if exists and create symlink
+                    rm -f "$target"
+                    if ln -s "$source_file" "$target"; then
+                        echo -e "    ${GREEN}✓${NC} Linked .config/$rel_path"
+                    else
+                        echo -e "    ${RED}✗${NC} Failed to link .config/$rel_path"
+                    fi
+                done < <(find "$package_dir/.config" -type f -print0)
+            fi
             echo -e "  ${GREEN}✓${NC} Successfully restored $package"
         else
-            echo -e "  ${RED}✗${NC} Failed to restore $package"
+            # Use stow for regular packages
+            # Change to dotfiles directory
+            cd "$DOTFILES_DIR" || return 1
+
+            # Unstow first (clean up any wrong symlinks)
+            echo -e "  ${YELLOW}→${NC} Cleaning up old symlinks..."
+            stow -D "$package" 2>/dev/null
+
+            # Restow
+            echo -e "  ${GREEN}→${NC} Creating symlinks..."
+            if stow "$package"; then
+                echo -e "  ${GREEN}✓${NC} Successfully restored $package"
+            else
+                echo -e "  ${RED}✗${NC} Failed to restore $package"
+            fi
         fi
 
         echo ""
