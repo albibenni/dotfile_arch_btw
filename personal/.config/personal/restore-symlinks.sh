@@ -35,6 +35,8 @@ restore-symlinks() {
         "script_install"
         "themes"
         "obsidian"
+        "elephant"
+        "battery"
     )
 
     # WARNING: add the file to SKIP_DIRS too
@@ -42,6 +44,8 @@ restore-symlinks() {
     # instead of the entire .config/package directory
     local FILE_LEVEL_PACKAGES=(
         "obsidian"
+        "elephant"
+        "battery"
     )
 
     # Find all packages
