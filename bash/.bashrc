@@ -13,16 +13,16 @@ fi
 
 # NOTE: SHELL
 if [ -f ~/.config/bash/.shell ]; then
-    source ~/.config/bash/.shell
+    source ~/.config/bash/shell.sh
 fi
 
 # NOTE: alias
 if [ -f ~/.config/bash/.bash_alias ]; then
-    source ~/.config/bash/.bash_alias
+    source ~/.config/bash/bash_alias.sh
 fi
 # NOTE: init
 if [ -f ~/.config/bash/.bash_init ]; then
-    source ~/.config/bash/.bash_init
+    source ~/.config/bash/bash_init.sh
 fi
 
 # NOTE: source scripts
@@ -34,16 +34,16 @@ done
 
 # NOTE: ENVS
 if [ -f ~/.config/bash/.bash_envs ]; then
-    source ~/.config/bash/.bash_envs
+    source ~/.config/bash/bash_envs.sh
 fi
 
 # NOTE: bind from set
-[[ $- != *i* ]] && bind -f ~/.config/bash/.inputrc
+[[ $- != *i* ]] && bind -f ~/.config/bash/inputrc
 
 # NOTE: BINDS
 # Ctrl+s to reload bashrc
 if [ -f ~/.config/bash/.bash_bind ]; then
-    source ~/.config/bash/.bash_bind
+    source ~/.config/bash/bash_bind.sh
 fi
 
 
