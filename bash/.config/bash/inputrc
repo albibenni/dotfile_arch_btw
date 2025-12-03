@@ -7,9 +7,9 @@ set completion-prefix-display-length 2
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
-# Enable menu completion (zsh-like)
+# Enable menu completion (zsh-like) - DISABLED for fzf compatibility
 # Tab cycles through completions instead of listing them all
-set menu-complete-display-prefix on
+# set menu-complete-display-prefix on
 
 # Arrow keys match what you've typed so far against your command history
 "\e[A": history-search-backward
@@ -17,10 +17,10 @@ set menu-complete-display-prefix on
 "\e[C": forward-char
 "\e[D": backward-char
 
-# Tab: cycle through completions (like zsh)
+# Tab: cycle through completions (like zsh) - DISABLED for fzf compatibility
 # Shift+Tab: cycle backwards through completions
-Tab: menu-complete
-"\e[Z": menu-complete-backward
+# Tab: menu-complete
+# "\e[Z": menu-complete-backward
 
 # Immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on
