@@ -19,8 +19,6 @@ export LC_CTYPE=en_US.UTF-8
 
 export SUDO_EDITOR="$EDITOR"
 
-
-
 export NRDP="$HOME/work/nrdp"
 export NRDP_BUILDS="$HOME/work/builds"
 export CC="clang"
@@ -31,10 +29,14 @@ export GIT_EDITOR=$VIM
 export N_PREFIX="$HOME/.local/n"
 export DOTFILES=$HOME/.dotfiles
 
+## FZF customization
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+# Make Tab trigger fzf completion directly (without needing ** prefix)
+export FZF_COMPLETION_TRIGGER=''
+
 # lua5.1
 export PATH=~/.local/bin/:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
-
 
 export PATH="$N_PREFIX/bin:$PATH"
 
