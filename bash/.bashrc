@@ -1,4 +1,5 @@
 # If not running interactively, don't do anything (leave this at the top of this file)
+[[ $- != *i* ]] && return
 
 #NOTE: Enable bash completion
 if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -38,7 +39,7 @@ if [ -f ~/.config/bash/bash_envs.sh ]; then
 fi
 
 # NOTE: bind from set
-[[ $- != *i* ]] && bind -f ~/.config/bash/inputrc
+[[ $- == *i* ]] && bind -f ~/.config/bash/inputrc
 
 # NOTE: BINDS
 # Ctrl+s to reload bashrc
