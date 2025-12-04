@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cmd="$*"
-exec setsid uwsm-app -- xdg-terminal-exec --app-id=org.albibenni.terminal --title=Omarchy -e bash -c "omarchy-show-logo; $cmd; omarchy-show-done"
+exec setsid uwsm-app -- xdg-terminal-exec --app-id=org.albibenni.terminal -e bash -c "show-logo.sh; $cmd; show-done.sh"
