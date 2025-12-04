@@ -4,6 +4,8 @@
 export OMARCHY_PATH=$HOME/.local/share/omarchy
 export PATH=$OMARCHY_PATH/bin:$PATH
 
+# source for my files -- keep
+export PATH=$HOME/.local/share/bin:$PATH  # Add this line
 # Set default terminal and editor
 source ~/.config/uwsm/default
 
