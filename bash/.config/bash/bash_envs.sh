@@ -43,6 +43,8 @@ export PATH="$N_PREFIX/bin:$PATH"
 addToPathFront $HOME/.config/tmux/scripts
 addToPathFront $HOME/.config/scripts
 addToPathFront $HOME/.local/bin
+addToPathFront $HOME/.local/share/bin
+
 # addToPathFront $HOME/go/bin
 
 # NOTE: from omarchy
