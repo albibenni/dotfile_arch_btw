@@ -5,34 +5,34 @@ restartApp(){
     setsid uwsm-app -- $1 >/dev/null 2>&1 &
 }
 
-restartWaybar(){
+restart-wybar(){
     restartApp waybar
 }
 
-restartMako(){
+restart-mako(){
     makoctl reload
 }
 
-restartSwayOsd(){
+restart-swayosd(){
     restartApp swayosd-server
 }
 
-restartWifi(){
+restart-wifi(){
     echo -e "Unblocking wifi...\n"
     rfkill unblock wifi
     rfkill list wifi
 }
 
-restartPipeWire(){
+restart-pipewire(){
     echo -e "Restarting pipewire audio service...\n"
     systemctl --user restart pipewire.service
 }
 
-restartFcitx5(){
+restart-fcitx5(){
     restartApp fcitx5
 }
 
-restartWalker(){
+restart-walker(){
     pkill elephant
     pkill walker
 
