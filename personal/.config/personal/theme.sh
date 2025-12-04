@@ -1,20 +1,20 @@
 #!/bin/bash
 # Theme management functions
 
-ALBI_THEMES_DIR="$HOME/dotfiles/themes"
-ALBI_CURRENT_THEME_LINK="$HOME/.config/current-theme"
-ALBI_CURRENT_BG_LINK="$HOME/.config/current-background"
+THEMES_DIR="$HOME/dotfiles/themes"
+CURRENT_THEME_LINK="$HOME/.config/current-theme"
+CURRENT_BG_LINK="$HOME/.config/current-background"
 
 # List available themes
 themeList() {
     echo "Available themes:"
-    ls -1 "$ALBI_THEMES_DIR" | nl -w2 -s'. '
+    ls -1 "$THEMES_DIR" | nl -w2 -s'. '
 }
 
 # Get current theme name
 themeCurrent() {
-    if [ -L "$ALBI_CURRENT_THEME_LINK" ]; then
-        basename "$(readlink "$ALBI_CURRENT_THEME_LINK")"
+    if [ -L "$CURRENT_THEME_LINK" ]; then
+        basename "$(readlink "$CURRENT_THEME_LINK")"
     else
         echo "No theme set"
         return 1
@@ -24,7 +24,7 @@ themeCurrent() {
 # Show theme preview
 themePreview() {
     local theme_name="${1:-$(themeCurrent)}"
-    local preview_img="$ALBI_THEMES_DIR/$theme_name/preview.png"
+    local preview_img="$THEMES_DIR/$theme_name/preview.png"
 
     if [ -f "$preview_img" ]; then
         imv "$preview_img" &
@@ -44,10 +44,10 @@ themeSet() {
         return 1
     fi
 
-    local theme_path="$ALBI_THEMES_DIR/$theme_name"
+    local theme_path="$THEMES_DIR/$theme_name"
 
     if [[ ! -d "$theme_path" ]]; then
-        echo "Theme '$theme_name' not found in $ALBI_THEMES_DIR"
+        echo "Theme '$theme_name' not found in $THEMES_DIR"
         echo ""
         themeList
         return 1
@@ -56,7 +56,7 @@ themeSet() {
     echo "Applying theme: $theme_name"
 
     # Update symlink
-    ln -nsf "$theme_path" "$ALBI_CURRENT_THEME_LINK"
+    ln -nsf "$theme_path" "$CURRENT_THEME_LINK"
 
     # Set random background from theme
     if [ -d "$theme_path/backgrounds" ]; then
@@ -67,7 +67,7 @@ themeSet() {
             setsid uwsm-app -- swaybg -i "$bg" -m fill >/dev/null 2>&1 &
 
             # Create background symlink for hyprlock
-            ln -nsf "$bg" "$ALBI_CURRENT_BG_LINK"
+            ln -nsf "$bg" "$CURRENT_BG_LINK"
 
             echo "✓ Background set"
         fi
@@ -112,7 +112,7 @@ themeNextBg() {
         return 1
     fi
 
-    local theme_path="$ALBI_THEMES_DIR/$current_theme"
+    local theme_path="$THEMES_DIR/$current_theme"
     local bg_dir="$theme_path/backgrounds"
 
     if [ ! -d "$bg_dir" ]; then
@@ -129,7 +129,7 @@ themeNextBg() {
         setsid uwsm-app -- swaybg -i "$bg" -m fill >/dev/null 2>&1 &
 
         # Update background symlink for hyprlock
-        ln -nsf "$bg" "$ALBI_CURRENT_BG_LINK"
+        ln -nsf "$bg" "$CURRENT_BG_LINK"
 
         echo "Background changed: $(basename "$bg")"
     else
@@ -139,7 +139,7 @@ themeNextBg() {
 
 # Interactive theme picker using fzf
 themePicker() {
-    local theme=$(ls -1 "$ALBI_THEMES_DIR" | fzf --preview "cat $ALBI_THEMES_DIR/{}/preview.png 2>/dev/null || echo 'No preview available'" --preview-window=right:60% --height=50% --border --prompt="Select theme: ")
+    local theme=$(ls -1 "$THEMES_DIR" | fzf --preview "cat $THEMES_DIR/{}/preview.png 2>/dev/null || echo 'No preview available'" --preview-window=right:60% --height=50% --border --prompt="Select theme: ")
 
     if [ -n "$theme" ]; then
         themeSet "$theme"
