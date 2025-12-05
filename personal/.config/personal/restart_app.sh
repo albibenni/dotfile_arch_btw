@@ -5,7 +5,7 @@ restartApp(){
     setsid uwsm-app -- $1 >/dev/null 2>&1 &
 }
 
-restart-wybar(){
+restart-waybar(){
     restartApp waybar
 }
 
