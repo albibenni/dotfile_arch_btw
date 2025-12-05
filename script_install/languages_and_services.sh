@@ -3,4 +3,6 @@
 # Just Node.js for web development LSPs
 sudo pacman -S nodejs npm go rustup pnpm lua51 jdk-openjdk maven gradle kafka
 
+yay -S bun
+
 rustup default stable
