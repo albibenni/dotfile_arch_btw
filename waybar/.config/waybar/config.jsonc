@@ -9,7 +9,7 @@
         "~/.config/waybar/modules.jsonc"
     ],
   "modules-left": [
-        "custom/omarchy",
+        "custom/my-menu",
         "hyprland/workspaces"],
   "modules-center": ["clock", "custom/update"],
   "modules-right": [

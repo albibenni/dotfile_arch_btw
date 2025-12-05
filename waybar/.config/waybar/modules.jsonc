@@ -53,16 +53,17 @@
     "format": " | ",
     "tooltip": false
   },
-  "custom/omarchy": {
+  "custom/my-menu": {
     "format": "Menu",
     "on-click": "benni-menu.sh",
     "on-click-right": "xdg-terminal-exec",
     "tooltip-format": "Menu\n\nSuper + Alt + Space"
   },
+ //TODO: setup atomic updates
   "custom/update": {
     "format": "",
     "exec": "omarchy-update-available",
-    "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
+    "on-click": "launch-floating-terminal-with-presentation.sh omarchy-update",
     "tooltip-format": "Omarchy update available",
     "signal": 7,
     "interval": 3600
