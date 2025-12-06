@@ -120,18 +120,52 @@ themeNextBg() {
         return 1
     fi
 
-    # Get random background
-    local bg=$(find "$bg_dir" -type f \( -iname "*.jpg" -o -iname "*.png" \) | shuf -n1)
+    # Get sorted list of all backgrounds
+    local backgrounds=($(find "$bg_dir" -type f \( -iname "*.jpg" -o -iname "*.png" \) | sort))
 
-    if [ -n "$bg" ]; then
+    if [ ${#backgrounds[@]} -eq 0 ]; then
+        echo "No backgrounds found"
+        return 1
+    fi
+
+    # Get current background
+    local current_bg=""
+    if [ -L "$CURRENT_BG_LINK" ]; then
+        current_bg="$(readlink "$CURRENT_BG_LINK")"
+    fi
+
+    # Find next background (cycle through sequentially)
+    local next_bg=""
+    if [ -z "$current_bg" ]; then
+        # No current background, use first one
+        next_bg="${backgrounds[0]}"
+    else
+        # Find current background in array and get next one
+        local found=0
+        for i in "${!backgrounds[@]}"; do
+            if [ "${backgrounds[$i]}" = "$current_bg" ]; then
+                # Get next background, wrap around to first if at end
+                next_bg="${backgrounds[$(((i + 1) % ${#backgrounds[@]}))]}"
+                found=1
+                break
+            fi
+        done
+
+        # If current background not found in list, use first one
+        if [ $found -eq 0 ]; then
+            next_bg="${backgrounds[0]}"
+        fi
+    fi
+
+    if [ -n "$next_bg" ]; then
         # Set wallpaper
         pkill swaybg
-        setsid uwsm-app -- swaybg -i "$bg" -m fill >/dev/null 2>&1 &
+        setsid uwsm-app -- swaybg -i "$next_bg" -m fill >/dev/null 2>&1 &
 
         # Update background symlink for hyprlock
-        ln -nsf "$bg" "$CURRENT_BG_LINK"
+        ln -nsf "$next_bg" "$CURRENT_BG_LINK"
 
-        echo "Background changed: $(basename "$bg")"
+        echo "Background changed: $(basename "$next_bg")"
     else
         echo "No backgrounds found"
     fi
