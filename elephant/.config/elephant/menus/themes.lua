@@ -1,7 +1,7 @@
 --
 -- Dynamic Theme Menu for Elephant/Walker
 --
-Name = "bennitheme"
+Name = "bennithemes"
 NamePretty = "Benni Themes"
 
 -- The main function elephant will call
@@ -59,8 +59,8 @@ function GetEntries()
 					Preview = preview_path,
 					PreviewType = "file",
 					Actions = {
-						-- NOTE: new script to set theme - previously omarchy-theme-set
-						activate = "themeSet " .. theme_name,
+						-- Use theme-next.sh script instead of shell function
+						activate = "theme-next.sh set " .. theme_name,
 					},
 				})
 			end
