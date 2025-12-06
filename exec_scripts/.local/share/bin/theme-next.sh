@@ -130,6 +130,27 @@ themeSet() {
         pkill -SIGUSR2 btop
     fi
 
+    # Change gnome, browser, vscode, cursor, obsidian themes
+    if command -v theme-set-gnome.sh &>/dev/null; then
+        theme-set-gnome.sh 2>/dev/null
+    fi
+
+    if command -v theme-set-browser.sh &>/dev/null; then
+        theme-set-browser.sh 2>/dev/null
+    fi
+
+    if command -v theme-set-vscode.sh &>/dev/null; then
+        theme-set-vscode.sh 2>/dev/null
+    fi
+
+    if command -v theme-set-cursor.sh &>/dev/null; then
+        theme-set-cursor.sh 2>/dev/null
+    fi
+
+    if command -v theme-set-obsidian.sh &>/dev/null; then
+        theme-set-obsidian.sh 2>/dev/null
+    fi
+
     notify-send "Theme applied" "$theme_name" -t 2000
 }
 
