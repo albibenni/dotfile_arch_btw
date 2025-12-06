@@ -5,7 +5,7 @@
 BATTERY_THRESHOLD=10
 # Flag file to prevent notification spam - stored in XDG runtime directory
 NOTIFICATION_FLAG="/run/user/$UID/battery_notified"
-BATTERY_LEVEL=$(battery-remaining)
+BATTERY_LEVEL=$(battery-remaining.sh)
 BATTERY_STATE=$(upower -i $(upower -e | grep 'BAT') | grep -E "state" | awk '{print $2}')
 
 send_notification() {
