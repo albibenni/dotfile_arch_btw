@@ -72,7 +72,7 @@ show_learn_menu() {
     *Hyprland*) launch-webapp.sh "https://wiki.hypr.land/" ;;
     *Arch*) launch-webapp.sh "https://wiki.archlinux.org/title/Main_page" ;;
     *Bash*) launch-webapp.sh "https://devhints.io/bash" ;;
-    *) show_main_menu ;; #TODO:
+    *) show_main_menu ;;
     esac
 }
 
@@ -94,11 +94,10 @@ show_capture_menu() {
     esac
 }
 
-#TODO:
 show_screenshot_menu() {
     case $(menu "Screenshot" "  Snap with Editing\n  Straight to Clipboard") in
-    *Editing*) omarchy-cmd-screenshot smart ;;
-    *Clipboard*) omarchy-cmd-screenshot smart clipboard ;;
+    *Editing*) cmd-screenshot.sh smart ;;
+    *Clipboard*) cmd-screenshot.sh smart clipboard ;;
     *) show_capture_menu ;;
     esac
 }
@@ -115,10 +114,9 @@ show_screenrecord_menu() {
     esac
 }
 
-#TODO:
 show_share_menu() {
     case $(menu "Share" "  Clipboard\n  File \n  Folder") in
-    *Clipboard*) omarchy-cmd-share clipboard ;;
+    *Clipboard*) cmd-share.sh clipboard ;;
     *File*) terminal bash -c "omarchy-cmd-share file" ;;
     *Folder*) terminal bash -c "omarchy-cmd-share folder" ;;
     *) back_to show_trigger_menu ;;
@@ -278,20 +276,19 @@ show_update_password_menu() {
     esac
 }
 
-#TODO:
 show_system_menu() {
     case $(menu "System" "  Lock\n󱄄  Screensaver\n󰤄  Suspend\n󰜉  Restart\n󰐥  Shutdown") in
-    *Lock*) omarchy-lock-screen ;;
-    *Screensaver*) omarchy-launch-screensaver force ;;
+    *Lock*) lock-screen.sh ;;
+    *Screensaver*) launch-screensaver.sh force ;;
     *Suspend*) systemctl suspend ;;
-    *Restart*) omarchy-cmd-reboot ;;
-    *Shutdown*) omarchy-cmd-shutdown ;;
+    *Restart*) cmd-reboot.sh ;;
+    *Shutdown*) cmd-shutdown.sh ;;
     *) back_to show_main_menu ;;
     esac
 }
 
 show_main_menu() {
-    go_to_menu "$(menu "Go" "󰀻  Apps\n󰧑  Learn\n󱓞  Trigger\n  Style\n  Setup\n󰉉  Install\n󰭌  Remove\n  Update\n  About\n  System")"
+    go_to_menu "$(menu "Go" "󰀻  Apps\n󰧑  Learn\n󱓞  Trigger\n  Share\n  Style\n  Setup\n  Update\n  About\n  System")"
 }
 
 go_to_menu() {
@@ -307,8 +304,6 @@ go_to_menu() {
     *screenrecord*) show_screenrecord_menu ;;
     *setup*) show_setup_menu ;;
     *power*) show_setup_power_menu ;;
-    *install*) show_install_menu ;;
-    *remove*) show_remove_menu ;;
     *update*) show_update_menu ;;
     *about*) launch-about.sh ;;
     *system*) show_system_menu ;;

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+benni-state clear re*-required
+hyprland-window-close-all.sh
+sleep 1 # Allow apps like Chrome to shutdown correctly
+systemctl reboot --no-wall
