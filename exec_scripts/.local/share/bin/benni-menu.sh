@@ -246,14 +246,14 @@ show_update_process_menu() {
 
 show_update_config_menu() {
     case $(menu "Use default config" "  Hyprland\n  Hypridle\n  Hyprlock\n  Hyprsunset\n󱣴  Plymouth\n  Swayosd\n󰌧  Walker\n󰍜  Waybar") in
-    *Hyprland*) present_terminal omarchy-refresh-hyprland ;;
-    *Hypridle*) present_terminal omarchy-refresh-hypridle ;;
-    *Hyprlock*) present_terminal omarchy-refresh-hyprlock ;;
-    *Hyprsunset*) present_terminal omarchy-refresh-hyprsunset ;;
-    *Plymouth*) present_terminal omarchy-refresh-plymouth ;;
-    *Swayosd*) present_terminal omarchy-refresh-swayosd ;;
-    *Walker*) present_terminal omarchy-refresh-walker ;;
-    *Waybar*) present_terminal omarchy-refresh-waybar ;;
+    *Hyprland*) present_terminal refresh-hyprland.sh ;;
+    *Hypridle*) present_terminal refresh-hypridle.sh ;;
+    *Hyprlock*) present_terminal refresh-hyprlock.sh ;;
+    *Hyprsunset*) present_terminal refresh-hyprsunset.sh ;;
+    *Plymouth*) present_terminal refresh-plymouth.sh ;;
+    *Swayosd*) present_terminal refresh-swayosd.sh ;;
+    *Walker*) present_terminal refresh-walker.sh ;;
+    *Waybar*) present_terminal refresh-waybar.sh ;;
     *) show_update_menu ;;
     esac
 }
