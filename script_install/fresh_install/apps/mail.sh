@@ -1,3 +1,3 @@
 #! /bin/bash
 
-yay -S thunderbird-beta-bin
+yay -S --needed thunderbird-beta-bin
