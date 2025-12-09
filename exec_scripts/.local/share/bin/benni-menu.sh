@@ -208,14 +208,14 @@ show_install_font_menu() {
 
 #TODO:
 show_update_menu() {
-    case $(menu "Update" " Omarchy\n  Config\n󰸌  Extra Themes\n  Process\n󰇅  Hardware\n  Firmware\n  Password\n  Timezone\n  Time") in
+    case $(menu "Update" " Omarchy\n󰸌  Extra Themes\n  Process\n󰇅  Hardware\n  Firmware\n  Password\n  Timezone\n  Time") in
     *Omarchy*) present_terminal omarchy-update ;;
     *Themes*) present_terminal theme-update.sh ;;
     *Process*) show_update_process_menu ;;
     *Hardware*) show_update_hardware_menu ;;
     *Firmware*) present_terminal omarchy-update-firmware ;;
-    *Timezone*) present_terminal tz-select ;;
-    *Time*) present_terminal omarchy-update-time ;;
+    *Timezone*) present_terminal tz-select.sh ;;
+    *Time*) present_terminal update-time.sh ;;
     *Password*) show_update_password_menu ;;
     *) show_main_menu ;;
     esac
@@ -231,7 +231,6 @@ show_update_process_menu() {
     *) show_update_menu ;;
     esac
 }
-
 
 show_update_hardware_menu() {
     case $(menu "Restart" "  Audio\n󱚾  Wi-Fi\n󰂯  Bluetooth") in
