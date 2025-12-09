@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if (($# == 0)); then
-  echo "Usage: launch-or-focus [window-pattern] [launch-command]"
+  echo "Usage: launch-or-focus.sh [window-pattern] [launch-command]"
   exit 1
 fi
 

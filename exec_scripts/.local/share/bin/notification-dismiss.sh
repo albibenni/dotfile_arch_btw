@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if (($# == 0)); then
-  echo "Usage: notification-dismiss <summary>"
+  echo "Usage: notification-dismiss.sh <summary>"
   exit 1
 fi
 

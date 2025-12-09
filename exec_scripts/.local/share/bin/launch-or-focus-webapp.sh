@@ -9,4 +9,4 @@ WINDOW_PATTERN="$1"
 shift
 LAUNCH_COMMAND="/home/albibenni/.local/share/bin/launch-webapp.sh $@"
 
-exec /home/albibenni/.local/share/bin/launch-or-focus.sh "$WINDOW_PATTERN" "$LAUNCH_COMMAND"
+exec launch-or-focus.sh "$WINDOW_PATTERN" "$LAUNCH_COMMAND"
