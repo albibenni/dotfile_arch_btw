@@ -26,8 +26,8 @@ if [[ -n "$font_name" && "$font_name" != "CNCLD" ]]; then
             -v "$font_name" \
             ~/.config/fontconfig/fonts.conf
 
-        restart-waybar
-        restart-swayosd
+        restart-waybar.sh
+        restart-swayosd.sh
 
         if pgrep -x ghostty; then
             notify-send "    You must restart Ghostty to see font change"
