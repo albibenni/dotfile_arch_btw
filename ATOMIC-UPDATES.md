@@ -15,16 +15,27 @@ A complete update system for clean Arch Linux, inspired by Omarchy's update mech
 
 ## Quick Start
 
-### 1. Install the System
+### 1. Install Required Packages
 
 ```bash
 cd ~/dotfiles
-./script_install/fresh_install/install-system-hooks.sh
+bash script_install/fresh_install/system-apps/atomic-updates.sh
+```
+
+This installs:
+- `snapper` - Btrfs snapshot management
+- `btrfs-progs` - Btrfs filesystem tools
+- `pacman-contrib` - Provides `checkupdates` command
+
+### 2. Install Pacman Hooks
+
+```bash
+bash script_install/fresh_install/install-system-hooks.sh
 ```
 
 This installs pacman hooks that automatically create snapshots before package updates.
 
-### 2. Configure Waybar (for clean Arch)
+### 3. Configure Waybar (for clean Arch)
 
 In `waybar/.config/waybar/modules.jsonc`, comment out the Omarchy section and uncomment the clean Arch section:
 
@@ -47,7 +58,7 @@ In `waybar/.config/waybar/modules.jsonc`, comment out the Omarchy section and un
 },
 ```
 
-### 3. Update Your System
+### 4. Update Your System
 
 ```bash
 system-update.sh
@@ -214,18 +225,21 @@ personal/.config/personal/migrations/
 # 1. Clone dotfiles
 cd ~/dotfiles
 
-# 2. Install pacman hooks
-./script_install/fresh_install/install-system-hooks.sh
+# 2. Install atomic update dependencies
+bash script_install/fresh_install/system-apps/atomic-updates.sh
 
-# 3. Configure waybar for clean Arch
+# 3. Install pacman hooks
+bash script_install/fresh_install/install-system-hooks.sh
+
+# 4. Configure waybar for clean Arch
 # Edit waybar/.config/waybar/modules.jsonc
 # Comment Omarchy, uncomment Clean Arch section
 
-# 4. Restore symlinks
+# 5. Restore symlinks
 source personal/.config/personal/restore-symlinks.sh
 restore-symlinks
 
-# 5. First update
+# 6. First update
 system-update.sh
 ```
 
