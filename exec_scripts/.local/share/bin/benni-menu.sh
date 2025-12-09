@@ -162,7 +162,7 @@ show_setup_menu() {
     *Audio*) launch-or-focus-tui.sh wiremix ;;
     *Wifi*) launch-wifi.sh ;;
     *Bluetooth*) launch-bluetooth.sh ;;
-    *Power*) show_setup_power_menu.sh ;;
+    *Power*) show_setup_power_menu ;;
     *DNS*) present_terminal change-dns.sh ;;
     *Security*) show_setup_security_menu ;;
     *Config*) show_setup_config_menu ;;
@@ -170,9 +170,8 @@ show_setup_menu() {
     esac
 }
 
-#TODO:
 show_setup_power_menu() {
-    profile=$(menu "Power Profile" "$(omarchy-powerprofiles-list)" "" "$(powerprofilesctl get)")
+    profile=$(menu "Power Profile" "$(powerprofile-list.sh)" "" "$(powerprofilesctl get)")
 
     if [[ "$profile" == "CNCLD" || -z "$profile" ]]; then
         back_to show_setup_menu
