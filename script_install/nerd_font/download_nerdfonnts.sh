@@ -1,30 +1,31 @@
-!#/bin/bash
+#!/bin/bash
 
-mkdir -p ~/.local/share/fonts
+echo "Installing Nerd Fonts via pacman..."
+echo ""
 
-# Download the NERDFONNTS font files from the specified URL
-curl -L --output-dir $HOME/Downloads -O https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/CaskaydiaCoveNerdFont-Regular.ttf
-curl -L --output-dir $HOME/Downloads -O https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/CaskaydiaCoveNerdFont-Bold.ttf
-curl -L --output-dir $HOME/Downloads -O https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/CaskaydiaCoveNerdFont-Italic.ttf
+# Install Nerd Fonts from official Arch repositories
+echo "→ Installing CaskaydiaCove (Cascadia Code) Nerd Font..."
+sudo pacman -S --needed --noconfirm ttf-cascadia-code-nerd
 
-curl -L --output-dir $HOME/Downloads -O https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode/Bold/FiraCodeNerdFont-Bold.ttf
-curl -L --output-dir $HOME/Downloads -O https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode/Regular/FiraCodeNerdFont-Regular.ttf
+echo ""
+echo "→ Installing FiraCode Nerd Font..."
+sudo pacman -S --needed --noconfirm ttf-firacode-nerd
 
+echo ""
+echo "→ Installing JetBrains Mono Nerd Font..."
+sudo pacman -S --needed --noconfirm ttf-jetbrains-mono-nerd
 
-curl -L --output-dir $HOME/Downloads -O https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/Ligatures/Bold/JetBrainsMonoNerdFont-Bold.ttf
-curl -L --output-dir $HOME/Downloads -O https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/Ligatures/Italic/JetBrainsMonoNerdFont-Italic.ttf
-curl -L --output-dir $HOME/Downloads -O https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/JetBrainsMono/Ligatures/Regular/JetBrainsMonoNerdFont-Regular.ttf
-
-mv $HOME/Downloads/CaskaydiaCoveNerdFont-Regular.ttf ~/.local/share/fonts/
-mv $HOME/Downloads/CaskaydiaCoveNerdFont-Bold.ttf ~/.local/share/fonts/
-mv $HOME/Downloads/CaskaydiaCoveNerdFont-Italic.ttf ~/.local/share/fonts/
-
-mv $HOME/Downloads/FiraCodeNerdFont-Bold.ttf ~/.local/share/fonts/
-mv $HOME/Downloads/FiraCodeNerdFont-Regular.ttf ~/.local/share/fonts/
-
-mv $HOME/Downloads/JetBrainsMonoNerdFont-Italic.ttf ~/.local/share/fonts/
-mv $HOME/Downloads/JetBrainsMonoNerdFont-Regular.ttf ~/.local/share/fonts/
-mv $HOME/Downloads/JetBrainsMonoNerdFont-Bold.ttf ~/.local/share/fonts/
-
-# Update the font cache
+echo ""
+echo "→ Updating font cache..."
 fc-cache -fv
+
+echo ""
+echo "✓ Nerd Fonts installation complete!"
+echo ""
+echo "Installed fonts:"
+echo "  - CaskaydiaCove Nerd Font (Cascadia Code)"
+echo "  - FiraCode Nerd Font"
+echo "  - JetBrains Mono Nerd Font"
+echo ""
+echo "You can verify installed fonts with:"
+echo "  fc-list | grep -i 'nerd'"
