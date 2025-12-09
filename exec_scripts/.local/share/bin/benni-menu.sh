@@ -129,7 +129,6 @@ show_toggle_menu() {
     esac
 }
 
-#TODO:
 show_style_menu() {
     case $(menu "Style" "󰸌  Theme\n  Font\n  Background\n  Screensaver") in
     *Theme*) show_theme_menu ;;
@@ -163,11 +162,11 @@ show_setup_menu() {
     *Audio*) launch-or-focus-tui.sh wiremix ;;
     *Wifi*) launch-wifi.sh ;;
     *Bluetooth*) launch-bluetooth.sh ;;
-    *Power*) show_setup_power_menu.sh ;;         #TODO:
-    *DNS*) present_terminal omarchy-setup-dns ;; #TODO:
-    *Security*) show_setup_security_menu ;;      #TODO:
-    *Config*) show_setup_config_menu ;;          #TODO:
-    *) show_main_menu ;;                         #TODO:
+    *Power*) show_setup_power_menu.sh ;;
+    *DNS*) present_terminal change-dns.sh ;;
+    *Security*) show_setup_security_menu ;;
+    *Config*) show_setup_config_menu ;;
+    *) show_main_menu ;;
     esac
 }
 
