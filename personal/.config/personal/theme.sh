@@ -100,6 +100,27 @@ themeSet() {
         echo "✓ btop reloaded"
     fi
 
+    # Change gnome, browser, vscode, cursor, obsidian themes
+    if command -v theme-set-gnome.sh >/dev/null 2>&1; then
+        theme-set-gnome.sh 2>/dev/null && echo "✓ GNOME theme updated"
+    fi
+
+    if command -v theme-set-browser.sh >/dev/null 2>&1; then
+        theme-set-browser.sh 2>/dev/null && echo "✓ Browser theme updated"
+    fi
+
+    if command -v theme-set-vscode.sh >/dev/null 2>&1; then
+        theme-set-vscode.sh 2>/dev/null && echo "✓ VSCode theme updated"
+    fi
+
+    if command -v theme-set-cursor.sh >/dev/null 2>&1; then
+        theme-set-cursor.sh 2>/dev/null && echo "✓ Cursor theme updated"
+    fi
+
+    if command -v theme-set-obsidian.sh >/dev/null 2>&1; then
+        theme-set-obsidian.sh 2>/dev/null && echo "✓ Obsidian theme updated"
+    fi
+
     echo ""
     echo "Theme '$theme_name' applied successfully!"
 }
