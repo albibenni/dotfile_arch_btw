@@ -134,8 +134,8 @@ show_style_menu() {
     case $(menu "Style" "󰸌  Theme\n  Font\n  Background\n  Screensaver") in
     *Theme*) show_theme_menu ;;
     *Font*) show_font_menu ;;
-    *Background*) theme-bg-next.sh ;; #TODO: check if working
-    *Screensaver*) open_in_editor ~/.config/omarchy/branding/screensaver.txt ;;
+    *Background*) theme-next.sh next-bg ;;
+    *Screensaver*) open_in_editor ~/.local/share/bin/launch-screensaver.sh ;;
     *) show_main_menu ;;
     esac
 }
