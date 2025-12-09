@@ -5,16 +5,12 @@ if ! command -v tte &>/dev/null; then
   exit 1
 fi
 
-# Create screensaver directory and text file if they don't exist
-screensaver_dir="$HOME/.local/share/screensaver"
-screensaver_file="$screensaver_dir/text.txt"
-
-if [[ ! -d "$screensaver_dir" ]]; then
-  mkdir -p "$screensaver_dir"
-fi
+# Use Arch Linux logo for screensaver
+screensaver_file="$HOME/.local/share/arch/logo.txt"
 
 if [[ ! -f "$screensaver_file" ]]; then
-  echo "SCREENSAVER ACTIVE" > "$screensaver_file"
+  echo "Arch logo not found. Run the logo.sh script first."
+  exit 1
 fi
 
 # Exit early if screensave is already running
@@ -28,6 +24,9 @@ fi
 focused=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')
 terminal=$(xdg-terminal-exec --print-id)
 
+# Count monitors to launch screensaver on
+monitor_count=$(hyprctl monitors -j | jq -r '.[] | .name' | wc -l)
+
 for m in $(hyprctl monitors -j | jq -r '.[] | .name'); do
   hyprctl dispatch focusmonitor $m
 
@@ -36,20 +35,20 @@ for m in $(hyprctl monitors -j | jq -r '.[] | .name'); do
     hyprctl dispatch exec -- \
       alacritty --class=org.albibenni.screensaver \
       --config-file ~/.config/alacritty/screensaver.toml \
-      -e tte --input-file ~/.local/share/screensaver/text.txt slide
+      -e tte --input-file "$screensaver_file" --canvas-width 0 --canvas-height 0 --anchor-canvas c --anchor-text c matrix
     ;;
   *ghostty*)
     hyprctl dispatch exec -- \
       ghostty --class=org.albibenni.screensaver \
-      --font-size=18 \
-      -e tte --input-file ~/.local/share/screensaver/text.txt slide
+      --font-size=32 \
+      -e tte --input-file "$screensaver_file" --canvas-width 0 --canvas-height 0 --anchor-canvas c --anchor-text c matrix
     ;;
   *kitty*)
     hyprctl dispatch exec -- \
       kitty --class=org.albibenni.screensaver \
-      --override font_size=18 \
+      --override font_size=32 \
       --override window_padding_width=0 \
-      -e tte --input-file ~/.local/share/screensaver/text.txt slide
+      -e tte --input-file "$screensaver_file" --canvas-width 0 --canvas-height 0 --anchor-canvas c --anchor-text c matrix
     ;;
   *)
     notify-send "✋  Screensaver only runs in Alacritty, Ghostty, or Kitty"
@@ -58,3 +57,20 @@ for m in $(hyprctl monitors -j | jq -r '.[] | .name'); do
 done
 
 hyprctl dispatch focusmonitor $focused
+
+# Monitor screensaver instances - kill all if any one closes
+(
+  sleep 2  # Give time for all instances to start
+  while true; do
+    current_count=$(pgrep -fc org.albibenni.screensaver)
+    if [[ $current_count -gt 0 && $current_count -lt $monitor_count ]]; then
+      # One or more closed, kill the rest
+      pkill -f org.albibenni.screensaver
+      break
+    elif [[ $current_count -eq 0 ]]; then
+      # All closed
+      break
+    fi
+    sleep 0.5
+  done
+) &
