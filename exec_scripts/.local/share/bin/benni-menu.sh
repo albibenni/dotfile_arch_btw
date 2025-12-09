@@ -54,10 +54,6 @@ install_font() {
     present_terminal "echo 'Installing $1...'; sudo pacman -S --noconfirm --needed $2 && sleep 2 && font-set.sh '$3'"
 }
 
-install_terminal() {
-    present_terminal "omarchy-install-terminal $1"
-}
-
 aur_install() {
     present_terminal "echo 'Installing $1 from AUR...'; yay -S --noconfirm $2"
 }
@@ -102,14 +98,13 @@ show_screenshot_menu() {
     esac
 }
 
-#TODO:
 show_screenrecord_menu() {
-    omarchy-cmd-screenrecord --stop-recording && exit 0
+    cmd-screenrecord.sh --stop-recording && exit 0
 
     case $(menu "Screenrecord" "  With desktop audio\n  With desktop + microphone audio\n  With desktop + microphone audio + webcam") in
-    *"With desktop audio") omarchy-cmd-screenrecord --with-desktop-audio ;;
-    *"With desktop + microphone audio") omarchy-cmd-screenrecord --with-desktop-audio --with-microphone-audio ;;
-    *"With desktop + microphone audio + webcam") omarchy-cmd-screenrecord --with-desktop-audio --with-microphone-audio --with-webcam ;;
+    *"With desktop audio") cmd-screenrecord.sh --with-desktop-audio ;;
+    *"With desktop + microphone audio") cmd-screenrecord.sh --with-desktop-audio --with-microphone-audio ;;
+    *"With desktop + microphone audio + webcam") cmd-screenrecord.sh --with-desktop-audio --with-microphone-audio --with-webcam ;;
     *) back_to show_capture_menu ;;
     esac
 }

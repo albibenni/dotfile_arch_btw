@@ -51,3 +51,7 @@ addToPathFront $HOME/.local/share/bin
 # Editor used by CLI
 export SUDO_EDITOR="$EDITOR"
 export BAT_THEME=ansi
+
+# Screenshot and screenrecord directories
+export OMARCHY_SCREENSHOT_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}"
+export OMARCHY_SCREENRECORD_DIR="${XDG_VIDEOS_DIR:-$HOME/Videos}"
