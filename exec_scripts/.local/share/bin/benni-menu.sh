@@ -121,10 +121,10 @@ show_share_menu() {
 #TODO:
 show_toggle_menu() {
     case $(menu "Toggle" "󱄄  Screensaver\n󰔎  Nightlight\n󱫖  Idle Lock\n󰍜  Top Bar") in
-    *Screensaver*) omarchy-toggle-screensaver ;;
-    *Nightlight*) omarchy-toggle-nightlight ;;
-    *Idle*) omarchy-toggle-idle ;;
-    *Bar*) omarchy-toggle-waybar ;;
+    *Screensaver*) toggle-screensaver.sh ;;
+    *Nightlight*) toggle-nightlight.sh ;;
+    *Idle*) toggle-idle.sh ;;
+    *Bar*) toggle-waybar.sh ;;
     *) show_trigger_menu ;;
     esac
 }
