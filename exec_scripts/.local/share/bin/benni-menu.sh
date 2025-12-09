@@ -210,7 +210,6 @@ show_install_font_menu() {
 show_update_menu() {
     case $(menu "Update" " Omarchy\n  Config\n󰸌  Extra Themes\n  Process\n󰇅  Hardware\n  Firmware\n  Password\n  Timezone\n  Time") in
     *Omarchy*) present_terminal omarchy-update ;;
-    *Config*) show_update_config_menu ;;
     *Themes*) present_terminal theme-update.sh ;;
     *Process*) show_update_process_menu ;;
     *Hardware*) show_update_hardware_menu ;;
@@ -233,19 +232,6 @@ show_update_process_menu() {
     esac
 }
 
-show_update_config_menu() {
-    case $(menu "Use default config" "  Hyprland\n  Hypridle\n  Hyprlock\n  Hyprsunset\n󱣴  Plymouth\n  Swayosd\n󰌧  Walker\n󰍜  Waybar") in
-    *Hyprland*) present_terminal refresh-hyprland.sh ;;
-    *Hypridle*) present_terminal refresh-hypridle.sh ;;
-    *Hyprlock*) present_terminal refresh-hyprlock.sh ;;
-    *Hyprsunset*) present_terminal refresh-hyprsunset.sh ;;
-    *Plymouth*) present_terminal refresh-plymouth.sh ;;
-    *Swayosd*) present_terminal refresh-swayosd.sh ;;
-    *Walker*) present_terminal refresh-walker.sh ;;
-    *Waybar*) present_terminal refresh-waybar.sh ;;
-    *) show_update_menu ;;
-    esac
-}
 
 show_update_hardware_menu() {
     case $(menu "Restart" "  Audio\n󱚾  Wi-Fi\n󰂯  Bluetooth") in
