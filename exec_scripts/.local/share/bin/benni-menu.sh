@@ -118,7 +118,6 @@ show_share_menu() {
     esac
 }
 
-#TODO:
 show_toggle_menu() {
     case $(menu "Toggle" "󱄄  Screensaver\n󰔎  Nightlight\n󱫖  Idle Lock\n󰍜  Top Bar") in
     *Screensaver*) toggle-screensaver.sh ;;
@@ -130,11 +129,12 @@ show_toggle_menu() {
 }
 
 show_style_menu() {
-    case $(menu "Style" "󰸌  Theme\n  Font\n  Background\n  Screensaver") in
+    case $(menu "Style" "󰸌  Theme\n  Font\n  Background\n  Screensaver\n  Install") in
     *Theme*) show_theme_menu ;;
     *Font*) show_font_menu ;;
     *Background*) theme-next.sh next-bg ;;
     *Screensaver*) open_in_editor ~/.local/share/bin/launch-screensaver.sh ;;
+    *Install*) show_install_style_menu ;;
     *) show_main_menu ;;
     esac
 }
@@ -180,33 +180,29 @@ show_setup_power_menu() {
     fi
 }
 
-#TODO:
 show_setup_security_menu() {
-    case $(menu "Setup" "󰈷  Fingerprint\n  Fido2") in
-    *Fingerprint*) present_terminal omarchy-setup-fingerprint ;;
-    *Fido2*) present_terminal omarchy-setup-fido2 ;;
+    case $(menu "Setup" "󰈷  Fingerprint") in
+    *Fingerprint*) present_terminal setup-fingerprint.sh ;;
     *) show_setup_menu ;;
     esac
 }
 
-#TODO:
 show_install_style_menu() {
     case $(menu "Install" "󰸌  Theme\n  Background\n  Font") in
-    *Theme*) present_terminal omarchy-theme-install ;;
-    *Background*) nautilus ~/.config/omarchy/current/theme/backgrounds ;;
+    *Theme*) present_terminal theme-install.sh ;;
+    *Background*) nautilus ~/.config/current-theme/backgrounds ;;
     *Font*) show_install_font_menu ;;
     *) show_install_menu ;;
     esac
 }
 
-#TODO:
 show_install_font_menu() {
     case $(menu "Install" "  Meslo LG Mono\n  Fira Code\n  Victor Code\n  Bistream Vera Mono" "--width 350") in
     *Meslo*) install_font "Meslo LG Mono" "ttf-meslo-nerd" "MesloLGL Nerd Font" ;;
     *Fira*) install_font "Fira Code" "ttf-firacode-nerd" "FiraCode Nerd Font" ;;
     *Victor*) install_font "Victor Code" "ttf-victor-mono-nerd" "VictorMono Nerd Font" ;;
     *Bistream*) install_font "Bistream Vera Code" "ttf-bitstream-vera-mono-nerd" "BitstromWera Nerd Font" ;;
-    *) show_install_menu ;;
+    *) show_install_style_menu ;;
     esac
 }
 
@@ -228,11 +224,11 @@ show_update_menu() {
 
 show_update_process_menu() {
     case $(menu "Restart" "  Hypridle\n  Hyprsunset\n  Swayosd\n󰌧  Walker\n󰍜  Waybar") in
-    *Hypridle*) omarchy-restart-hypridle ;;
-    *Hyprsunset*) omarchy-restart-hyprsunset ;;
-    *Swayosd*) omarchy-restart-swayosd ;;
-    *Walker*) omarchy-restart-walker ;;
-    *Waybar*) omarchy-restart-waybar ;;
+    *Hypridle*) restart-hypridle.sh ;;
+    *Hyprsunset*) restart-hyprsunset.sh ;;
+    *Swayosd*) restart-swayosd.sh ;;
+    *Walker*) restart-walker.sh ;;
+    *Waybar*) restart-waybar.sh ;;
     *) show_update_menu ;;
     esac
 }
@@ -260,10 +256,9 @@ show_update_hardware_menu() {
     esac
 }
 
-#TODO:
 show_update_password_menu() {
     case $(menu "Update Password" "  Drive Encryption\n  User") in
-    *Drive*) present_terminal omarchy-drive-set-password ;;
+    *Drive*) present_terminal drive-set-password.sh ;;
     *User*) present_terminal passwd ;;
     *) show_update_menu ;;
     esac
