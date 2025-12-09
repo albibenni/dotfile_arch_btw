@@ -35,20 +35,20 @@ for m in $(hyprctl monitors -j | jq -r '.[] | .name'); do
     hyprctl dispatch exec -- \
       alacritty --class=org.albibenni.screensaver \
       --config-file ~/.config/alacritty/screensaver.toml \
-      -e tte --input-file "$screensaver_file" --canvas-width 0 --canvas-height 0 --anchor-canvas c --anchor-text c matrix
+      -e screensaver-with-exit.sh
     ;;
   *ghostty*)
     hyprctl dispatch exec -- \
       ghostty --class=org.albibenni.screensaver \
       --font-size=32 \
-      -e tte --input-file "$screensaver_file" --canvas-width 0 --canvas-height 0 --anchor-canvas c --anchor-text c matrix
+      -e screensaver-with-exit.sh
     ;;
   *kitty*)
     hyprctl dispatch exec -- \
       kitty --class=org.albibenni.screensaver \
       --override font_size=32 \
       --override window_padding_width=0 \
-      -e tte --input-file "$screensaver_file" --canvas-width 0 --canvas-height 0 --anchor-canvas c --anchor-text c matrix
+      -e screensaver-with-exit.sh
     ;;
   *)
     notify-send "✋  Screensaver only runs in Alacritty, Ghostty, or Kitty"
