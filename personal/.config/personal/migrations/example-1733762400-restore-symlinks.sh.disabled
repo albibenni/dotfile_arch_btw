@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Example Migration: Restore dotfile symlinks after update
+# Rename to .sh to enable
+
+set -euo pipefail
+
+echo "Checking dotfile symlinks..."
+
+# Source the restore-symlinks function
+if [ -f "$HOME/.config/personal/restore-symlinks.sh" ]; then
+    source "$HOME/.config/personal/restore-symlinks.sh"
+
+    # Run restoration in non-interactive mode
+    # You could check for specific broken symlinks here
+    echo "✓ Dotfile symlinks verified"
+else
+    echo "⚠ restore-symlinks.sh not found, skipping"
+fi

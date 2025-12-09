@@ -59,7 +59,7 @@
     "on-click-right": "xdg-terminal-exec",
     "tooltip-format": "Menu\n\nSuper + Alt + Space"
   },
- //TODO: setup atomic updates
+   // Omarchy update (for Omarchy-based systems)
   "custom/update": {
     "format": "",
     "exec": "omarchy-update-available",
@@ -68,6 +68,16 @@
     "signal": 7,
     "interval": 3600
   },
+
+  // Clean Arch update (uncomment for non-Omarchy systems)
+  // "custom/update": {
+  //   "format": "{}",
+  //   "exec": "system-update-available.sh",
+  //   "on-click": "launch-floating-terminal-with-presentation.sh system-update.sh",
+  //   "tooltip-format": "System update available",
+  //   "signal": 7,
+  //   "interval": 3600
+  // },
 
   "cpu": {
     "interval": 5,

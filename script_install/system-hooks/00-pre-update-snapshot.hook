@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Creating pre-update snapshot...
+When = PreTransaction
+Exec = /usr/bin/sudo -u albibenni /home/albibenni/.local/share/bin/system-snapshot-create.sh "Pre-pacman-update"
+Depends = snapper
+Depends = btrfs-progs

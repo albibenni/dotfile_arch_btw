@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Example Migration: Update a config file format
+# Rename to .sh to enable
+
+set -euo pipefail
+
+CONFIG_FILE="$HOME/.config/example/config.conf"
+
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "Config file doesn't exist, skipping"
+    exit 0
+fi
+
+echo "Updating config format..."
+
+# Backup before modifying
+cp "$CONFIG_FILE" "${CONFIG_FILE}.migration-backup-$(date +%s)"
+
+# Make changes
+sed -i 's/old_option=true/new_option=enabled/g' "$CONFIG_FILE"
+
+echo "✓ Config format updated"

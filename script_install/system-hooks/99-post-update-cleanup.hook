@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Running post-update tasks...
+When = PostTransaction
+Exec = /usr/bin/sh -c 'rm -f /home/albibenni/.cache/system-update-available; sudo -u albibenni /home/albibenni/.local/share/bin/benni-hook.sh post-pacman 2>/dev/null || true'
