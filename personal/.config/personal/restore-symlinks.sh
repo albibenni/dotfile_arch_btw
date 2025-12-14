@@ -357,3 +357,8 @@ restore-symlinks() {
         fi
     done
 }
+
+# If script is being executed directly (not sourced), run the function
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    restore-symlinks "$@"
+fi
