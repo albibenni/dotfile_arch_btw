@@ -15,6 +15,10 @@ alias vimvim="nvim ~/dotfiles/nvim/.config/nvim/"
 alias vimux="nvim ~/dotfiles/tmux/.config/tmux/tmux.conf"
 
 #NOTE: git alias
+git_current_branch() {
+    git branch --show-current 2>/dev/null
+}
+
 alias ga="git add -A"
 alias gc="git commit"
 alias gp="git push"
