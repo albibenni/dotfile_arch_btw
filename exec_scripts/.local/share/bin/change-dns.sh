@@ -57,8 +57,9 @@ if [ -n "$OLD_BACKUPS" ]; then
 fi
 
 if [ -z "$DNS_SERVERS" ]; then
-    # Router option - comment out DNS= line
+    # Router option - comment out DNS= and Domains= lines
     sudo sed -i 's/^DNS=/#DNS=/' "$CONFIG_FILE"
+    sudo sed -i 's/^Domains=/#Domains=/' "$CONFIG_FILE"
     echo "✓ Configured to use router's DNS"
 else
     # Public DNS option - uncomment and set DNS= line
@@ -72,7 +73,18 @@ else
         # Line doesn't exist, add it under [Resolve]
         sudo sed -i "/^\[Resolve\]/a DNS=$DNS_SERVERS" "$CONFIG_FILE"
     fi
-    echo "✓ Configured to use $PROVIDER DNS"
+
+    # Set Domains=~. to prioritize global DNS over per-link DNS
+    # This prevents conflicts with DHCP-provided DNS servers
+    if grep -q "^Domains=" "$CONFIG_FILE"; then
+        sudo sed -i "s/^Domains=.*/Domains=~./" "$CONFIG_FILE"
+    elif grep -q "^#Domains=" "$CONFIG_FILE"; then
+        sudo sed -i "s/^#Domains=.*/Domains=~./" "$CONFIG_FILE"
+    else
+        sudo sed -i "/^\[Resolve\]/a Domains=~." "$CONFIG_FILE"
+    fi
+
+    echo "✓ Configured to use $PROVIDER DNS (with priority over DHCP)"
 fi
 
 echo ""
