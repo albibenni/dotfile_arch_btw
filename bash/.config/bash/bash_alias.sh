@@ -23,6 +23,7 @@ alias ga="git add -A"
 alias gc="git commit"
 alias gp="git push"
 alias glool="git --no-pager log --oneline --decorate --graph"
+alias gloof="git --no-pager log -n 6 --decorate --graph"
 alias gloo="git --no-pager log -n 30 --oneline --decorate --graph"
 alias gst="git status -b"
 alias ggpull='git pull origin "$(git_current_branch)"'
