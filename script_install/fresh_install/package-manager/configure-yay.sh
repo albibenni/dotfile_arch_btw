@@ -4,7 +4,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-YAY_CONFIG="$SCRIPT_DIR/../configs/yay-config.json"
+YAY_CONFIG="$SCRIPT_DIR/../../configs/yay-config.json"
 
 echo "Configuring yay..."
 
