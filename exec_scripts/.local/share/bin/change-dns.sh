@@ -89,6 +89,45 @@ fi
 
 echo ""
 
+# Configure systemd-networkd to ignore/accept DHCP DNS based on choice
+NETWORKD_WLAN="/etc/systemd/network/20-wlan.network"
+if [ -f "$NETWORKD_WLAN" ]; then
+    if [ -z "$DNS_SERVERS" ]; then
+        # Router option - remove UseDNS=no to accept DHCP DNS
+        if grep -q "^UseDNS=no" "$NETWORKD_WLAN"; then
+            sudo sed -i '/^UseDNS=no/d' "$NETWORKD_WLAN"
+            echo "✓ Configured networkd to accept DHCP DNS"
+            NETWORKD_CHANGED=1
+        fi
+    else
+        # Public DNS option - add UseDNS=no to ignore DHCP DNS
+        if ! grep -q "^UseDNS=no" "$NETWORKD_WLAN"; then
+            # Add UseDNS=no under [DHCPv4] section
+            if grep -q "^\[DHCPv4\]" "$NETWORKD_WLAN"; then
+                sudo sed -i "/^\[DHCPv4\]/a UseDNS=no" "$NETWORKD_WLAN"
+            else
+                # Create [DHCPv4] section if it doesn't exist
+                echo -e "\n[DHCPv4]\nUseDNS=no" | sudo tee -a "$NETWORKD_WLAN" > /dev/null
+            fi
+            echo "✓ Configured networkd to ignore DHCP DNS"
+            NETWORKD_CHANGED=1
+        fi
+    fi
+fi
+
+# Restart systemd-networkd only if we made changes
+if [ -n "$NETWORKD_CHANGED" ]; then
+    echo "Restarting systemd-networkd..."
+    sudo systemctl restart systemd-networkd
+    if [ $? -ne 0 ]; then
+        echo "✗ Failed to restart systemd-networkd"
+        exit 1
+    fi
+    sleep 1
+fi
+
+echo ""
+
 # Call the restart-dns script
 if command -v restart-dns.sh &>/dev/null; then
     restart-dns.sh
