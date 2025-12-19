@@ -1,2 +1,3 @@
 tmux/.config/tmux/plugins
 fcitx5/.config/fcitx5/conf/cached_layouts
+monitor-vars.conf
