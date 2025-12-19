@@ -93,24 +93,62 @@ echo ""
 NETWORKD_WLAN="/etc/systemd/network/20-wlan.network"
 if [ -f "$NETWORKD_WLAN" ]; then
     if [ -z "$DNS_SERVERS" ]; then
-        # Router option - remove UseDNS=no to accept DHCP DNS
-        if grep -q "^UseDNS=no" "$NETWORKD_WLAN"; then
-            sudo sed -i '/^UseDNS=no/d' "$NETWORKD_WLAN"
-            echo "✓ Configured networkd to accept DHCP DNS"
+        # Router option - set UseDNS=yes to accept DHCP/RA DNS
+        # Handle [DHCPv4] section
+        if grep -q "^\[DHCPv4\]" "$NETWORKD_WLAN"; then
+            if grep -A 20 "^\[DHCPv4\]" "$NETWORKD_WLAN" | grep -q "^UseDNS="; then
+                sudo sed -i '/^\[DHCPv4\]/,/^\[/ s/^UseDNS=.*/UseDNS=yes/' "$NETWORKD_WLAN"
+            else
+                sudo sed -i "/^\[DHCPv4\]/a UseDNS=yes" "$NETWORKD_WLAN"
+            fi
             NETWORKD_CHANGED=1
         fi
-    else
-        # Public DNS option - add UseDNS=no to ignore DHCP DNS
-        if ! grep -q "^UseDNS=no" "$NETWORKD_WLAN"; then
-            # Add UseDNS=no under [DHCPv4] section
-            if grep -q "^\[DHCPv4\]" "$NETWORKD_WLAN"; then
-                sudo sed -i "/^\[DHCPv4\]/a UseDNS=no" "$NETWORKD_WLAN"
+
+        # Handle [IPv6AcceptRA] section
+        if grep -q "^\[IPv6AcceptRA\]" "$NETWORKD_WLAN"; then
+            if grep -A 20 "^\[IPv6AcceptRA\]" "$NETWORKD_WLAN" | grep -q "^UseDNS="; then
+                sudo sed -i '/^\[IPv6AcceptRA\]/,/^\[/ s/^UseDNS=.*/UseDNS=yes/' "$NETWORKD_WLAN"
             else
-                # Create [DHCPv4] section if it doesn't exist
-                echo -e "\n[DHCPv4]\nUseDNS=no" | sudo tee -a "$NETWORKD_WLAN" > /dev/null
+                sudo sed -i "/^\[IPv6AcceptRA\]/a UseDNS=yes" "$NETWORKD_WLAN"
             fi
-            echo "✓ Configured networkd to ignore DHCP DNS"
             NETWORKD_CHANGED=1
+        fi
+
+        if [ -n "$NETWORKD_CHANGED" ]; then
+            echo "✓ Configured networkd to accept DHCP/RA DNS (IPv4 and IPv6)"
+        fi
+    else
+        # Public DNS option - set UseDNS=no to ignore DHCP/RA DNS
+        # Handle [DHCPv4] section
+        if grep -q "^\[DHCPv4\]" "$NETWORKD_WLAN"; then
+            if grep -A 20 "^\[DHCPv4\]" "$NETWORKD_WLAN" | grep -q "^UseDNS="; then
+                sudo sed -i '/^\[DHCPv4\]/,/^\[/ s/^UseDNS=.*/UseDNS=no/' "$NETWORKD_WLAN"
+            else
+                sudo sed -i "/^\[DHCPv4\]/a UseDNS=no" "$NETWORKD_WLAN"
+            fi
+            NETWORKD_CHANGED=1
+        else
+            # Create [DHCPv4] section if it doesn't exist
+            echo -e "\n[DHCPv4]\nUseDNS=no" | sudo tee -a "$NETWORKD_WLAN" >/dev/null
+            NETWORKD_CHANGED=1
+        fi
+
+        # Handle [IPv6AcceptRA] section
+        if grep -q "^\[IPv6AcceptRA\]" "$NETWORKD_WLAN"; then
+            if grep -A 20 "^\[IPv6AcceptRA\]" "$NETWORKD_WLAN" | grep -q "^UseDNS="; then
+                sudo sed -i '/^\[IPv6AcceptRA\]/,/^\[/ s/^UseDNS=.*/UseDNS=no/' "$NETWORKD_WLAN"
+            else
+                sudo sed -i "/^\[IPv6AcceptRA\]/a UseDNS=no" "$NETWORKD_WLAN"
+            fi
+            NETWORKD_CHANGED=1
+        else
+            # Create [IPv6AcceptRA] section if it doesn't exist
+            echo -e "\n[IPv6AcceptRA]\nUseDNS=no" | sudo tee -a "$NETWORKD_WLAN" >/dev/null
+            NETWORKD_CHANGED=1
+        fi
+
+        if [ -n "$NETWORKD_CHANGED" ]; then
+            echo "✓ Configured networkd to ignore DHCP/RA DNS (IPv4 and IPv6)"
         fi
     fi
 fi
@@ -146,6 +184,9 @@ else
         exit 1
     fi
 fi
+
+global_dns=$(resolvectl status | awk '/^Global/,/^$/ {if (/^$/) exit; print}')
+echo "$global_dns"
 
 echo ""
 echo "You can test DNS resolution with: resolvectl query google.com"
