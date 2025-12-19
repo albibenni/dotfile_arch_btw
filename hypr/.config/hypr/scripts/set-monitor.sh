@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Detect which monitors are connected
 if hyprctl monitors | grep -q "Japannext"; then
     PRIMARY="\$monitor_japannext"
 elif hyprctl monitors | grep -q "Xiaomi"; then
