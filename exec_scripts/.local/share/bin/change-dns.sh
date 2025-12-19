@@ -88,12 +88,10 @@ else
 fi
 
 echo ""
-# Get the directory where this script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Call the restart-dns script
-if [ -f "$SCRIPT_DIR/restart-dns.sh" ]; then
-    "$SCRIPT_DIR/restart-dns.sh"
+if command -v restart-dns.sh &>/dev/null; then
+    restart-dns.sh
     if [ $? -ne 0 ]; then
         echo "Restoring backup..."
         sudo cp "$BACKUP_FILE" "$CONFIG_FILE"
