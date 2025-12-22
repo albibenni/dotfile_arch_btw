@@ -31,8 +31,8 @@ export DOTFILES=$HOME/.dotfiles
 
 ## FZF customization
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
-# Make Tab trigger fzf completion directly (without needing ** prefix)
-export FZF_COMPLETION_TRIGGER=''
+# Make Tab trigger fzf completion  needing ** prefix - tab normal completion
+export FZF_COMPLETION_TRIGGER='**'
 
 # lua5.1
 export PATH=~/.local/bin/:$PATH
