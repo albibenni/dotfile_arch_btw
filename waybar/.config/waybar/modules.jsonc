@@ -32,22 +32,32 @@
    "custom/brightness": {
     "format": "  - {text}%",
     "signal": 8,
-    "exec": "~/.config/waybar/brightness-control.sh get",
-    "on-scroll-up": "~/.config/waybar/brightness-control.sh up",
-    "on-scroll-down": "~/.config/waybar/brightness-control.sh down",
-    "on-click": "~/.config/waybar/brightness-control.sh left_click",
-    "on-click-right":  "~/.config/waybar/brightness-control.sh right_click",
+    "exec": "brightness-control.sh get",
+    "on-scroll-up": "brightness-control.sh up",
+    "on-scroll-down": "brightness-control.sh down",
+    "on-click": "brightness-control.sh left_click",
+    "on-click-right":  "brightness-control.sh right_click",
     "tooltip": false
   },
    "custom/brightness2": {
     "format": " 2 - {text}%",
     "signal": 8,
-    "exec": "~/.config/waybar/brightness-control-m2.sh get",
-    "on-scroll-up": "~/.config/waybar/brightness-control-m2.sh up",
-    "on-scroll-down": "~/.config/waybar/brightness-control-m2.sh down",
-    "on-click": "~/.config/waybar/brightness-control-m2.sh left_click",
-    "on-click-right":  "~/.config/waybar/brightness-control-m2.sh right_click",
+    "exec": "brightness-control-m2.sh get",
+    "on-scroll-up": "brightness-control-m2.sh up",
+    "on-scroll-down": "brightness-control-m2.sh down",
+    "on-click": "brightness-control-m2.sh left_click",
+    "on-click-right":  "brightness-control-m2.sh right_click",
     "tooltip": false
+  },
+  "custom/nightlight": {
+    "format": "󰛨  - {text}",
+    "exec": "nightlight-control.sh get",
+    "on-click": "nightlight-control.sh toggle",
+    "on-scroll-up": "nightlight-control.sh up",
+    "on-scroll-down": "nightlight-control.sh down",
+    "signal": 9,
+    "tooltip-format": "Scroll to adjust temperature\nClick to toggle (Super+Ctrl+N)"
+
   },
   "custom/separator": {
     "format": " | ",

@@ -42,6 +42,7 @@
 #custom-update,
 #custom-brightness,
 #custom-brightness2,
+#custom-nightlight,
 #bluetooth,
 #network,
 #clock,
@@ -59,6 +60,7 @@
 #custom-brightness,
 #custom-brightness2,
 #bluetooth,
+#custom-nightlight,
 #network,
 #tray {
   background-color: @background;

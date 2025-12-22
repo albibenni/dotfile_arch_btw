@@ -18,6 +18,7 @@
         "network",
         "custom/brightness",
         "custom/brightness2",
+        "custom/nightlight",
         "pulseaudio",
         "cpu",
         "battery"
