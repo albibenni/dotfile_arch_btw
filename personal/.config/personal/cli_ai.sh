@@ -8,3 +8,7 @@ cclaude(){
     uclaude
     claude
 }
+
+gem(){
+    gemini
+}
