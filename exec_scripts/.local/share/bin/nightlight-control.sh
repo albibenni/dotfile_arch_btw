@@ -11,8 +11,25 @@ STATE_FILE="/tmp/waybar_nightlight.tmp"
 ensure_hyprsunset() {
     if ! pgrep -x hyprsunset > /dev/null; then
         setsid uwsm-app -- hyprsunset &
-        sleep 0.5
     fi
+
+    # Wait for socket to be created (even if already running, to be safe)
+    local timeout=20
+    local count=0
+    local runtime_dir="/run/user/$(id -u)/hypr"
+    
+    # If SIGNATURE is missing, try to find the latest directory
+    local sig=$HYPRLAND_INSTANCE_SIGNATURE
+    if [ -z "$sig" ]; then
+        sig=$(ls -t "$runtime_dir" 2>/dev/null | head -n 1)
+    fi
+    
+    local socket_path="$runtime_dir/$sig/.hyprsunset.sock"
+    
+    while [ ! -S "$socket_path" ] && [ $count -lt $timeout ]; do
+        sleep 0.1
+        ((count++))
+    done
 }
 
 # Set temperature and update state file
