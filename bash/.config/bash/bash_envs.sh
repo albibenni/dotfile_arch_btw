@@ -26,7 +26,6 @@ export CXX="clang++"
 export PYTHONBREAKPOINT="pudb.set_trace"
 export GOPATH=$HOME/go
 export GIT_EDITOR=$VIM
-export N_PREFIX="$HOME/.local/n"
 export DOTFILES=$HOME/.dotfiles
 
 ## FZF customization
@@ -37,8 +36,6 @@ export FZF_COMPLETION_TRIGGER='**'
 # lua5.1
 export PATH=~/.local/bin/:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
-
-export PATH="$N_PREFIX/bin:$PATH"
 
 addToPathFront $HOME/.config/tmux/scripts
 addToPathFront $HOME/.config/scripts

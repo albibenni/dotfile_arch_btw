@@ -49,6 +49,10 @@ alias kgpw="kubectl get pods -o wide"
 autoload -Uz compinit
 compinit
 
+if command -v fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd)"
+fi
+
  # Load kubectl completion for zsh (only if kubectl is installed)
 if command -v kubectl &> /dev/null; then
   source <(kubectl completion zsh)
