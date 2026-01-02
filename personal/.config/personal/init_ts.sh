@@ -21,6 +21,23 @@ EOF
     esac
 }
 
+# Select project scope
+_select_scope() {
+    cat >&2 <<EOF
+Select project scope:
+1) backend (Node.js)
+2) frontend (Browser)
+EOF
+    local choice
+    read -r -p "Enter choice [1-2]: " choice </dev/tty
+
+    case $choice in
+    1) echo "backend" ;;
+    2) echo "frontend" ;;
+    *) echo "backend" ;; # default
+    esac
+}
+
 _initialize_git() {
     if [[ -d .git ]]; then
         echo "Git repository already initialized"
@@ -106,21 +123,28 @@ _init_packageManager() {
     fi
 }
 
-_init_typescript() {
+_init_packages() {
     local pm="$1"
-    local install_cmd
+    local scope="$2"
+    local packages=("typescript")
 
-    echo "Installing TypeScript..."
+    if [[ "$scope" == "backend" ]]; then
+        packages+=("@types/node")
+        echo "Adding @types/node for backend..."
+    fi
+
+    echo "Installing ${packages[*]}..."
+    local install_cmd
     case $pm in
-    npm) install_cmd=(npm install -D typescript) ;;
-    yarn) install_cmd=(yarn add -D typescript) ;;
-    pnpm) install_cmd=(pnpm i -D typescript) ;;
-    bun) install_cmd=(bun add -D typescript) ;;
+    npm) install_cmd=(npm install -D "${packages[@]}") ;;
+    yarn) install_cmd=(yarn add -D "${packages[@]}") ;;
+    pnpm) install_cmd=(pnpm i -D "${packages[@]}") ;;
+    bun) install_cmd=(bun add -D "${packages[@]}") ;;
     *) return 1 ;;
     esac
 
     if ! "${install_cmd[@]}"; then
-        echo "Error: TypeScript installation failed" >&2
+        echo "Error: Installation failed" >&2
         return 1
     fi
 
@@ -139,10 +163,15 @@ tsInit() {
     fi
     echo "Using package manager: $pm"
 
+    # Get scope selection
+    local scope
+    scope=$(_select_scope)
+    echo "Selected scope: $scope"
+
     _init_packageManager "$pm" || return 1
-    _init_typescript "$pm" || return 1
+    _init_packages "$pm" "$scope" || return 1
     _initialize_git
 
-    echo "TypeScript project initialized successfully with $pm!"
+    echo "TypeScript project initialized successfully with $pm for $scope!"
 }
 
