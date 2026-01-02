@@ -1,174 +1,148 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
 # Select package manager
 _select_package_manager() {
-    echo "Select package manager:" >&2
-    echo "1) npm" >&2
-    echo "2) yarn" >&2
-    echo "3) pnpm" >&2
-    echo "4) bun" >&2
-    echo -n "Enter choice [1-4]: " >&2
-    read choice </dev/tty
+    cat >&2 <<EOF
+Select package manager:
+1) npm
+2) yarn
+3) pnpm
+4) bun
+EOF
+    local choice
+    read -r -p "Enter choice [1-4]: " choice </dev/tty
 
     case $choice in
-        1) echo "npm" ;;
-        2) echo "yarn" ;;
-        3) echo "pnpm" ;;
-        4) echo "bun" ;;
-        *) echo "pnpm" ;; # default
+    1) echo "npm" ;;
+    2) echo "yarn" ;;
+    3) echo "pnpm" ;;
+    4) echo "bun" ;;
+    *) echo "pnpm" ;; # default
     esac
 }
 
 _initialize_git() {
-    if [ -d .git ]; then
+    if [[ -d .git ]]; then
         echo "Git repository already initialized"
-    else
-        echo -n "Initialize Git? [y/n]: "
-        read is_git </dev/tty
-        if [ "$is_git" = "y" ] || [ "$is_git" = "Y" ]; then
-            echo "Initializing git repository..."
-            git init
-            printf '%s\n' \
-                '# Dependencies' \
-                'node_modules/' \
-                '.pnp' \
-                '.pnp.js' \
-                '' \
-                '# Build outputs' \
-                'dist/' \
-                'build/' \
-                'out/' \
-                '*.tsbuildinfo' \
-                '' \
-                '# Environment variables' \
-                '.env' \
-                '.env.local' \
-                '.env.*.local' \
-                '' \
-                '# Logs' \
-                'logs/' \
-                '*.log' \
-                'npm-debug.log*' \
-                'yarn-debug.log*' \
-                'yarn-error.log*' \
-                'pnpm-debug.log*' \
-                '' \
-                '# Editor directories' \
-                '.vscode/' \
-                '.idea/' \
-                '*.swp' \
-                '*.swo' \
-                '*~' \
-                '' \
-                '# OS files' \
-                '.DS_Store' \
-                'Thumbs.db' \
-                '' \
-                '# Testing' \
-                'coverage/' \
-                '.nyc_output/' \
-                '' \
-                '# Misc' \
-                '*.cache' \
-                '.turbo/' \
-                > .gitignore
-        else
-            echo "Skipping git initialization"
-        fi
+        return
     fi
+
+    local is_git
+    read -r -p "Initialize Git? [y/n]: " is_git </dev/tty
+
+    if [[ ! "${is_git,,}" =~ ^y ]]; then
+        echo "Skipping git initialization"
+        return
+    fi
+
+    echo "Initializing git repository..."
+    git init
+
+    cat >.gitignore <<'EOF'
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.cache
+.turbo/
+EOF
 }
 
-_init_packageManager(){
+_init_packageManager() {
     local pm="$1"
-
+    local init_cmd
 
     echo "Initializing TypeScript project..."
     case $pm in
-        npm)
-            if ! init=$(npm init -y 2>&1); then
-                echo "Error: npm init failed"
-                echo "$init"
-                return 1
-            fi
-            ;;
-        yarn)
-            if ! init=$(yarn init -y 2>&1); then
-                echo "Error: yarn init failed"
-                echo "$init"
-                return 1
-            fi
-            ;;
-        pnpm)
-            if ! init=$(pnpm init 2>&1); then
-                echo "Error: pnpm init failed"
-                echo "$init"
-                return 1
-            fi
-            ;;
-        bun)
-            if ! init=$(bun init -y 2>&1); then
-                echo "Error: bun init failed"
-                echo "$init"
-                return 1
-            fi
-            ;;
+    npm) init_cmd=(npm init -y) ;;
+    yarn) init_cmd=(yarn init -y) ;;
+    pnpm) init_cmd=(pnpm init) ;;
+    bun) init_cmd=(bun init -y) ;;
+    *)
+        echo "Error: Unknown package manager $pm" >&2
+        return 1
+        ;;
     esac
-    echo "$init"
+
+    if ! "${init_cmd[@]}"; then
+        echo "Error: ${init_cmd[*]} failed" >&2
+        return 1
+    fi
 }
 
-_init_typescript(){
+_init_typescript() {
     local pm="$1"
+    local install_cmd
 
     echo "Installing TypeScript..."
     case $pm in
-        npm)
-            if ! typescript=$(npm install -D typescript 2>&1); then
-                echo "Error: TypeScript installation failed"
-                return 1
-            fi
-            ;;
-        yarn)
-            if ! typescript=$(yarn add -D typescript 2>&1); then
-                echo "Error: TypeScript installation failed"
-                return 1
-            fi
-            ;;
-        pnpm)
-            if ! typescript=$(pnpm i -D typescript 2>&1); then
-                echo "Error: TypeScript installation failed"
-                return 1
-            fi
-            ;;
-        bun)
-            if ! typescript=$(bun add -D typescript 2>&1); then
-                echo "Error: TypeScript installation failed"
-                return 1
-            fi
-            ;;
+    npm) install_cmd=(npm install -D typescript) ;;
+    yarn) install_cmd=(yarn add -D typescript) ;;
+    pnpm) install_cmd=(pnpm i -D typescript) ;;
+    bun) install_cmd=(bun add -D typescript) ;;
+    *) return 1 ;;
     esac
-    echo "$typescript"
 
-    echo "Creating tsconfig.json..."
-    if ! tsc_init=$(./node_modules/.bin/tsc --init 2>&1); then
-        echo "Error: tsc --init failed"
+    if ! "${install_cmd[@]}"; then
+        echo "Error: TypeScript installation failed" >&2
         return 1
     fi
-    echo "$tsc_init"
+
+    echo "Creating tsconfig.json..."
+    if ! ./node_modules/.bin/tsc --init; then
+        echo "Error: tsc --init failed" >&2
+        return 1
+    fi
 }
 
 tsInit() {
     # Get package manager selection
     local pm="$1"
-    if [ -z "$pm" ]; then
+    if [[ -z "$pm" ]]; then
         pm=$(_select_package_manager)
     fi
     echo "Using package manager: $pm"
 
-    _init_packageManager $pm
-
-    _init_typescript $pm
-
+    _init_packageManager "$pm" || return 1
+    _init_typescript "$pm" || return 1
     _initialize_git
 
     echo "TypeScript project initialized successfully with $pm!"
 }
+
