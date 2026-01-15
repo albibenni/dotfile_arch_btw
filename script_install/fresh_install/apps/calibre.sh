@@ -1,6 +1,6 @@
 #! /bin/bash
 
-yay -S calibre
+yay -S --needed calibre
 
 # preferences (top bar)
 # get new plugin

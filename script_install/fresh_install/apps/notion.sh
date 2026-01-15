@@ -8,4 +8,4 @@ fi
 
 
 # Install Notion using the AUR package
-yay -S notion-app-electron
+yay -S --needed notion-app-electron

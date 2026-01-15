@@ -13,4 +13,4 @@
 
 
 ## NOTE: other option onedriver
-yay -S onedriver
+yay -S --needed onedriver

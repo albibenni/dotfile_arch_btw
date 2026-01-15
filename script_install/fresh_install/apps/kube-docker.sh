@@ -1,6 +1,6 @@
 #! /bin/bash
 
 sudo pacman -Syy
-yay -S rancher-desktop
+yay -S --needed rancher-desktop
 
-sudo pacman -S helm k9s
+sudo pacman -S --needed helm k9s

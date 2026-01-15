@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-yay -Sy brave-bin
+yay -Sy --needed brave-bin

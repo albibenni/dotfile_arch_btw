@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo pacman -S qbittorrent-nox
+sudo pacman -S --needed qbittorrent-nox

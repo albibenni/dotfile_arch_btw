@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yay -S visual-studio-code-bin
+yay -S --needed visual-studio-code-bin
