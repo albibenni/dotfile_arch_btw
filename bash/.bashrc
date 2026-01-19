@@ -88,7 +88,6 @@ fi
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 echo "Hello $USER"
-fastfetch
 
 # Disable terminal flow control (Ctrl+s/Ctrl+q) so we can use Ctrl+s
 stty -ixon
@@ -96,3 +95,4 @@ stty -ixon
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/home/albibenni/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+

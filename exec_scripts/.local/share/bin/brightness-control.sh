@@ -3,7 +3,7 @@
 # --- CONFIGURATION ---
 DISPLAY_NUM=1
 STEP=5
-STATE_FILE="/tmp/waybar_brightness.tmp"
+STATE_FILE="/tmp/waybar_brightness_d1.tmp"
 # ---------------------
 
 # Function to send the actual DDC/CI command in the background

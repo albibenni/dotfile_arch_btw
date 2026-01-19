@@ -7,6 +7,14 @@ export PATH="/home/albibenni/.rd/bin:$PATH"
 export PATH="$PATH:/home/albibenni/.lmstudio/bin"
 # End of LM Studio CLI section
 
+# pnpm
+export PNPM_HOME="/home/albibenni/.local/share/pnpm"
+case ":$PATH:" in
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 export XDG_CONFIG_HOME=$HOME/.config
 export TERMINAL=ghostty
 export VISUAL='nvim'

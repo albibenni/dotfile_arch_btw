@@ -9,8 +9,8 @@ STATE_FILES=(
 )
 
 SCRIPTS=(
-    "$HOME/.config/waybar/brightness-control.sh"
-    "$HOME/.config/waybar/brightness-control-m2.sh"
+    "$HOME/.local/share/bin/brightness-control.sh"
+    "$HOME/.local/share/bin/brightness-control-m2.sh"
 )
 
 echo "Fixing Waybar brightness state files..."
