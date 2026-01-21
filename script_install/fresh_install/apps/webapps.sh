@@ -16,20 +16,20 @@ fi
 "$INSTALLER" "Basecamp" "https://launchpad.37signals.com" "Basecamp.png"
 
 # WhatsApp
-"$INSTALLER" "WhatsApp" "https://web.whatsapp.com/" "WhatsApp.png" "launch-or-focus-webapp.sh 'WhatsApp' 'https://web.whatsapp.com/'"
+"$INSTALLER" "WhatsApp" "https://web.whatsapp.com/" "WhatsApp.png"
 
 # Telegram
-"$INSTALLER" "Telegram" "https://web.telegram.org/k/" "https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/telegram.png" "launch-or-focus-webapp.sh 'Telegram' 'https://web.telegram.org/k/'"
+"$INSTALLER" "Telegram" "https://web.telegram.org/k/" "https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/telegram.png"
 
 # Discord
-"$INSTALLER" "Discord" "https://discord.com/channels/@me" "Discord.png" "launch-or-focus-webapp.sh 'Discord' 'https://discord.com/channels/@me'"
+"$INSTALLER" "Discord" "https://discord.com/channels/@me" "Discord.png"
 
 # Zoom
 "$INSTALLER" "Zoom" "https://app.zoom.us/wc/home" "Zoom.png" "launch-or-focus-webapp.sh 'Zoom' 'https://app.zoom.us/wc/home'" "x-scheme-handler/zoommtg;x-scheme-handler/zoomus"
 
 # --- Google Services ---
 
-"$INSTALLER" "Google Gemini" "https://gemini.google.com/" "Google Gemini.png"
+"$INSTALLER" "Gemini" "https://gemini.google.com/" "https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/google-gemini.png"
 "$INSTALLER" "Google Photos" "https://photos.google.com/" "Google Photos.png"
 "$INSTALLER" "Google Contacts" "https://contacts.google.com/" "Google Contacts.png"
 "$INSTALLER" "Google Messages" "https://messages.google.com/web/conversations" "Google Messages.png" "launch-or-focus-webapp.sh 'Messages' 'https://messages.google.com/web/conversations'"
