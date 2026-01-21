@@ -9,6 +9,12 @@ STATE_FILE="/tmp/waybar_nightlight.tmp"
 
 # Ensure hyprsunset is running
 ensure_hyprsunset() {
+    # First, try to communicate with hyprsunset directly.
+    # If it responds with a number, it's running and we don't need to restart it.
+    if hyprctl hyprsunset temperature 2>/dev/null | grep -qE '^[0-9]+$'; then
+        return
+    fi
+
     if ! pgrep -x hyprsunset > /dev/null; then
         setsid uwsm-app -- hyprsunset &
     fi
