@@ -11,6 +11,7 @@ fi
 # Usage: install-webapp.sh "Name" "URL" "Icon_Name_or_URL" [Custom_Exec] [Mime_Types]
 
 # --- Productivity & Communication ---
+"$INSTALLER" "GrepApp" "https://grep.app/" "https://grep.app/apple-icon.png"
 
 # Basecamp
 "$INSTALLER" "Basecamp" "https://launchpad.37signals.com" "Basecamp.png"
