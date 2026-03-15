@@ -10,4 +10,4 @@ export PATH=$HOME/.local/share/bin:$PATH  # Add this line
 source ~/.config/uwsm/default
 
 # Activate mise if present on the system
-omarchy-cmd-present mise && eval "$(mise activate bash)"
+omarchy-cmd-present mise && eval "$(mise activate bash --shims)"
