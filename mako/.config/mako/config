@@ -2,12 +2,8 @@
 
 # Use the base configuration
 include=/home/albibenni/.config/mako/mako.ini
-
-# Theme Colors (Catppuccin Macchiato)
-background-color=#24273a
-text-color=#cad3f5
-border-color=#a6da95
-progress-color=#363a4f
+# Load theme-specific colors from the active theme
+include=/home/albibenni/.config/current-theme/mako.ini
 
 [urgency=high]
 border-color=#f5a97f

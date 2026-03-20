@@ -1,6 +1,6 @@
-@import "../../../omarchy/current/theme/walker.css";
+/* @import "../../../omarchy/current/theme/walker.css"; */
 /* For standalone (fresh Arch install): uncomment the line below and comment the line above */
-/* @import "../../../current-theme/walker.css"; */
+@import "../../../current-theme/walker.css";
 
 * {
   all: unset;
