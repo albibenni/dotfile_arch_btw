@@ -1,5 +1,4 @@
 /* @import "../omarchy/current/theme/waybar.css"; */
-/* For standalone (fresh Arch install): uncomment the line below and comment the line above */
 @import "../current-theme/waybar.css";
 
 * {
@@ -38,7 +37,6 @@
 #battery,
 #pulseaudio,
 #custom-my-menu,
-
 #custom-update,
 #custom-brightness,
 #custom-brightness2,
@@ -48,7 +46,7 @@
 #clock,
 #tray {
   min-width: 12px;
-  margin: 0 4px;
+  margin: 0 3px;
   padding: 4px 12px;
   color: @foreground;
 }
@@ -56,7 +54,6 @@
 #battery,
 #pulseaudio,
 #custom-my-menu,
-
 #custom-brightness,
 #custom-brightness2,
 #bluetooth,
@@ -65,11 +62,13 @@
 #tray {
   background-color: @background;
   border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  /* border: 2px solid rgba(23, 147, 209, 0.6); */
-  /* border: 3px solid rgba(23, 147, 209, 0.8); */
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  /* border: 1.5px solid rgba(23, 147, 209, 0.6); */
 }
 
+#pulseaudio {
+  padding-left: 8px;
+}
 #tray {
   margin-right: 8px;
 }
@@ -103,7 +102,6 @@ tooltip {
 .hidden {
   opacity: 0;
 }
-
 
 #custom-screenrecording-indicator,
 #custom-idle-indicator,
