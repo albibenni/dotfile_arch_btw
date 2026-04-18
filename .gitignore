@@ -5,3 +5,5 @@ monitor-vars.conf
 shaders
 .gemini
 bash_envs_secrets.sh
+opencode.json
+opencode.jsonc
