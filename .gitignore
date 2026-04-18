@@ -4,3 +4,4 @@ monitor-vars.conf
 .devtools
 shaders
 .gemini
+bash_envs_secrets.sh

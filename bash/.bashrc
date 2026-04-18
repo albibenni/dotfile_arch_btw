@@ -37,6 +37,10 @@ done
 if [ -f ~/.config/bash/bash_envs.sh ]; then
     source ~/.config/bash/bash_envs.sh
 fi
+# NOTE: ENVS SECRETS
+if [ -f ~/.config/bash/bash_envs_secrets.sh ]; then
+    source ~/.config/bash/bash_envs_secrets.sh
+fi
 
 # NOTE: bind from set
 [[ $- == *i* ]] && bind -f ~/.config/bash/inputrc
