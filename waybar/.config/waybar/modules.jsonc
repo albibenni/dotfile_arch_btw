@@ -112,7 +112,7 @@
    // Omarchy update (for Omarchy-based systems)
   "cpu": {
     "interval": 5,
-    "format": "󰍛",
+    "format": "<span size='x-large'>󰍛</span>",
     "on-click": "omarchy-launch-or-focus-tui btop",
     "on-click-right": "ghostty"
   },
@@ -125,7 +125,7 @@
     "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
   },
   "network": {
-    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format-icons": ["<span size='x-large'>󰤯</span>", "<span size='x-large'>󰤟</span>", "<span size='x-large'>󰤢</span>", "<span size='x-large'>󰤥</span>", "<span size='x-large'>󰤨</span>"],
     "format": "{icon}",
     "format-wifi": "{icon}",
     "format-ethernet": "󰀂",
@@ -140,13 +140,13 @@
   "battery": {
     "format": "{capacity}% {icon}",
     "format-discharging": "{icon}",
-    "format-charging": "{icon}",
+    "format-charging": "<span size='x-large'>{icon}</span>",
     "format-plugged": "",
     "format-icons": {
       "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
       "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
-    "format-full": "󰂅",
+    "format-full": "<span size='x-large'>󰂅</span>",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
     "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
     "interval": 5,
@@ -157,10 +157,10 @@
     }
   },
   "bluetooth": {
-    "format": "",
-    "format-off": "󰂲",
-    "format-disabled": "󰂲",
-    "format-connected": "󰂱",
+    "format": "<span size='x-large'></span>",
+    "format-off": "<span size='x-large'>󰂲</span>",
+    "format-disabled": "<span size='x-large'>󰂲</span>",
+    "format-connected": "<span size='x-large'>󰂱</span>",
     "format-no-controller": "",
     "tooltip-format": "Devices connected: {num_connections}",
     "on-click": "omarchy-launch-bluetooth"
@@ -171,11 +171,11 @@
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
-    "format-muted": "",
+    "format-muted": "<span size='x-large'></span>",
     "format-icons": {
-      "headphone": "",
-      "headset": "",
-      "default": ["", "", ""]
+      "headphone": "<span size='x-large'></span>",
+      "headset": "<span size='x-large'></span>",
+      "default": ["<span size='x-large'></span>", "<span size='x-large'></span>", "<span size='x-large'></span>"]
     }
   },
   "group/tray-expander": {
