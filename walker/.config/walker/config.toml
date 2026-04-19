@@ -1,7 +1,7 @@
 force_keyboard_focus = true                                                 # forces keyboard forcus to stay in Walker
 selection_wrap = true                                                       # wrap list if at bottom or top
-theme = "my-theme"
-additional_theme_location = "~/.config/walker/themes/"
+theme = "omarchy-default"                                                   # theme to use
+additional_theme_location = "~/.local/share/omarchy/default/walker/themes/"
 hide_action_hints = true                                                    # globally hide the action hints
 
 [placeholders]
@@ -17,7 +17,6 @@ symbols = 1 # providers to be queried by default
 max_results = 256 # 256 should be enough for everyone
 default = [
   "desktopapplications",
-  "menus",
   "websearch",
 ]
 
@@ -47,4 +46,4 @@ provider = "clipboard"
 
 [[emergencies]]
 text = "Restart Walker"
-command = "restart-walker.sh"
+command = "omarchy-restart-walker"
