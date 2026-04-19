@@ -46,13 +46,13 @@
    "custom/brightness": {
     "return-type": "json",
     "format": "{icon}",
-    "format-icons": [
-        "<span size='small' alpha='25%' foreground='#f9e2af'></span>",
-        "<span size='medium' alpha='50%' foreground='#f9e2af'></span>",
-        "<span size='large' alpha='75%' foreground='#f9e2af'></span>",
-        "<span size='x-large' alpha='100%' foreground='#f9e2af'></span>",
-        "<span size='xx-large' alpha='100%' foreground='#f9e2af'></span>"
-    ],
+    "format-icons": {
+          "0": "<span size='x-large' foreground='#fab387'> ¹</span>",
+          "1": "<span size='x-large' foreground='#f9e2af'> ¹</span>",
+          "2": "<span size='x-large' foreground='#fff9e0'> ¹</span>",
+          "3": "<span size='x-large' foreground='#f5e0dc'> ¹</span>",
+          "4": "<span size='x-large' foreground='#cdd6f4'> ¹</span>"
+    },
     "signal": 8,
     "exec": "brightness-control.sh get",
     "on-scroll-up": "brightness-control.sh up",
@@ -64,18 +64,18 @@
    },
    "custom/brightness2": {
     "return-type": "json",
-    "format": "{icon}  2",
+    "format": "{icon}",
     "format-icons": {
         // "<span size='small' alpha='25%' foreground='#f9e2af'></span>",
         // "<span size='medium' alpha='50%' foreground='#f9e2af'></span>",
         // "<span size='large' alpha='75%' foreground='#f9e2af'></span>",
         // "<span size='x-large' alpha='100%' foreground='#f9e2af'></span>",
         // "<span size='xx-large' alpha='100%' foreground='#f9e2af'></span>"
-          "0": "<span size='x-large' foreground='#fab387'></span>",
-          "1": "<span size='x-large' foreground='#f9e2af'></span>",
-          "2": "<span size='x-large' foreground='#fff9e0'></span>",
-          "3": "<span size='x-large' foreground='#f5e0dc'></span>",
-          "4": "<span size='x-large' foreground='#cdd6f4'></span>"
+          "0": "<span size='x-large' foreground='#fab387'> ²</span>",
+          "1": "<span size='x-large' foreground='#f9e2af'> ²</span>",
+          "2": "<span size='x-large' foreground='#fff9e0'> ²</span>",
+          "3": "<span size='x-large' foreground='#f5e0dc'> ²</span>",
+          "4": "<span size='x-large' foreground='#cdd6f4'> ²</span>"
     },
     "signal": 8,
     "exec": "brightness-control-m2.sh get",
