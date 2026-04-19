@@ -8,7 +8,7 @@
    "include": [
        "~/.config/waybar/modules.jsonc"
    ],
-  "modules-left": ["custom/omarchy", "hyprland/workspaces"],
+  "modules-left": [ "custom/omarchy", "hyprland/workspaces" ],
   "modules-center": ["clock", "custom/update", "custom/voxtype", "custom/screenrecording-indicator", "custom/idle-indicator", "custom/notification-silencing-indicator"],
   "modules-right": [
     "group/tray-expander",
@@ -20,8 +20,5 @@
     "pulseaudio",
     "cpu",
     "battery",
-    "pulseaudio",
-    "cpu",
-    "battery"
   ],
 }

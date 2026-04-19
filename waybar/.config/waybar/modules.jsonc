@@ -177,7 +177,10 @@
       "transition-duration": 600,
       "children-class": "tray-group-item"
     },
-    "modules": ["custom/expand-icon", "tray"]
+    "modules": [
+    "custom/expand-icon",
+    "tray",
+    ]
   },
   "custom/expand-icon": {
     "format": "",
