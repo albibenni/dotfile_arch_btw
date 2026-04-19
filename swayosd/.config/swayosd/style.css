@@ -1,4 +1,4 @@
-@import "../current-theme/swayosd.css";
+@import "../omarchy/current/theme/swayosd.css";
 
 window {
   border-radius: 0;
@@ -26,4 +26,3 @@ progressbar {
 progress {
   background-color: @progress;
 }
-
