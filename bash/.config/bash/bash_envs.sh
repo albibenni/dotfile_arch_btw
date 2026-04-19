@@ -60,3 +60,7 @@ export BAT_THEME=ansi
 # Screenshot and screenrecord directories
 export OMARCHY_SCREENSHOT_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}"
 export OMARCHY_SCREENRECORD_DIR="${XDG_VIDEOS_DIR:-$HOME/Videos}"
+
+# Duplicated from .config/uwsm/env so SSH works too
+export OMARCHY_PATH=$HOME/.local/share/omarchy
+export PATH=$OMARCHY_PATH/bin:$PATH:$HOME/.local/bin
