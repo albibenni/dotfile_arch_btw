@@ -44,35 +44,66 @@
     "interval": 21600
   },
    "custom/brightness": {
-    "format": "  {text}%",
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": [
+        "<span size='small' alpha='25%' foreground='#f9e2af'></span>",
+        "<span size='medium' alpha='50%' foreground='#f9e2af'></span>",
+        "<span size='large' alpha='75%' foreground='#f9e2af'></span>",
+        "<span size='x-large' alpha='100%' foreground='#f9e2af'></span>",
+        "<span size='xx-large' alpha='100%' foreground='#f9e2af'></span>"
+    ],
     "signal": 8,
     "exec": "brightness-control.sh get",
     "on-scroll-up": "brightness-control.sh up",
     "on-scroll-down": "brightness-control.sh down",
     "on-click": "brightness-control.sh left_click",
     "on-click-right":  "brightness-control.sh right_click",
-    "tooltip": false
-  },
+    "tooltip": true,
+    "tooltip-format": "Display 1: {text}%"
+   },
    "custom/brightness2": {
-    "format": " 2 {text}%",
+    "return-type": "json",
+    "format": "{icon}  2",
+    "format-icons": {
+        // "<span size='small' alpha='25%' foreground='#f9e2af'></span>",
+        // "<span size='medium' alpha='50%' foreground='#f9e2af'></span>",
+        // "<span size='large' alpha='75%' foreground='#f9e2af'></span>",
+        // "<span size='x-large' alpha='100%' foreground='#f9e2af'></span>",
+        // "<span size='xx-large' alpha='100%' foreground='#f9e2af'></span>"
+          "0": "<span size='x-large' foreground='#fab387'></span>",
+          "1": "<span size='x-large' foreground='#f9e2af'></span>",
+          "2": "<span size='x-large' foreground='#fff9e0'></span>",
+          "3": "<span size='x-large' foreground='#f5e0dc'></span>",
+          "4": "<span size='x-large' foreground='#cdd6f4'></span>"
+    },
     "signal": 8,
     "exec": "brightness-control-m2.sh get",
     "on-scroll-up": "brightness-control-m2.sh up",
     "on-scroll-down": "brightness-control-m2.sh down",
     "on-click": "brightness-control-m2.sh left_click",
     "on-click-right":  "brightness-control-m2.sh right_click",
-    "tooltip": false
-  },
-  "custom/nightlight": {
-    "format": "󰛨 {text}",
-    "exec": "nightlight-control.sh get",
-    "on-click": "nightlight-control.sh toggle",
-    "on-scroll-up": "nightlight-control.sh up",
-    "on-scroll-down": "nightlight-control.sh down",
-    "signal": 9,
-    "tooltip-format": "Scroll to adjust temperature\nClick to toggle (Super+Ctrl+N)"
+    "tooltip": true,
+    "tooltip-format": "Display 2: {text}%"
+   },
+    "custom/nightlight": {
+      "return-type": "json",
+      "format": "{icon}",
+      "format-icons": {
+          "0": "<span size='x-large' foreground='#fab387'>󰛨</span>",
+          "1": "<span size='x-large' foreground='#f9e2af'>󰛨</span>",
+          "2": "<span size='x-large' foreground='#fff9e0'>󰛨</span>",
+          "3": "<span size='x-large' foreground='#f5e0dc'>󰛨</span>",
+          "4": "<span size='x-large' foreground='#cdd6f4'>󰛨</span>"
+      },
+      "exec": "nightlight-control.sh get",
+      "on-click": "nightlight-control.sh toggle",
+      "on-scroll-up": "nightlight-control.sh up",
+      "on-scroll-down": "nightlight-control.sh down",
+      "signal": 9,
+      "tooltip-format": "Temperature: {text}\nScroll to adjust\nClick to toggle"
+    },
 
-  },
   "custom/separator": {
     "format": " | ",
     "tooltip": false
