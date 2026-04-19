@@ -71,11 +71,12 @@ get_current_temp() {
 # Display with icon
 display_with_icon() {
     local temp=$1
-    if [ "$temp" -le 3500 ]; then
-        echo " ${temp}K" # Nightlight icon for warm temps
-    else
-        echo " ${temp}K" # Daylight icon for cool temps
-    fi
+    # Map 2000-6500 to 0-4
+    # (temp - 2000) / (4500 / 4)
+    local level=$(( (temp - 2000) / 1125 ))
+    [ $level -gt 4 ] && level=4
+    [ $level -lt 0 ] && level=0
+    printf '{"text": "%sK", "percentage": %s, "alt": "%s"}\n' "$temp" "$temp" "$level"
 }
 
 current=$(get_current_temp)

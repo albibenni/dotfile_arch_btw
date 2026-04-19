@@ -28,7 +28,9 @@ current=$(cat "$STATE_FILE")
 
 case "$1" in
     "get")
-        echo "$current"
+        # Calculate a level from 0 to 4 for the icon selection
+        level=$(( current / 21 ))
+        printf '{"text": "%s", "percentage": %s, "alt": "%s"}\n' "$current" "$current" "$level"
         ;;
     "up")
         new_brightness=$((current + STEP > 100 ? 100 : current + STEP))
@@ -36,7 +38,7 @@ case "$1" in
             echo "$new_brightness" > "$STATE_FILE"
             set_brightness_in_background "$new_brightness"
         fi
-        pkill -RTMIN+8 waybar # Can add whatever RTMIN+n you please, as long as it's an integer. Make sure the signals match between the config and script.
+        pkill -RTMIN+8 waybar 
         ;;
     "down")
         new_brightness=$((current - STEP < 0 ? 0 : current - STEP))
