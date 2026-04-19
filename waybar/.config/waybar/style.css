@@ -1,9 +1,9 @@
-/* @import "../omarchy/current/theme/waybar.css"; */
-@import "../current-theme/waybar.css";
+@import "../omarchy/current/theme/waybar.css";
 
 * {
-  background-color: rgba(0, 0, 0, 0.1); /* @background */
+  background-color: @background;
   color: @foreground;
+
   border: none;
   border-radius: 0;
   min-height: 0;
@@ -21,12 +21,9 @@
 
 #workspaces button {
   all: initial;
-  padding: 4px 9px;
-  margin: 0 2px;
+  padding: 0 6px;
+  margin: 0 1.5px;
   min-width: 9px;
-  border-radius: 8px;
-  color: @foreground;
-  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 #workspaces button.empty {
@@ -36,54 +33,30 @@
 #cpu,
 #battery,
 #pulseaudio,
-#custom-my-menu,
 #custom-update,
 #custom-brightness,
 #custom-brightness2,
 #custom-nightlight,
-#bluetooth,
-#network,
-#clock,
-#tray {
+#custom-omarchy,
+#custom-update {
   min-width: 12px;
-  margin: 0 3px;
-  padding: 4px 12px;
-  color: @foreground;
-}
-#cpu,
-#battery,
-#pulseaudio,
-#custom-my-menu,
-#custom-brightness,
-#custom-brightness2,
-#bluetooth,
-#custom-nightlight,
-#network,
-#tray {
-  background-color: @background;
-  border-radius: 12px;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  /* border: 1.5px solid rgba(23, 147, 209, 0.6); */
+  margin: 0 7.5px;
 }
 
-#pulseaudio {
-  padding-left: 8px;
-}
 #tray {
-  margin-right: 8px;
+  margin-right: 16px;
 }
 
 #bluetooth {
-  margin-right: 4px;
+  margin-right: 17px;
 }
 
 #network {
-  margin-right: 4px;
-  padding-right: 16px; /* weird looking for 4px */
+  margin-right: 13px;
 }
 
 #custom-expand-icon {
-  margin-right: 20px;
+  margin-right: 18px;
 }
 
 tooltip {
@@ -96,7 +69,6 @@ tooltip {
 
 #clock {
   margin-left: 8.75px;
-  font-weight: bold;
 }
 
 .hidden {
@@ -119,5 +91,14 @@ tooltip {
 
 #custom-idle-indicator.active,
 #custom-notification-silencing-indicator.active {
+  color: #a55555;
+}
+
+#custom-voxtype {
+  min-width: 12px;
+  margin: 0 0 0 7.5px;
+}
+
+#custom-voxtype.recording {
   color: #a55555;
 }
