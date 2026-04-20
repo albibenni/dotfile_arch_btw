@@ -14,7 +14,7 @@
       "8": "8",
       "9": "9",
       "10": "10",
-      "active": "󱓻"
+      "active": "<span foreground='#f38ba8'>󱓻</span>"
     },
     "persistent-workspaces": {
       "1": [],
@@ -46,13 +46,13 @@
    "custom/brightness": {
     "return-type": "json",
     "format": "{icon}",
-    "format-icons": {
-          "0": "<span size='x-large' foreground='#f38ba8'> ¹</span>",
-          "1": "<span size='x-large' foreground='#fab387'> ¹</span>",
-          "2": "<span size='x-large' foreground='#f9e2af'> ¹</span>",
-          "3": "<span size='x-large' foreground='#fff9e0'> ¹</span>",
-          "4": "<span size='x-large' foreground='#cdd6f4'> ¹</span>"
-    },
+    "format-icons": [
+          "<span size='x-large' foreground='#f38ba8'> ¹</span>",
+          "<span size='x-large' foreground='#fab387'> ¹</span>",
+          "<span size='x-large' foreground='#f9e2af'> ¹</span>",
+          "<span size='x-large' foreground='#fff9e0'> ¹</span>",
+          "<span size='x-large' foreground='#cdd6f4'> ¹</span>"
+    ],
     "signal": 8,
     "exec": "brightness-control.sh get",
     "on-scroll-up": "brightness-control.sh up",
@@ -65,13 +65,13 @@
    "custom/brightness2": {
     "return-type": "json",
     "format": "{icon}",
-    "format-icons": {
-          "0": "<span size='x-large' foreground='#f38ba8'> ²</span>",
-          "1": "<span size='x-large' foreground='#fab387'> ²</span>",
-          "2": "<span size='x-large' foreground='#f9e2af'> ²</span>",
-          "3": "<span size='x-large' foreground='#fff9e0'> ²</span>",
-          "4": "<span size='x-large' foreground='#cdd6f4'> ²</span>"
-    },
+    "format-icons": [
+          "<span size='x-large' foreground='#f38ba8'> ²</span>",
+          "<span size='x-large' foreground='#fab387'> ²</span>",
+          "<span size='x-large' foreground='#f9e2af'> ²</span>",
+          "<span size='x-large' foreground='#fff9e0'> ²</span>",
+          "<span size='x-large' foreground='#cdd6f4'> ²</span>"
+    ],
     "signal": 8,
     "exec": "brightness-control-m2.sh get",
     "on-scroll-up": "brightness-control-m2.sh up",

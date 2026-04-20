@@ -22,7 +22,7 @@
 #workspaces button {
   all: initial;
   padding: 0 6px;
-  margin: 0 1.5px;
+  margin: 0 0px;
   min-width: 9px;
 }
 
@@ -37,10 +37,9 @@
 #custom-brightness,
 #custom-brightness2,
 #custom-nightlight,
-#custom-omarchy,
-#custom-update {
+#custom-omarchy {
   min-width: 12px;
-  margin: 0 7.5px;
+  margin: 0 8px;
 }
 
 #tray {
@@ -69,6 +68,8 @@ tooltip {
 
 #clock {
   margin-left: 8.75px;
+  font-weight: bold;
+  color: #fcba03;
 }
 
 .hidden {
