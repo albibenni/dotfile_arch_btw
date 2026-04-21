@@ -9,30 +9,47 @@ MAGENTA='\033[0;35m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
-SETTINGS_FILE="$HOME/.config/opencode/opencode.json"
+SETTINGS_FILE="$HOME/.config/opencode/opencode.jsonc"
 
-# The new configuration to be written
+# The new configuration to be written (JSONC supports comments and trailing commas)
 NEW_CONFIG='{
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
   "theme": "system",
   "plugin": ["opencode-gemini-auth@latest"],
+  "provider": {
+    "moonshot": {
+      "options": {
+        "apiKey": "YOUR_MOONSHOT_API_KEY"
+      },
+      "models": {
+        "kimi-k2.5": {
+          "name": "Kimi 2.5"
+        },
+        "kimi-k2-thinking": {
+          "name": "Kimi Reasoning"
+        }
+      }
+    }
+  },
+  "model": "moonshot/kimi-k2.5",
   "mcp": {
+    // Search the web with grep.app
     "grep": {
       "type": "remote",
       "url": "https://mcp.grep.app",
       "enabled": true
     },
+    // RAG and documentation search via Upstash Context7
     "upstash-context7": {
       "type": "local",
       "command": [
+        "env",
+        "CONTEXT7_API_KEY=YOUR-API-KEY",
         "/home/albibenni/.local/share/fnm/aliases/default/bin/npx",
         "-y",
         "@upstash/context7-mcp@latest"
       ],
-      "env": {
-        "CONTEXT7_API_KEY": "YOUR-API-KEY"
-      },
       "enabled": true
     }
   }
@@ -70,7 +87,7 @@ fi
 # Ensure the config directory exists
 mkdir -p "$(dirname "$SETTINGS_FILE")"
 
-# Write the configuration to opencode.json
+# Write the configuration to opencode.jsonc
 echo "$NEW_CONFIG" >"$SETTINGS_FILE"
 
 echo -e "${GREEN}✅ OpenCode MCP settings have been written to:${NC} $SETTINGS_FILE"
