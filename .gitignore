@@ -7,3 +7,5 @@ shaders
 bash_envs_secrets.sh
 opencode.json
 opencode.jsonc
+*.bak
+tui.json
