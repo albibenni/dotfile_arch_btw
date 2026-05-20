@@ -100,3 +100,6 @@ stty -ixon
 export PATH="/home/albibenni/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
+
+# Alias for new-project-tui
+alias new='new-project-tui'
