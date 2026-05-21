@@ -1,23 +1,38 @@
 @import "style.css";
 
-window#waybar {
-    background: transparent;
+/* Reset background inherited from main style */
+* {
+    background-color: transparent;
 }
 
-/* This targets the box containing the taskbar */
+window#waybar {
+    background: transparent;
+    opacity: 0.05; /* Slightly more visible to ensure it exists for GTK */
+    margin-bottom: -40px; /* Bring it closer to the edge */
+    transition: all 0.3s ease;
+    min-height: 10px; /* Ensure there is a 'lip' to catch the mouse */
+}
+
+window#waybar:hover {
+    opacity: 1;
+    margin-bottom: 5px;
+}
+
 .modules-center {
-    background-color: rgba(30, 30, 46, 0.8); /* Fallback to a dark transparent background */
-    /* If your theme variables are loaded, you can use: background: @background; */
+    background-color: rgba(30, 30, 46, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 2px 10px;
-    margin-bottom: 4px;
+}
+
+#custom-terminal, #custom-browser, #custom-obsidian {
+    font-size: 24px;
+    padding: 0 10px;
+    color: @foreground;
 }
 
 #taskbar button {
-    box-shadow: none;
-	text-shadow: none;
-	padding: 0px 8px;
+    padding: 0px 8px;
     margin: 4px 2px;
     border-radius: 10px;
     transition: all 0.2s ease;
@@ -25,10 +40,9 @@ window#waybar {
 
 #taskbar button.active {
     background-color: rgba(255, 255, 255, 0.1);
-    border-bottom: 2px solid #f38ba8; /* Catppuccin Flamingo/Red-ish highlight */
+    border-bottom: 2px solid #f38ba8;
 }
 
 #taskbar button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    margin-top: -2px;
+    margin-top: -4px;
 }

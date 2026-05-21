@@ -1,25 +1,42 @@
 {
   "layer": "top",
   "position": "bottom",
-  "height": 52,
+  "height": 64,
   "margin-bottom": 10,
-  "margin-top": 0,
   "exclusive": false,
   "passthrough": false,
-  "spacing": 0,
-  "modules-center": ["wlr/taskbar"],
+  "fixed-center": true,
+  "modules-center": [
+    "custom/terminal",
+    "custom/browser",
+    "custom/obsidian",
+    "custom/separator",
+    "wlr/taskbar"
+  ],
+  "custom/terminal": {
+    "format": "󰆍",
+    "on-click": "uwsm-app -- ghostty",
+    "tooltip-format": "Terminal"
+  },
+  "custom/browser": {
+    "format": "󰈹",
+    "on-click": "uwsm-app -- brave",
+    "tooltip-format": "Brave Browser"
+  },
+  "custom/obsidian": {
+    "format": "󱓧",
+    "on-click": "uwsm-app -- obsidian",
+    "tooltip-format": "Obsidian"
+  },
+  "custom/separator": {
+    "format": " ",
+    "tooltip": false
+  },
   "wlr/taskbar": {
     "format": "{icon}",
     "icon-size": 36,
-    "spacing": 0,
-    "tooltip-format": "{title}",
     "on-click": "activate",
     "on-click-middle": "close",
-    "ignore-list": [
-       "Waybar"
-    ],
-    "app_ids-mapping": {
-      "firefoxdeveloperedition": "firefox-developer-edition"
-    }
+    "ignore-list": ["Waybar"]
   }
 }
