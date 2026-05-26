@@ -10,3 +10,4 @@ opencode.jsonc
 *.bak
 tui.json
 package-lock.json
+*.skill
