@@ -5,5 +5,5 @@
 	path = git-config
 	url = git@github.com:albibenni/git-config.git
 [submodule "skills"]
-	path = skills
+	path = agent/.config/agent/skills
 	url = git@github.com:albibenni/skills.git
