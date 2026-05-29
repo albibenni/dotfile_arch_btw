@@ -32,6 +32,7 @@ restore-symlinks() {
     # add .config folder to not fully stow
     local SKIP_DIRS=(
         ".git"
+        "agent"
         "script_install"
         "themes"
         "obsidian"
@@ -40,6 +41,7 @@ restore-symlinks() {
         "systemd"
         "user"
         "menu"
+        "exec_scripts"
     )
 
     # WARNING: add the file to SKIP_DIRS too
@@ -57,6 +59,10 @@ restore-symlinks() {
     # Find all packages
     local all_packages=()
     local conflicts=()
+
+    # Manually add exec_scripts to packages to ensure it gets stowed
+    # but it is skipped in SKIP_DIRS to avoid the shallow conflict check
+    all_packages+=("exec_scripts")
 
     echo -e "${BLUE}Scanning for stow packages...${NC}"
     echo ""
@@ -338,6 +344,14 @@ restore-symlinks() {
 
         echo ""
     done
+
+    # Run specialized agent skills setup
+    local agent_skills_script="$(dirname "$(readlink -f "$script_path")")/agent_skills.sh"
+    if [[ -f "$agent_skills_script" ]]; then
+        echo -e "${BLUE}Running specialized agent skills setup...${NC}"
+        source "$agent_skills_script"
+        setup-agent-skills
+    fi
 
     echo -e "${GREEN}=== Restoration complete! ===${NC}"
     echo ""
