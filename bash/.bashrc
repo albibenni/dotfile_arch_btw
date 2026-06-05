@@ -96,10 +96,3 @@ echo "Hello $USER"
 # Disable terminal flow control (Ctrl+s/Ctrl+q) so we can use Ctrl+s
 stty -ixon
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/home/albibenni/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
-
-# Alias for new-project-tui
-alias new='new-project-tui'
