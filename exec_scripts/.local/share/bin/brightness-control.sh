@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # --- CONFIGURATION ---
-DISPLAY_NUM=1
+DISPLAY_NUM=2
 STEP=5
 STATE_FILE="/tmp/waybar_brightness_d1.tmp"
 # ---------------------
