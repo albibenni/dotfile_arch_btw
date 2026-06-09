@@ -32,7 +32,7 @@ restore-symlinks() {
     # add .config folder to not fully stow
     local SKIP_DIRS=(
         ".git"
-        "agent"
+        "agent" #NOTE: custom script - file by file stow
         "script_install"
         "themes"
         "obsidian"
@@ -46,7 +46,7 @@ restore-symlinks() {
 
     # WARNING: add the file to SKIP_DIRS too
     # Packages where individual files in .config/package/ should be symlinked
-    # instead of the entire .config/package directory
+    # instead of the entire .config/package directory NOTE: separate these in a script file?
     local FILE_LEVEL_PACKAGES=(
         "obsidian"
         "elephant"
@@ -84,7 +84,7 @@ restore-symlinks() {
         all_packages+=("$package")
     done
 
-    # Check each package for conflicts
+    # Check each package for conflicts # NOTE: make a separate function for this
     for package in "${all_packages[@]}"; do
         local package_dir="$DOTFILES_DIR/$package"
 
@@ -123,7 +123,7 @@ restore-symlinks() {
 
         # NOTE: special packages are those non `.config` stowed
         # they need to be manually added to the variable
-        # eg. `bash` with its `.bashrc, .bash_profile`  files
+        # eg. `bash` with its `.bashrc, .bash_profile`  files #WARN: another separate function for specials
         for special_pkg in "${SPECIAL_PACKAGES[@]}"; do
             if [[ "$package" == "$special_pkg" ]]; then
                 for item in "$package_dir"/{.*,*}; do
@@ -196,7 +196,7 @@ restore-symlinks() {
         echo ""
     done
 
-    # Handle FILE_LEVEL_PACKAGES separately
+    # Handle FILE_LEVEL_PACKAGES separately NOTE: separate function
     for package in "${FILE_LEVEL_PACKAGES[@]}"; do
         local package_dir="$DOTFILES_DIR/$package"
 
@@ -269,7 +269,7 @@ restore-symlinks() {
         fi
     done
 
-    # Process each package
+    # Process each package #NOTE: Safety separate function
     for package in "${packages_to_fix[@]}"; do
         echo -e "${BLUE}Processing: ${NC}$package"
 
