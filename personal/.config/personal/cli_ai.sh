@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 uclaude() {
-    sudo npm install -g @anthropic-ai/claude-code
+    npm install -g @anthropic-ai/claude-code
 }
 
 cclaude() {
@@ -11,6 +11,10 @@ cclaude() {
 
 gem() {
     gemini
+}
+
+igem() {
+    npm install -g @google/gemini-cli
 }
 
 # Antigravity CLI (Successor to Gemini CLI)
