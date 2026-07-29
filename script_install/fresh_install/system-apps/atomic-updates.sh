@@ -16,4 +16,4 @@ sudo pacman -S --needed --noconfirm \
 
 echo "✓ Atomic update dependencies installed"
 echo ""
-echo "Note: Run 'install-system-hooks.sh' to install pacman hooks"
+
