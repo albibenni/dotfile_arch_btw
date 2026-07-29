@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Ensure the installer script is available
-INSTALLER="$HOME/.local/share/bin/install-webapp.sh"
+INSTALLER="$HOME/.local/share/omarchy/bin/omarchy-webapp-install"
 
 if [ ! -x "$INSTALLER" ]; then
-    echo "Error: install-webapp.sh not found or not executable at $INSTALLER"
+    echo "Error: omarchy-webapp-install not found or not executable at $INSTALLER"
     exit 1
 fi
 
-# Usage: install-webapp.sh "Name" "URL" "Icon_Name_or_URL" [Custom_Exec] [Mime_Types]
+# Usage: omarchy-webapp-install "Name" "URL" "Icon_Name_or_URL" [Custom_Exec] [Mime_Types]
 
 # --- Productivity & Communication ---
 "$INSTALLER" "GrepApp" "https://grep.app/" "https://grep.app/apple-icon.png"
@@ -26,14 +26,14 @@ fi
 "$INSTALLER" "Discord" "https://discord.com/channels/@me" "Discord.png"
 
 # Zoom
-"$INSTALLER" "Zoom" "https://app.zoom.us/wc/home" "Zoom.png" "launch-or-focus-webapp.sh 'Zoom' 'https://app.zoom.us/wc/home'" "x-scheme-handler/zoommtg;x-scheme-handler/zoomus"
+"$INSTALLER" "Zoom" "https://app.zoom.us/wc/home" "Zoom.png" "omarchy-launch-or-focus-webapp 'Zoom' 'https://app.zoom.us/wc/home'" "x-scheme-handler/zoommtg;x-scheme-handler/zoomus"
 
 # --- Google Services ---
 
 "$INSTALLER" "Gemini" "https://gemini.google.com/" "https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/google-gemini.png"
 "$INSTALLER" "Google Photos" "https://photos.google.com/" "Google Photos.png"
 "$INSTALLER" "Google Contacts" "https://contacts.google.com/" "Google Contacts.png"
-"$INSTALLER" "Google Messages" "https://messages.google.com/web/conversations" "Google Messages.png" "launch-or-focus-webapp.sh 'Messages' 'https://messages.google.com/web/conversations'"
+"$INSTALLER" "Google Messages" "https://messages.google.com/web/conversations" "Google Messages.png" "omarchy-launch-or-focus-webapp 'Messages' 'https://messages.google.com/web/conversations'"
 "$INSTALLER" "Google Maps" "https://maps.google.com" "Google Maps.png"
 
 # --- Tools & Social ---
