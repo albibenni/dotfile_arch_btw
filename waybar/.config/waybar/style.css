@@ -1,5 +1,4 @@
-@define-color background #1a1b26;
-@define-color foreground #a9b1d6;
+@import url("/home/albibenni/.config/omarchy/current/theme/waybar.css");
 
 * {
   background-color: @background;
