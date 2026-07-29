@@ -30,7 +30,7 @@ done
 for script in "${SCRIPTS[@]}"; do
     if [ -x "$script" ]; then
         echo "Reinitializing $(basename "$script")..."
-        "$script" get > /dev/null 2>&1 &
+        "$script" get >/dev/null 2>&1 &
     fi
 done
 
