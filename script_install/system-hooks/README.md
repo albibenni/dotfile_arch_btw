@@ -19,7 +19,7 @@ sudo ln -sf $(pwd)/99-post-update-cleanup.hook /etc/pacman.d/hooks/
 
 ### 00-pre-update-snapshot.hook
 - Runs **before** any package upgrade
-- Creates a btrfs snapshot using `system-snapshot-create.sh`
+- Creates a btrfs snapshot using `omarchy-snapshot`
 - Allows rollback if update breaks something
 
 ### 99-post-update-cleanup.hook

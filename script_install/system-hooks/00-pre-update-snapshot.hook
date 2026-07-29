@@ -6,6 +6,6 @@ Target = *
 [Action]
 Description = Creating pre-update snapshot...
 When = PreTransaction
-Exec = /usr/bin/sudo -u albibenni /home/albibenni/.local/share/bin/system-snapshot-create.sh "Pre-pacman-update"
+Exec = /usr/bin/sudo -u albibenni /home/albibenni/.local/share/omarchy/bin/omarchy-snapshot "Pre-pacman-update"
 Depends = snapper
 Depends = btrfs-progs
