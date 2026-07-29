@@ -6,6 +6,7 @@
   "height": 26,
    // Load Modules
    "include": [
+       "~/.local/share/omarchy/config/waybar/config.jsonc",
        "~/.config/waybar/modules.jsonc"
    ],
   "modules-left": [ "custom/omarchy", "hyprland/workspaces" ],
