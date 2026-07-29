@@ -1,9 +1,0 @@
-# Mako notification daemon config
-
-# Use the base configuration
-include=/home/albibenni/.config/mako/mako.ini
-# Load theme-specific colors from the active theme
-include=/home/albibenni/.config/current-theme/mako.ini
-
-[urgency=high]
-border-color=#f5a97f
