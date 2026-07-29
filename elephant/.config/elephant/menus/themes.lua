@@ -59,8 +59,8 @@ function GetEntries()
 					Preview = preview_path,
 					PreviewType = "file",
 					Actions = {
-						-- Use theme-next.sh script instead of shell function
-						activate = "theme-next.sh set " .. theme_name,
+						-- Use omarchy-theme-bg-next script instead of shell function
+						activate = "omarchy-theme-bg-next set " .. theme_name,
 					},
 				})
 			end
