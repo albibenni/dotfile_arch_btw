@@ -1,235 +1,266 @@
 {
-  "hyprland/workspaces": {
-    "on-click": "activate",
-    "format": "{icon}",
-    "format-icons": {
-      "default": "",
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "9": "9",
-      "10": "10",
-      "active": "<span foreground='#f38ba8'>󱓻</span>"
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "default": "",
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10",
+            "active": "<span foreground='#f38ba8'>󱓻</span>"
+        },
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+            "10": []
+        }
     },
-    "persistent-workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": [],
-      "6": [],
-      "7": [],
-      "8": [],
-      "9": [],
-      "10": []
-    }
-  },
-  "custom/omarchy": {
-    "format": "<span font='omarchy'>\ue900</span>",
-    "on-click": "omarchy-menu",
-    "on-click-right": "xdg-terminal-exec",
-    "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space"
-  },
-  "custom/update": {
-    "format": "",
-    "exec": "omarchy-update-available",
-    "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
-    "tooltip-format": "Omarchy update available",
-    "signal": 7,
-    "interval": 21600
-  },
-   "custom/brightness": {
-    "return-type": "json",
-    "format": "{icon}",
-    "format-icons": [
-          "<span size='x-large' foreground='#f38ba8'> ¹</span>",
-          "<span size='x-large' foreground='#fab387'> ¹</span>",
-          "<span size='x-large' foreground='#f9e2af'> ¹</span>",
-          "<span size='x-large' foreground='#fff9e0'> ¹</span>",
-          "<span size='x-large' foreground='#cdd6f4'> ¹</span>"
-    ],
-    "signal": 8,
-    "exec": "brightness-control.sh get",
-    "on-scroll-up": "brightness-control.sh up",
-    "on-scroll-down": "brightness-control.sh down",
-    "on-click": "brightness-control.sh left_click",
-    "on-click-right":  "brightness-control.sh right_click",
-    "tooltip": true,
-    "tooltip-format": "Display 1: {text}%"
-   },
-   "custom/brightness2": {
-    "return-type": "json",
-    "format": "{icon}",
-    "format-icons": [
-          "<span size='x-large' foreground='#f38ba8'> ²</span>",
-          "<span size='x-large' foreground='#fab387'> ²</span>",
-          "<span size='x-large' foreground='#f9e2af'> ²</span>",
-          "<span size='x-large' foreground='#fff9e0'> ²</span>",
-          "<span size='x-large' foreground='#cdd6f4'> ²</span>"
-    ],
-    "signal": 8,
-    "exec": "brightness-control-m2.sh get",
-    "on-scroll-up": "brightness-control-m2.sh up",
-    "on-scroll-down": "brightness-control-m2.sh down",
-    "on-click": "brightness-control-m2.sh left_click",
-    "on-click-right":  "brightness-control-m2.sh right_click",
-    "tooltip": true,
-    "tooltip-format": "Display 2: {text}%"
-   },
+    "custom/omarchy": {
+        "format": "<span font='omarchy'>\ue900</span>",
+        "on-click": "omarchy-menu",
+        "on-click-right": "xdg-terminal-exec",
+        "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space"
+    },
+    "custom/update": {
+        "format": "",
+        "exec": "omarchy-update-available",
+        "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
+        "tooltip-format": "Omarchy update available",
+        "signal": 7,
+        "interval": 21600
+    },
+    "custom/brightness": {
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": [
+            "<span size='x-large' foreground='#f38ba8'> ¹</span>",
+            "<span size='x-large' foreground='#fab387'> ¹</span>",
+            "<span size='x-large' foreground='#f9e2af'> ¹</span>",
+            "<span size='x-large' foreground='#fff9e0'> ¹</span>",
+            "<span size='x-large' foreground='#cdd6f4'> ¹</span>"
+        ],
+        "signal": 8,
+        "exec": "brightness-control.sh get",
+        "on-scroll-up": "brightness-control.sh up",
+        "on-scroll-down": "brightness-control.sh down",
+        "on-click": "brightness-control.sh left_click",
+        "on-click-right": "brightness-control.sh right_click",
+        "tooltip": true,
+        "tooltip-format": "Display 1: {text}%"
+    },
+    "custom/brightness2": {
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": [
+            "<span size='x-large' foreground='#f38ba8'> ²</span>",
+            "<span size='x-large' foreground='#fab387'> ²</span>",
+            "<span size='x-large' foreground='#f9e2af'> ²</span>",
+            "<span size='x-large' foreground='#fff9e0'> ²</span>",
+            "<span size='x-large' foreground='#cdd6f4'> ²</span>"
+        ],
+        "signal": 8,
+        "exec": "brightness-control-m2.sh get",
+        "on-scroll-up": "brightness-control-m2.sh up",
+        "on-scroll-down": "brightness-control-m2.sh down",
+        "on-click": "brightness-control-m2.sh left_click",
+        "on-click-right": "brightness-control-m2.sh right_click",
+        "tooltip": true,
+        "tooltip-format": "Display 2: {text}%"
+    },
     "custom/nightlight": {
-      "return-type": "json",
-      "format": "{icon}",
-      "format-icons": {
-          "0": "<span size='x-large' foreground='#fab387'>󰛨</span>",
-          "1": "<span size='x-large' foreground='#f9e2af'>󰛨</span>",
-          "2": "<span size='x-large' foreground='#fff9e0'>󰛨</span>",
-          "3": "<span size='x-large' foreground='#f5e0dc'>󰛨</span>",
-          "4": "<span size='x-large' foreground='#cdd6f4'>󰛨</span>"
-      },
-      "exec": "nightlight-control.sh get",
-      "on-click": "nightlight-control.sh toggle",
-      "on-scroll-up": "nightlight-control.sh up",
-      "on-scroll-down": "nightlight-control.sh down",
-      "signal": 9,
-      "tooltip-format": "Temperature: {text}\nScroll to adjust\nClick to toggle"
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "0": "<span size='x-large' foreground='#fab387'>󰛨</span>",
+            "1": "<span size='x-large' foreground='#f9e2af'>󰛨</span>",
+            "2": "<span size='x-large' foreground='#fff9e0'>󰛨</span>",
+            "3": "<span size='x-large' foreground='#f5e0dc'>󰛨</span>",
+            "4": "<span size='x-large' foreground='#cdd6f4'>󰛨</span>"
+        },
+        "exec": "nightlight-control.sh get",
+        "on-click": "nightlight-control.sh toggle",
+        "on-scroll-up": "nightlight-control.sh up",
+        "on-scroll-down": "nightlight-control.sh down",
+        "signal": 9,
+        "tooltip-format": "Temperature: {text}\nScroll to adjust\nClick to toggle"
     },
-
-  "custom/separator": {
-    "format": " | ",
-    "tooltip": false
-  },
-  // "custom/my-menu": {
-  //   "format": "Menu",
-  //   "on-click": "benni-menu.sh",
-  //   "on-click-right": "xdg-terminal-exec",
-  //   "tooltip-format": "Menu\n\nSuper + Alt + Space"
-  // },
-   // Omarchy update (for Omarchy-based systems)
-  "cpu": {
-    "interval": 5,
-    "format": "<span size='x-large'>󰍛</span>",
-    "on-click": "omarchy-launch-or-focus-tui btop",
-    "on-click-right": "ghostty"
-  },
-  "clock": {
-    "format": "{:%d/%m/%Y %H:%M}",
-    "format-alt": "{:L%A %d %B %Y}",
-  //   "format": "{:L%A %H:%M}",
-  //   "format-alt": "{:L%d %B W%V %Y}",
-    "tooltip": false,
-    "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
-  },
-  "network": {
-    "format-icons": ["<span size='x-large'>󰤯</span>", "<span size='x-large'>󰤟</span>", "<span size='x-large'>󰤢</span>", "<span size='x-large'>󰤥</span>", "<span size='x-large'>󰤨</span>"],
-    "format": "{icon}",
-    "format-wifi": "{icon}",
-    "format-ethernet": "󰀂",
-    "format-disconnected": "󰤮",
-    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "tooltip-format-disconnected": "Disconnected",
-    "interval": 3,
-    "spacing": 1,
-    "on-click": "omarchy-launch-wifi"
-  },
-  "battery": {
-    "format": "{capacity}% {icon}",
-    "format-discharging": "{icon}",
-    "format-charging": "<span size='x-large'>{icon}</span>",
-    "format-plugged": "",
-    "format-icons": {
-      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    "custom/separator": {
+        "format": " | ",
+        "tooltip": false
     },
-    "format-full": "<span size='x-large'>󰂅</span>",
-    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
-    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
-    "interval": 5,
-    "on-click": "omarchy-menu power",
-    "states": {
-      "warning": 20,
-      "critical": 10
+    // "custom/my-menu": {
+    //   "format": "Menu",
+    //   "on-click": "benni-menu.sh",
+    //   "on-click-right": "xdg-terminal-exec",
+    //   "tooltip-format": "Menu\n\nSuper + Alt + Space"
+    // },
+    // Omarchy update (for Omarchy-based systems)
+    "cpu": {
+        "interval": 5,
+        "format": "<span size='x-large'>󰍛</span>",
+        "on-click": "omarchy-launch-or-focus-tui btop",
+        "on-click-right": "ghostty"
+    },
+    "clock": {
+        "format": "{:%d/%m/%Y %H:%M}",
+        "format-alt": "{:L%A %d %B %Y | %H:%M}",
+        //   "format": "{:L%A %H:%M}",
+        //   "format-alt": "{:L%d %B W%V %Y}",
+        "tooltip": false,
+        "on-click-right": "omarchy-launch-floating-terminal-with-presentation omarchy-tz-select"
+    },
+    "network": {
+        "format-icons": [
+            "<span size='x-large'>󰤯</span>",
+            "<span size='x-large'>󰤟</span>",
+            "<span size='x-large'>󰤢</span>",
+            "<span size='x-large'>󰤥</span>",
+            "<span size='x-large'>󰤨</span>"
+        ],
+        "format": "{icon}",
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰀂",
+        "format-disconnected": "󰤮",
+        "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+        "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+        "tooltip-format-disconnected": "Disconnected",
+        "interval": 3,
+        "spacing": 1,
+        "on-click": "omarchy-launch-wifi"
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-discharging": "{icon}",
+        "format-charging": "<span size='x-large'>{icon}</span>",
+        "format-plugged": "",
+        "format-icons": {
+            "charging": [
+                "󰢜",
+                "󰂆",
+                "󰂇",
+                "󰂈",
+                "󰢝",
+                "󰂉",
+                "󰢞",
+                "󰂊",
+                "󰂋",
+                "󰂅"
+            ],
+            "default": [
+                "󰁺",
+                "󰁻",
+                "󰁼",
+                "󰁽",
+                "󰁾",
+                "󰁿",
+                "󰂀",
+                "󰂁",
+                "󰂂",
+                "󰁹"
+            ]
+        },
+        "format-full": "<span size='x-large'>󰂅</span>",
+        "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+        "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+        "interval": 5,
+        "on-click": "omarchy-menu power",
+        "states": {
+            "warning": 20,
+            "critical": 10
+        }
+    },
+    "bluetooth": {
+        "format": "<span size='x-large'></span>",
+        "format-off": "<span size='x-large'>󰂲</span>",
+        "format-disabled": "<span size='x-large'>󰂲</span>",
+        "format-connected": "<span size='x-large'>󰂱</span>",
+        "format-no-controller": "",
+        "tooltip-format": "Devices connected: {num_connections}",
+        "on-click": "omarchy-launch-bluetooth"
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "on-click": "omarchy-launch-audio",
+        "on-click-right": "pamixer -t",
+        "tooltip-format": "Playing at {volume}%",
+        "scroll-step": 5,
+        "format-muted": "<span size='x-large'></span>",
+        "format-icons": {
+            "headphone": "<span size='x-large'></span>",
+            "headset": "<span size='x-large'></span>",
+            "default": [
+                "<span size='x-large'></span>",
+                "<span size='x-large'></span>",
+                "<span size='x-large'></span>"
+            ]
+        }
+    },
+    "group/tray-expander": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 600,
+            "children-class": "tray-group-item"
+        },
+        "modules": [
+            "custom/expand-icon",
+            "tray",
+        ]
+    },
+    "custom/expand-icon": {
+        "format": "",
+        "tooltip": false,
+        "on-scroll-up": "",
+        "on-scroll-down": "",
+        "on-scroll-left": "",
+        "on-scroll-right": ""
+    },
+    "custom/screenrecording-indicator": {
+        "on-click": "omarchy-cmd-screenrecord",
+        "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
+        "signal": 8,
+        "return-type": "json"
+    },
+    "custom/idle-indicator": {
+        "on-click": "omarchy-toggle-idle",
+        "exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
+        "signal": 9,
+        "return-type": "json"
+    },
+    "custom/notification-silencing-indicator": {
+        "on-click": "omarchy-toggle-notification-silencing",
+        "exec": "$OMARCHY_PATH/default/waybar/indicators/notification-silencing.sh",
+        "signal": 10,
+        "return-type": "json"
+    },
+    "custom/voxtype": {
+        "exec": "omarchy-voxtype-status",
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "idle": "",
+            "recording": "󰍬",
+            "transcribing": "󰔟"
+        },
+        "tooltip": true,
+        "on-click-right": "omarchy-voxtype-config",
+        "on-click": "omarchy-voxtype-model"
+    },
+    "tray": {
+        "icon-size": 12,
+        "spacing": 17
     }
-  },
-  "bluetooth": {
-    "format": "<span size='x-large'></span>",
-    "format-off": "<span size='x-large'>󰂲</span>",
-    "format-disabled": "<span size='x-large'>󰂲</span>",
-    "format-connected": "<span size='x-large'>󰂱</span>",
-    "format-no-controller": "",
-    "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "omarchy-launch-bluetooth"
-  },
-  "pulseaudio": {
-    "format": "{icon}",
-    "on-click": "omarchy-launch-audio",
-    "on-click-right": "pamixer -t",
-    "tooltip-format": "Playing at {volume}%",
-    "scroll-step": 5,
-    "format-muted": "<span size='x-large'></span>",
-    "format-icons": {
-      "headphone": "<span size='x-large'></span>",
-      "headset": "<span size='x-large'></span>",
-      "default": ["<span size='x-large'></span>", "<span size='x-large'></span>", "<span size='x-large'></span>"]
-    }
-  },
-  "group/tray-expander": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 600,
-      "children-class": "tray-group-item"
-    },
-    "modules": [
-    "custom/expand-icon",
-    "tray",
-    ]
-  },
-  "custom/expand-icon": {
-    "format": "",
-    "tooltip": false,
-    "on-scroll-up": "",
-    "on-scroll-down": "",
-    "on-scroll-left": "",
-    "on-scroll-right": ""
-  },
-  "custom/screenrecording-indicator": {
-    "on-click": "omarchy-cmd-screenrecord",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
-    "signal": 8,
-    "return-type": "json"
-  },
-  "custom/idle-indicator": {
-    "on-click": "omarchy-toggle-idle",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
-    "signal": 9,
-    "return-type": "json"
-  },
-  "custom/notification-silencing-indicator": {
-    "on-click": "omarchy-toggle-notification-silencing",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/notification-silencing.sh",
-    "signal": 10,
-    "return-type": "json"
-  },
-  "custom/voxtype": {
-    "exec": "omarchy-voxtype-status",
-    "return-type": "json",
-    "format": "{icon}",
-    "format-icons": {
-      "idle": "",
-      "recording": "󰍬",
-      "transcribing": "󰔟"
-    },
-    "tooltip": true,
-    "on-click-right": "omarchy-voxtype-config",
-    "on-click": "omarchy-voxtype-model"
-  },
-  "tray": {
-    "icon-size": 12,
-    "spacing": 17
-  }
 }
