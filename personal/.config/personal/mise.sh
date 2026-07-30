@@ -6,11 +6,13 @@ update_mise_langs() {
 
     echo "🚀 Installing and setting the latest versions globally..."
     mise use -g node@latest
+    mise use -g pnpm@latest
     mise use -g python@latest
     mise use -g go@latest
     mise use -g java@latest
     mise use -g golangci-lint@latest
     mise use -g maven@latest
+    mise use -g pipx@latest
 
     if command -v rustup &>/dev/null; then
         echo "🦀 Updating Rust via rustup..."
