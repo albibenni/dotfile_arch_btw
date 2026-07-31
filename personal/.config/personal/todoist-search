@@ -1,0 +1,85 @@
+# Todoist task search tool function
+
+todoist_search() {
+    if [ -z "$TODOIST_API_TOKEN" ]; then
+        echo "Error: TODOIST_API_TOKEN is not set."
+        echo "Please set it by adding the following to your shell configuration (e.g. ~/.bashrc or ~/.zshrc):"
+        echo "export TODOIST_API_TOKEN='your_api_token_here'"
+        echo "You can find your API token in Todoist: Settings -> Integrations -> Developer -> API token."
+        return 1
+    fi
+
+    local SEARCH_TERM="$1"
+
+    if [[ "$SEARCH_TERM" == "--help" || "$SEARCH_TERM" == "-h" ]]; then
+        echo "Todoist Search Helper"
+        echo "====================="
+        echo "Usage: todoist-search [search_term]"
+        echo ""
+        echo "Description:"
+        echo "  This tool searches your Todoist tasks across all schedules (present and future)."
+        echo "  It uses the dedicated Todoist API v1 '/api/v1/tasks/filter' endpoint."
+        echo ""
+        echo "Features & Explanations:"
+        echo "  - Server-Side Search: The search happens on Todoist's servers across your entire account,"
+        echo "    bypassing the default 50-task pagination limit that standard fetching suffers from."
+        echo "  - Case-Insensitive: Accurately matches text regardless of upper or lower case."
+        echo "  - Native Query Syntax: It wraps standard text searches in 'search: <term>'."
+        echo "    If you enter 'today', it passes it natively so Todoist finds tasks *due* today."
+        echo "  - Interactive Mode: If you run it with no arguments, it prompts for a search term"
+        echo "    and defaults to 'today' if you just press Enter."
+        echo "  - Resilient Parsing: Uses a robust 'jq' filter to extract task objects anywhere in"
+        echo "    the JSON response, effortlessly handling any outer API wrappers."
+        echo ""
+        echo "Examples:"
+        echo "  todoist-search oauth    -> Searches for the word 'oauth' in any task"
+        echo "  todoist-search today    -> Shows tasks due today"
+        echo "  todoist-search          -> Opens the interactive prompt"
+        return 0
+    fi
+
+    if [ -z "$SEARCH_TERM" ]; then
+        echo -n "Enter search term (or press enter to default to 'today'): "
+        read -r SEARCH_TERM
+        if [ -z "$SEARCH_TERM" ]; then
+            SEARCH_TERM="today"
+        fi
+    fi
+    local FILTER_QUERY="search: $SEARCH_TERM"
+    if [ "${SEARCH_TERM,,}" == "today" ]; then
+        FILTER_QUERY="today"
+    fi
+
+    # URL-encode the filter query
+    local ENCODED_QUERY=$(jq -rn --arg x "$FILTER_QUERY" '$x|@uri')
+
+    echo "Searching Todoist for: '$SEARCH_TERM'..."
+
+    # Use the dedicated filter endpoint for accurate searching across all tasks
+    local RESPONSE=$(curl -s -w "\n%{http_code}" -X GET "https://api.todoist.com/api/v1/tasks/filter?query=$ENCODED_QUERY" \
+         -H "Authorization: Bearer $TODOIST_API_TOKEN")
+
+    local HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+    local BODY=$(echo "$RESPONSE" | sed '$d')
+
+    if [ "$HTTP_CODE" -ne 200 ]; then
+        echo "Error: API request failed with status $HTTP_CODE"
+        echo "$BODY"
+        return 1
+    fi
+
+    # Extract all task objects from the response (handles both arrays and nested 'results' objects seamlessly)
+    local COUNT=$(echo "$BODY" | jq '[.. | objects | select(has("content") and has("priority"))] | length')
+
+    if [ "$COUNT" -eq 0 ]; then
+        echo "No matching tasks found."
+        return 0
+    fi
+
+    echo "Found $COUNT matching task(s):"
+    echo "----------------------------------------"
+    echo "$BODY" | jq -r '.. | objects | select(has("content") and has("priority")) | "[\(if .due != null then (.due.date // "No due date") else "No due date" end)] \(.content) (Priority \(.priority))"' | sort
+    echo "----------------------------------------"
+}
+
+alias todoist-search='todoist_search'
