@@ -38,7 +38,7 @@ alias pomostudy="sudo ~/dotfiles/scripts/scripts/rust_can_make_you_focus studyin
 alias pomostudyyt="sudo ~/dotfiles/scripts/scripts/rust_can_make_you_focus studying_yt"
 
 # hyprland
-alias wayrs="pkill waybar && sleep 1 && waybar &"
+alias wayrs="pkill waybar; sleep 1; nohup waybar > /dev/null 2>&1 & disown"
 
 # kubectl
 alias k="kubectl"

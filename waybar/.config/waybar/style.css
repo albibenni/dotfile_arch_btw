@@ -1,4 +1,4 @@
-@import url("/home/albibenni/.config/omarchy/current/theme/waybar.css");
+@import "/home/albibenni/.config/omarchy/current/theme/waybar.css";
 
 * {
   background-color: @background;

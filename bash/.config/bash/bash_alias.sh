@@ -31,7 +31,7 @@ alias ggpush='git push origin "$(git_current_branch)"'
 alias gdup="git diff @{upstream}"
 
 #NOTE: hyprland
-alias wayrs="pkill waybar && sleep 1 && waybar &"
+alias wayrs="pkill waybar; sleep 1; nohup waybar > /dev/null 2>&1 & disown"
 
 #NOTE: kubectl
 alias k="kubectl"
