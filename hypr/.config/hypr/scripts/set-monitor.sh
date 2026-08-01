@@ -18,12 +18,17 @@ if hyprctl monitors | grep -qi "Japannext"; then
     PRIMARY="\$monitor_japannext"
 elif hyprctl monitors | grep -qi "Xiaomi"; then
     PRIMARY="\$monitor_xiaomi"
+elif hyprctl monitors | grep -qi "LG ULTRAGEAR"; then
+    PRIMARY="\$monitor_lg"
 fi
 
-if hyprctl monitors | grep -qi "LG ULTRAGEAR"; then
-    SECONDARY="\$monitor_lg"
+if hyprctl monitors | grep -qi "HDR WFHD"; then
+    SECONDARY="\$monitor_wfhd"
 elif hyprctl monitors | grep -qi "BenQ"; then
     SECONDARY="\$monitor_benq"
+elif hyprctl monitors | grep -qi "LG ULTRAGEAR" && [[ "$PRIMARY" != "\$monitor_lg" ]]; then
+    # Fallback for old setup: LG was secondary when Japannext/Xiaomi was primary
+    SECONDARY="\$monitor_lg"
 fi
 
 # Write Hyprland config variables to a file
