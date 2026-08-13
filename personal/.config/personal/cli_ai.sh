@@ -32,7 +32,7 @@ install-agy() {
 
 # CODEX
 igpt() {
-    pnpm i -g @openai/codex
+    curl -fsSL https://chatgpt.com/codex/install.sh | sh
 }
 
 cdx() {
