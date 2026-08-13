@@ -29,3 +29,16 @@ agy() {
 install-agy() {
     curl -fsSL https://antigravity.google/cli/install.sh | bash
 }
+
+# CODEX
+igpt() {
+    pnpm i -g @openai/codex
+}
+
+cdx() {
+    if command -v codex >/dev/null 2>&1; then
+        command codex "$@"
+    else
+        echo "Codex CLI (codex) not found. Run 'igpt' to install."
+    fi
+}
