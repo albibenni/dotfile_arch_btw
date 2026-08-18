@@ -20,7 +20,7 @@ $time
 [└─](bold cyan)$character"""
 
 [character]
-error_symbol = "[✗](bold cyan)"
+error_symbol = "[✗](bold red)"
 success_symbol = "[❯](bold cyan)"
 
 [directory]
