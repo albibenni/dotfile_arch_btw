@@ -1,0 +1,170 @@
+#!/usr/bin/env bash
+# Deploy user-owned Omarchy plugins from this dotfiles repository.
+# Omarchy deliberately rejects symlinked plugin directories, so `sync` copies
+# the selected plugin into ~/.config/omarchy/plugins as the live version.
+
+set -euo pipefail
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+dotfiles_omarchy_dir=$(cd -- "$script_dir/.." && pwd)
+source_plugins_dir="$dotfiles_omarchy_dir/plugins"
+live_omarchy_dir="${XDG_CONFIG_HOME:-$HOME/.config}/omarchy"
+live_plugins_dir="$live_omarchy_dir/plugins"
+shell_config="$live_omarchy_dir/shell.json"
+
+usage() {
+  cat <<'EOF'
+Usage: omarchy-plugin <command> <plugin-id> [section]
+
+Commands:
+  sync      Validate, copy the dotfiles plugin to the live plugin directory,
+            add it to the bar (if needed), and rescan Quickshell.
+  validate  Validate the dotfiles plugin and, if installed, its live copy.
+  enable    Add an installed plugin to a bar section and rescan Quickshell.
+  disable   Remove a plugin from all bar sections and rescan Quickshell.
+  rescan    Ask the running Omarchy shell to rescan plugins.
+  status    Show source, installation, and bar-layout state.
+
+Arguments:
+  plugin-id  Plugin directory/id, for example: albibenni.cpu
+  section    left, center, or right (default: right)
+
+The repository is the source of truth. `sync` intentionally uses rsync --delete
+for that one plugin's live directory; do not make edits only to the live copy.
+EOF
+}
+
+require_command() {
+  command -v "$1" >/dev/null || {
+    printf 'Required command is missing: %s\n' "$1" >&2
+    exit 1
+  }
+}
+
+check_plugin_id() {
+  [[ $plugin_id =~ ^[A-Za-z0-9._-]+$ ]] || {
+    printf 'Invalid plugin id: %s\n' "$plugin_id" >&2
+    exit 2
+  }
+}
+
+check_section() {
+  case $section in
+    left|center|right) ;;
+    *) printf 'Invalid bar section: %s (use left, center, or right)\n' "$section" >&2; exit 2 ;;
+  esac
+}
+
+validate_source() {
+  [[ -f "$source_dir/manifest.json" ]] || {
+    printf 'No dotfiles plugin found at: %s\n' "$source_dir" >&2
+    exit 1
+  }
+  omarchy plugin validate "$source_dir"
+}
+
+validate_live() {
+  [[ -d "$live_dir" ]] || return 0
+  omarchy plugin validate "$live_dir"
+}
+
+update_layout() {
+  local mode=$1 temporary
+  [[ -f "$shell_config" ]] || {
+    printf 'Omarchy shell config not found: %s\n' "$shell_config" >&2
+    exit 1
+  }
+
+  temporary=$(mktemp "${shell_config}.tmp.XXXXXX")
+  if [[ $mode == enable ]]; then
+    jq --arg id "$plugin_id" --arg section "$section" '
+      .bar.layout[$section] //= []
+      | if any(.bar.layout[$section][]; .id == $id) then .
+        else .bar.layout[$section] = ([{"id": $id}] + .bar.layout[$section])
+        end
+    ' "$shell_config" > "$temporary"
+  else
+    jq --arg id "$plugin_id" '
+      .bar.layout |= with_entries(.value |= map(select(.id != $id)))
+    ' "$shell_config" > "$temporary"
+  fi
+  mv "$temporary" "$shell_config"
+}
+
+rescan() {
+  # The shell watches both shell.json and its plugin directory, so the deploy
+  # is already live without IPC. IPC is only a fast-path and can briefly be
+  # unavailable while Quickshell reloads itself.
+  local attempt output
+  for attempt in 1 2 3; do
+    if output=$(omarchy-shell shell rescanPlugins 2>&1); then
+      [[ -n $output ]] && printf '%s\n' "$output"
+      return 0
+    fi
+    sleep 0.3
+  done
+
+  printf 'Warning: plugin files and bar layout were updated, but the optional IPC rescan is unavailable. Quickshell will reload them through its file watcher.\n' >&2
+  return 0
+}
+
+command_name=${1:-help}
+plugin_id=${2:-}
+section=${3:-right}
+
+case $command_name in
+  help|-h|--help) usage; exit 0 ;;
+  sync|validate|enable|disable|status)
+    [[ -n $plugin_id ]] || { usage >&2; exit 2; }
+    check_plugin_id
+    check_section
+    ;;
+  rescan) rescan; exit 0 ;;
+  *) usage >&2; exit 2 ;;
+esac
+
+require_command jq
+source_dir="$source_plugins_dir/$plugin_id"
+live_dir="$live_plugins_dir/$plugin_id"
+
+case $command_name in
+  sync)
+    require_command rsync
+    validate_source
+    mkdir -p "$live_plugins_dir"
+    rsync -a --delete --exclude='.git/' "$source_dir/" "$live_dir/"
+    validate_live
+    update_layout enable
+    rescan
+    printf 'Synced %s to %s and enabled it in %s.\n' "$plugin_id" "$live_dir" "$section"
+    ;;
+  validate)
+    validate_source
+    if [[ -d $live_dir ]]; then
+      validate_live
+      printf 'Live copy is valid: %s\n' "$live_dir"
+    else
+      printf 'No live copy installed yet: %s\n' "$live_dir"
+    fi
+    ;;
+  enable)
+    validate_live
+    [[ -d $live_dir ]] || { printf 'Install it first: omarchy-plugin sync %s %s\n' "$plugin_id" "$section" >&2; exit 1; }
+    update_layout enable
+    rescan
+    printf 'Enabled %s in %s.\n' "$plugin_id" "$section"
+    ;;
+  disable)
+    update_layout disable
+    rescan
+    printf 'Disabled %s from the bar; its live files remain installed.\n' "$plugin_id"
+    ;;
+  status)
+    printf 'Source: %s\n' "$source_dir"
+    [[ -f $source_dir/manifest.json ]] && printf '  valid source directory present\n' || printf '  missing\n'
+    printf 'Live:   %s\n' "$live_dir"
+    [[ -d $live_dir && ! -L $live_dir ]] && printf '  real directory installed\n' || printf '  not installed as a real directory\n'
+    printf 'Bar sections: '
+    jq -r --arg id "$plugin_id" '[.bar.layout | to_entries[] | select(any(.value[]; .id == $id)) | .key] | if length == 0 then "none" else join(", ") end' "$shell_config"
+    ;;
+esac

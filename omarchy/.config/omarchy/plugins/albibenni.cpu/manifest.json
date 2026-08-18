@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "albibenni.cpu",
+  "name": "CPU",
+  "version": "0.2.0",
+  "author": "albibenni",
+  "description": "CPU usage widget migrated from the previous Waybar setup",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "CPU",
+    "description": "Displays CPU usage",
+    "category": "System",
+    "allowMultiple": false
+  }
+}
