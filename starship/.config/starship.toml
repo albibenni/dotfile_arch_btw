@@ -1,5 +1,5 @@
 add_newline = true
-command_timeout = 200
+command_timeout = 500
 format = """
 [┌─](bold cyan)\
 $username\
@@ -12,6 +12,7 @@ $nodejs\
 $rust\
 $golang\
 $lua\
+$mise\
 $docker_context\
 $kubernetes\
 $cmd_duration\
@@ -43,10 +44,16 @@ conflicted = " "
 up_to_date = " "
 untracked  = "? "
 modified   = "! "
-stashed    = ""
-staged     = ""
-renamed    = ""
-deleted    = ""
+stashed    = '\$ '
+staged     = "+ "
+renamed    = "» "
+deleted    = "✘ "
+
+[mise]
+disabled = false
+format = "on [$symbol$health]($style) "
+symbol = "mise "
+style = "bold purple"
 
 # Show command duration if > 2 seconds
 [cmd_duration]
@@ -82,16 +89,21 @@ style = "cyan"
 
 # Kubernetes context
 [kubernetes]
-disabled = true
-format = '[☸  $context](bold blue) '
+disabled = false
+format = 'on [$symbol$context( \($namespace\))]($style) '
+style = "bold blue"
+detect_files = ["kustomization.yaml", "kustomization.yml", "Chart.yaml", "helmfile.yaml"]
+
+[[kubernetes.contexts]]
+context_pattern = ".*(prod|production).*"
+style = "bold red"
 
 # Docker context
 [docker_context]
 symbol = ' '
-style = 'fg:#06969A'
-format = '[$symbol]($style) $path'
-detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
-detect_extensions = ['Dockerfile']
+style = "fg:#06969A"
+format = "via [$symbol$context]($style) "
+detect_files = ["compose.yml", "compose.yaml", "docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
 
 [time]
 disabled = false
