@@ -57,12 +57,38 @@ BarWidget {
     id: button
     anchors.fill: parent
     bar: root.bar
-    text: root.usage < 0 ? "󰍛 --" : "󰍛 " + root.usage + "%"
+    // WidgetButton still supplies the click target and tooltip; the visible
+    // row below lets the CPU glyph use a larger size than its percentage.
+    labelVisible: false
+    text: " "
+    fixedWidth: content.implicitWidth + Style.spaceReal(12)
     tooltipText: (root.usage < 0 ? "CPU usage: loading" : "CPU usage: " + root.usage + "%")
       + "\nLeft-click: btop\nRight-click: Ghostty"
     onPressed: function(button) {
       if (button === Qt.LeftButton) Quickshell.execDetached(["omarchy-launch-or-focus-tui", "btop"])
       else if (button === Qt.RightButton) Quickshell.execDetached(["ghostty"])
+    }
+
+    Row {
+      id: content
+      anchors.centerIn: parent
+      spacing: Style.spaceReal(3)
+
+      Text {
+        text: "󰍛"
+        color: button.foreground
+        font.family: button.fontFamily
+        font.pixelSize: Style.font.iconLarge + 2
+        renderType: Text.NativeRendering
+      }
+
+      Text {
+        text: root.usage < 0 ? "--" : root.usage + "%"
+        color: button.foreground
+        font.family: button.fontFamily
+        font.pixelSize: Style.font.body
+        renderType: Text.NativeRendering
+      }
     }
   }
 }
