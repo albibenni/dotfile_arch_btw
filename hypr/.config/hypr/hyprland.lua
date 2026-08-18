@@ -4,7 +4,7 @@
 dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/bootstrap.lua")
 
 -- Disable all Omarchy default bindings. Add your own in hypr/bindings.lua.
--- omarchy_default_bindings = false
+omarchy_default_bindings = false
 --
 -- Or disable only bindings for Omarchy's preinstalled apps/web apps while
 -- keeping core window-manager bindings:
@@ -21,6 +21,8 @@ require("hypr.input")
 require("hypr.bindings")
 require("hypr.looknfeel")
 require("hypr.autostart")
+require("hypr.environment")
+require("hypr.windows")
 
 -- Toggle config flags dynamically.
 require("default.hypr.toggles")

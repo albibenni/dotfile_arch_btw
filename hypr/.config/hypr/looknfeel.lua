@@ -1,5 +1,5 @@
 -- Change the default Omarchy look'n'feel.
-
+--
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#general
 -- hl.config({
 --   general = {
@@ -12,7 +12,7 @@
 --     layout = "scrolling",
 --   },
 -- })
-
+--
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
 -- hl.config({
 --   decoration = {
@@ -24,7 +24,7 @@
 --     dim_strength = 0.15,
 --   },
 -- })
-
+--
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#animations
 -- hl.config({
 --   animations = {
@@ -32,7 +32,7 @@
 --     enabled = false,
 --   },
 -- })
-
+--
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#layout
 -- hl.config({
 --   layout = {
@@ -40,7 +40,7 @@
 --     single_window_aspect_ratio = { 1, 1 },
 --   },
 -- })
-
+--
 -- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
 -- hl.config({
 --   scrolling = {
@@ -48,3 +48,18 @@
 --     column_width = 0.97,
 --   },
 -- })
+
+-- Personal appearance settings migrated from looknfeel.conf.
+hl.config({
+  general = {
+    gaps_in = 4,
+    gaps_out = 4,
+    border_size = 2,
+    layout = "scrolling",
+  },
+  decoration = {
+    rounding = 5,
+    dim_inactive = true,
+    dim_strength = 0.1,
+  },
+})
