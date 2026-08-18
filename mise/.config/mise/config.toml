@@ -1,0 +1,14 @@
+[tools]
+codex = "latest"
+gh = "latest"
+go = "latest"
+golangci-lint = "latest"
+java = "latest"
+maven = "latest"
+node = "latest"
+pipx = "latest"
+pnpm = "latest"
+python = "latest"
+
+[settings]
+use_versions_host = false
