@@ -4,7 +4,7 @@ for key, direction in pairs({ h = "l", l = "r", j = "d" }) do
   o.bind("SUPER + SHIFT + " .. key:upper(), "Move window " .. direction, hl.dsp.window.swap({ direction = direction }))
 end
 o.bind("SUPER + SHIFT + K", "Move window up", hl.dsp.window.swap({ direction = "u" }))
-o.bind("SUPER + CTRL + SHIFT + J", "Move window down", hl.dsp.window.move({ direction = "d" }))
+o.bind("SUPER + CTRL + SHIFT + H", "Move window left", hl.dsp.window.move({ direction = "left" }), { transparent = true })
 for workspace = 1, 10 do
   local key = "code:" .. tostring(workspace + 9)
   o.bind("SUPER + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
