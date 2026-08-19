@@ -1,5 +1,7 @@
 # Dynamic theme colors
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+# Keep Ghostty's preferred font size independent from Omarchy's global Text size control.
+config-file = "~/.config/ghostty/font-size.conf"
 
 ## TITLE
 title = "Hello Benni"
