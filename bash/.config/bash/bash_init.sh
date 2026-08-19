@@ -26,3 +26,9 @@ if command -v fzf &>/dev/null; then
         source /usr/share/fzf/key-bindings.bash
     fi
 fi
+
+# CUSTOM APPS
+
+if command -v task-planner &>/dev/null; then
+    eval "$(task-planner completion bash)"
+fi
