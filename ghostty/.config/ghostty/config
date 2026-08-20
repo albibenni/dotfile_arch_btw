@@ -1,7 +1,5 @@
 # Dynamic theme colors
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
-# Keep Ghostty's preferred font size independent from Omarchy's global Text size control.
-config-file = "~/.config/ghostty/font-size.conf"
 
 ## TITLE
 title = "Hello Benni"
@@ -18,6 +16,10 @@ font-family = CaskaydiaCove Nerd Font
 #font-family = JetBrainsMono Nerd Font
 #font-family = FiraCode Nerd Font
 #font-family = BlexMono Nerd Font Propo
+
+# Keep Ghostty's preferred font size independent from Omarchy's global Text size control.
+# This must follow the main font-size setting so it takes precedence.
+config-file = "~/.config/ghostty/font-size.conf"
 
 
 #background-opacity = 1
