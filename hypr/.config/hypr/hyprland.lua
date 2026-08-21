@@ -17,7 +17,7 @@ require("default.hypr.omarchy")
 -- defaults so package updates can improve the defaults without rewriting your
 -- ~/.config/hypr files.
 require("hypr.input")
-require("hypr.bindings")
+require("hypr.bindings.bindings")
 require("hypr.looknfeel")
 require("hypr.autostart")
 require("hypr.environment")
