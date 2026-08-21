@@ -9,18 +9,17 @@ keybind = ctrl+shift+q=close_surface
 # Font
 font-family = "JetBrainsMono Nerd Font"
 font-style = Regular
-font-size = 11
+# Managed by Omarchy's global Text Size control. It rewrites this line when
+# changed, so keep the setting in the main Ghostty config.
+font-size = 12
+# Do not inherit a manually shrunk font size from an existing Ghostty window.
+window-inherit-font-size = false
 font-feature = -liga
 font-thicken = true
 font-family = CaskaydiaCove Nerd Font
 #font-family = JetBrainsMono Nerd Font
 #font-family = FiraCode Nerd Font
 #font-family = BlexMono Nerd Font Propo
-
-# Keep Ghostty's preferred font size independent from Omarchy's global Text size control.
-# This must follow the main font-size setting so it takes precedence.
-config-file = "~/.config/ghostty/font-size.conf"
-
 
 #background-opacity = 1
 
