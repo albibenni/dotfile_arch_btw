@@ -1,5 +1,6 @@
 -- Port of bindings/bindings.conf: applications and web apps used previously.
-o.bind("SUPER + SHIFT + T", "Terminal", { omarchy = "terminal" })
+-- Launch Ghostty directly to avoid Omarchy's xdg-terminal-exec wrapper.
+o.bind("SUPER + SHIFT + T", "Terminal", { launch = "ghostty --gtk-single-instance=true" })
 o.bind("SUPER + SHIFT + F", "File manager", { omarchy = "nautilus" })
 o.bind("SUPER + SHIFT + B", "Browser", { omarchy = "browser" })
 o.bind("SUPER + SHIFT + ALT + B", "Browser (private)", { omarchy = "browser --private" })
