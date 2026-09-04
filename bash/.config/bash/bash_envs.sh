@@ -39,6 +39,9 @@ export GOPATH=$HOME/go
 export GIT_EDITOR=$VIM
 export DOTFILES=$HOME/.dotfiles
 
+## CUSTOM APPS
+export CS_NEWS_NOTES_DIR="$HOME/benni-projects/SecondBrain/Computer Science"
+
 ## FZF customization
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
 # Make Tab trigger fzf completion  needing ** prefix - tab normal completion
