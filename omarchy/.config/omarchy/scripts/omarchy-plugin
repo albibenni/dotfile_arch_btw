@@ -77,9 +77,15 @@ update_layout() {
 
   temporary=$(mktemp "${shell_config}.tmp.XXXXXX")
   if [[ $mode == enable ]]; then
-    jq --arg id "$plugin_id" --arg section "$section" '
+    jq --arg id "$plugin_id" --arg section "$section" --arg cloned_from "$cloned_from" '
       .bar.layout[$section] //= []
-      | if any(.bar.layout[$section][]; .id == $id) then .
+      # A user clone replaces its first-party source in place, preserving the
+      # user-selected bar position rather than displaying both widgets.
+      | if $cloned_from != "" then
+          .bar.layout |= with_entries(.value |= map(if .id == $cloned_from then .id = $id else . end))
+        else .
+        end
+      | if any(.bar.layout[]?[]; .id == $id) then .
         else .bar.layout[$section] = ([{"id": $id}] + .bar.layout[$section])
         end
     ' "$shell_config" > "$temporary"
@@ -126,6 +132,10 @@ esac
 require_command jq
 source_dir="$source_plugins_dir/$plugin_id"
 live_dir="$live_plugins_dir/$plugin_id"
+cloned_from=""
+if [[ -f "$source_dir/manifest.json" ]]; then
+  cloned_from=$(jq -r '.omarchy.clonedFrom // empty' "$source_dir/manifest.json")
+fi
 
 case $command_name in
   sync)

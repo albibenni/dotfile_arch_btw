@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "albibenni.monitor",
+  "name": "Display",
+  "version": "1.0.0",
+  "author": "albibenni",
+  "description": "Per-display brightness controls for the Omarchy bar",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Display",
+    "description": "Brightness and display controls for the bar's own monitor",
+    "category": "System",
+    "allowMultiple": false
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.monitor"
+  }
+}
