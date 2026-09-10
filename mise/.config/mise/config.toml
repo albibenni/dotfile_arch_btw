@@ -12,3 +12,6 @@ python = "latest"
 
 [settings]
 use_versions_host = false
+
+[settings.upgrade]
+auto_prune = false
