@@ -46,6 +46,14 @@ o.bind("SUPER + SHIFT + Y", "YouTube", { webapp = "https://youtube.com/", focus 
 o.bind("SUPER + CTRL + SHIFT + K", "Lock system", "omarchy-system-lock")
 o.bind("SUPER + CTRL + SHIFT + T", "Toggle built-in display", "omarchy-hyprland-monitor-internal")
 
+-- #WARN: custom apps bindings
+o.bind(
+	"SUPER + SHIFT + A",
+	"Ask AI with selection",
+	(os.getenv("HOME") or "") .. "/.local/bin/ask-ai",
+	{ release = true }
+)
+
 -- Disabled Omarchy defaults, ported as a reference. These were not active in
 -- the legacy bindings/*.conf setup; remove the leading `--` to opt into one.
 --
