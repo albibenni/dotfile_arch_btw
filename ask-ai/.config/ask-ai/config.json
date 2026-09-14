@@ -1,0 +1,6 @@
+{
+  "provider": "chatgpt",
+  "customUrl": "",
+  "shortcutReleaseDelayMs": 200,
+  "pasteDelayMs": 1500
+}
