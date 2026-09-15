@@ -4,7 +4,7 @@ o.window(
 	{ tag = "+chromium-based-browser" }
 )
 o.window("([fF]irefox|zen|librewolf)", { tag = "+firefox-based-browser" })
-o.window({ tag = "chromium-based-browser" }, { tile = true, opacity = "0.98 0.88" })
+o.window({ tag = "chromium-based-browser" }, { tile = true, opacity = "0.99 0.97" })
 o.window({ tag = "firefox-based-browser" }, { opacity = "1 0.99" })
 
 -- Video and Zoom windows stay fully opaque.
