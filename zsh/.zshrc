@@ -87,3 +87,6 @@ export PATH="/home/albibenni/.rd/bin:$PATH"
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/albibenni/.lmstudio/bin"
 # End of LM Studio CLI section
+
+# Vite+ bin (https://viteplus.dev)
+. "/home/albibenni/.config/vite-plus/env"
