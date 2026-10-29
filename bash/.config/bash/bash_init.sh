@@ -2,6 +2,10 @@ if command -v mise &>/dev/null; then
     eval "$(mise activate bash)"
 fi
 
+# Keep installed Go applications across mise Go upgrades.
+export GOBIN="$HOME/.local/bin"
+export PATH="$GOBIN:$PATH"
+
 # if command -v fnm &>/dev/null; then
 #     eval "$(fnm env --use-on-cd)"
 # fi
@@ -30,5 +34,8 @@ fi
 # CUSTOM APPS
 
 if command -v task-planner &>/dev/null; then
-    eval "$(task-planner completion bash)"
+    if task_planner_completion=$(task-planner completion bash); then
+        eval "$task_planner_completion"
+    fi
+    unset task_planner_completion
 fi
