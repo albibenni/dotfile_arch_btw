@@ -8,7 +8,6 @@ maven = "latest"
 node = "latest"
 pipx = "latest"
 pnpm = "latest"
-python = "latest"
 
 [settings]
 use_versions_host = false
