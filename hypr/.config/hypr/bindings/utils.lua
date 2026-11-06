@@ -1,5 +1,5 @@
 -- Port of bindings/utils.conf.
-o.bind("SUPER + D", "Menu", "omarchy-menu toggle apps")
+o.bind("SUPER + D", "Menu", "/usr/bin/omarchy-menu toggle apps")
 o.bind("SUPER + CTRL + E", "Emoji picker", "omarchy-shell shell toggle omarchy.emojis")
 o.bind("SUPER + ALT + SPACE", "Omarchy menu", "omarchy-menu toggle root")
 o.bind("SUPER + ESCAPE", "System menu", "omarchy-menu toggle system")

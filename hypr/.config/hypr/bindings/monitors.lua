@@ -36,6 +36,11 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" 
 
 -- set-monitor.sh writes this file at startup based on the connected displays.
 -- Keep the fallback usable when the generated file does not exist yet.
+-- Keep global workspace numbers: 1-9 on the primary display, 10 on secondary.
+-- Omarchy 4.5's per-monitor reconciliation otherwise renumbers these on reload
+-- and monitor changes. Its event handlers call this exported function.
+o.workspaces.reconcile = function() end
+
 local loaded, monitor_vars = pcall(require, "hypr.monitor-vars")
 if not loaded then
 	monitor_vars = {}
